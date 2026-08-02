@@ -15,7 +15,7 @@ Scope tahap ini:
 
 Catatan:
 
-- Filament menjadi panel admin utama untuk mengelola user, FAQ, statistik, recruitment, status, blog, gambar blog, kategori, branch, struktur branch, divisi, greeting, organisasi, dan milestone.
+- Filament menjadi panel admin utama untuk mengelola user, FAQ, pesan kontak, statistik, recruitment, status, blog, gambar blog, kategori, branch, struktur branch, divisi, greeting, organisasi, dan milestone.
 - Tabel `admin` tidak dibuat. Admin panel memakai model `User`.
 - Tabel auth memakai `users` bawaan Laravel, dengan tambahan `branch_id` sesuai strategi implementasi pada `docs/database.md`.
 - Kolom audit `created_by`, `updated_by`, dan `deleted_by` berasal dari trait `BaseModelSoftDeleteDefault`.
@@ -27,6 +27,7 @@ Model yang dibuatkan resource:
 
 - `User`
 - `Faq`
+- `Contact`
 - `Count`
 - `Recruitment`
 - `Status`
@@ -75,6 +76,7 @@ Daftar command:
 ```bash
 php artisan make:filament-resource User --generate
 php artisan make:filament-resource Faq --generate --soft-deletes
+php artisan make:filament-resource Contact --generate --soft-deletes
 php artisan make:filament-resource Count --generate --soft-deletes
 php artisan make:filament-resource Recruitment --generate --soft-deletes
 php artisan make:filament-resource Status --generate --soft-deletes

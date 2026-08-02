@@ -55,7 +55,7 @@ Admin Panel:
 
 - dipakai oleh pengurus/admin internal,
 - dibangun memakai Filament,
-- mengelola user, FAQ, statistik, recruitment, status, blog, gambar blog, kategori, branch, struktur branch, divisi, sambutan, organisasi, dan milestone,
+- mengelola user, FAQ, pesan kontak, statistik, recruitment, status, blog, gambar blog, kategori, branch, struktur branch, divisi, sambutan, organisasi, dan milestone,
 - tidak perlu dibuat ulang manual dengan Blade.
 
 Website Publik:
@@ -186,7 +186,8 @@ Halaman publik yang akan dibuat pada tahap awal:
 | Detail Cabang | `/cabang/{branch}` | `BranchController` | `show` | detail cabang, struktur cabang, blog cabang |
 | Blog | `/blog` | `BlogController` | `index` | list blog aktif, kategori, pagination |
 | Detail Blog | `/blog/{blog:slug}` | `BlogController` | `show` | detail blog, gambar tambahan, blog terkait |
-| Kontak | `/kontak` | `ContactController` | `index` | alamat, email, nomor telepon, sosial media, link cabang |
+| Kontak | `/kontak` | `ContactController` | `index` | alamat, email, nomor telepon, sosial media, form pesan |
+| Kirim Kontak | `/kontak` | `ContactController` | `store` | simpan pesan pengunjung |
 
 Catatan:
 
@@ -195,7 +196,7 @@ Catatan:
 - Divisi tidak dibuat sebagai halaman sendiri pada tahap awal. Data divisi tampil sebagai section di Home, Tentang Kami, atau detail Cabang.
 - FAQ tidak dibuat sebagai halaman sendiri pada tahap awal. Data FAQ tampil sebagai section di Home.
 - Recruitment belum dibuat pada tahap awal, baik list maupun form.
-- Kontak dibuat sebagai halaman publik. Karena database saat ini belum punya tabel pesan kontak, halaman kontak menampilkan data dari `organization` dan link komunikasi yang tersedia.
+- Kontak dibuat sebagai halaman publik. Data informasi kontak dibaca dari `organization`, sedangkan form pesan disimpan ke tabel `contact`.
 
 ## 7. Mapping Data Database ke FE
 
@@ -213,6 +214,7 @@ Catatan:
 | `blog` | `Blog` | artikel dan publikasi | home, blog list, detail blog |
 | `blog_image` | `BlogImage` | gambar tambahan blog | detail blog |
 | `faq` | `Faq` | pertanyaan umum | section FAQ di home |
+| `contact` | `Contact` | baca pesan masuk | form pesan halaman kontak |
 | `status` | `Status` | status recruitment | belum dipakai di FE tahap awal |
 | `recruitment` | `Recruitment` | data pendaftar | belum dipakai di FE tahap awal |
 
@@ -375,6 +377,7 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 ```
 
 ## 13. Controller Publik
@@ -502,20 +505,19 @@ Data:
 - nomor telepon organisasi,
 - alamat organisasi,
 - sosial media organisasi dari JSON `sosial_media`,
-- list branch aktif untuk opsi komunikasi cabang,
-- link grup WhatsApp branch jika tersedia.
+- form pesan publik.
 
 Component:
 
 - `components/contact/contact-info.blade.php`
 - `components/contact/social-links.blade.php`
-- `components/contact/branch-contact-card.blade.php`
+- `components/contact/right-form.blade.php`
 
 Catatan:
 
-- Halaman kontak tahap awal bersifat informatif.
-- Jangan membuat form simpan pesan kontak dulu karena database saat ini belum memiliki tabel pesan kontak.
-- Jika nanti ingin ada form pesan masuk, tambahkan tabel khusus kontak/message dan resource adminnya.
+- Form kontak menyimpan data ke tabel `contact`.
+- Pesan kontak dibaca dari Filament `ContactResource`.
+- Halaman kontak tidak menampilkan daftar cabang karena kontak cabang sudah ada di detail halaman cabang.
 
 ### 13.6 Section Divisi dan FAQ
 
@@ -561,7 +563,7 @@ Aturan FE:
 
 ## 15. Halaman Kontak Publik
 
-Halaman kontak publik menampilkan data komunikasi dari tabel `organization` dan `branch`.
+Halaman kontak publik menampilkan data komunikasi dari tabel `organization` dan menyimpan pesan pengunjung ke tabel `contact`.
 
 Data utama:
 
@@ -569,15 +571,16 @@ Data utama:
 - `organization.no_tlpn`,
 - `organization.address`,
 - `organization.sosial_media`,
-- `branch.name`,
-- `branch.location`,
-- `branch.grup_wa`,
-- `branch.sosial_media`.
+- `contact.name`,
+- `contact.email`,
+- `contact.subject`,
+- `contact.message`.
 
 Catatan:
 
-- Tahap awal tidak membuat form kontak.
-- Jika nanti butuh form pesan pengunjung, buat tabel baru seperti `contact_message` agar pesan bisa dikelola dari Filament.
+- Form kontak memakai validasi Laravel.
+- Setelah submit berhasil, tampilkan flash message.
+- Pesan kontak tidak bisa dibuat manual dari Filament; admin hanya membaca dan menghapus/restore.
 - Link eksternal WhatsApp dan sosial media wajib memakai `target="_blank"` dan `rel="noopener"`.
 
 ## 16. Catatan Panel Admin
@@ -600,6 +603,7 @@ Resource yang sudah menjadi bagian arsitektur admin:
 - `GreetingResource`
 - `OrganizationResource`
 - `MilestoneResource`
+- `ContactResource`
 
 Catatan:
 
@@ -682,4 +686,4 @@ Yang belum perlu dibuat:
 - fitur absensi kegiatan.
 
 Alasan:
-Database sekarang belum punya tabel transaksi, pembayaran, absensi, portal anggota publik, atau pesan kontak. FE publik sebaiknya fokus pada informasi organisasi, cabang, blog, dan kontak berbasis data organisasi yang sudah ada.
+Database sekarang belum punya tabel transaksi, pembayaran, absensi, atau portal anggota publik. FE publik sebaiknya fokus pada informasi organisasi, cabang, blog, dan kontak.

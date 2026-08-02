@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contact;
+use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -10,31 +12,23 @@ class ContactController extends Controller
 {
     public function index(): View
     {
+        $organization = Organization::query()
+            ->where('active', true)
+            ->latest()
+            ->first();
+
         $data = [
             'hero' => [
                 'title' => 'Hubungi Kami',
                 'subtitle' => 'Sampaikan Pertanyaan, Saran, atau Kerjasama dengan Pengurus HIMSI',
             ],
             'organization' => [
-                'name' => 'HIMSI UBSI',
-                'address' => 'Jl. Pemuda No. 8, Rawamangun, Jakarta Timur',
-                'email' => 'info@himsi.org',
-                'no_tlpn' => '0812-3456-7890',
-                'sosial_media' => [
-                    ['platform' => 'Instagram', 'url' => '@himsi.ubsi'],
-                    ['platform' => 'YouTube', 'url' => 'HIMSI UBSI Official'],
-                    ['platform' => 'LinkedIn', 'url' => 'HIMSI UBSI'],
-                ],
+                'name' => $organization?->name ?? 'HIMSI UBSI',
+                'address' => $organization?->address ?? 'Alamat belum tersedia',
+                'email' => $organization?->email ?? 'email belum tersedia',
+                'no_tlpn' => $organization?->no_tlpn ?? 'Nomor telepon belum tersedia',
+                'sosial_media' => $this->mapSocialMedia($organization?->sosial_media ?? []),
                 'logo_url' => '/images/placeholder.svg',
-            ],
-            'branches' => [
-                [
-                    'id' => 1,
-                    'name' => 'HIMSI DPC Pemuda',
-                    'location' => 'Rawamangun',
-                    'grup_wa' => 'https://chat.whatsapp.com/example',
-                    'sosial_media' => [],
-                ],
             ],
         ];
 
@@ -43,7 +37,7 @@ class ContactController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:128',
             'email' => 'required|email|max:128',
             'subject' => 'required|string|max:255',
@@ -57,6 +51,29 @@ class ContactController extends Controller
             'message.min' => 'Isi pesan minimal 10 karakter.',
         ]);
 
+        Contact::create($validated);
+
         return back()->with('success', 'Terima kasih! Pesan Anda telah berhasil terkirim. Pengurus HIMSI akan segera merespons.');
+    }
+
+    private function mapSocialMedia(array $socialMedia): array
+    {
+        return collect($socialMedia)
+            ->map(function ($item): array {
+                if (is_array($item)) {
+                    return [
+                        'platform' => $item['platform'] ?? 'Media Sosial',
+                        'url' => $item['url'] ?? $item['value'] ?? '',
+                    ];
+                }
+
+                return [
+                    'platform' => 'Media Sosial',
+                    'url' => (string) $item,
+                ];
+            })
+            ->filter(fn (array $item): bool => filled($item['url']))
+            ->values()
+            ->all();
     }
 }

@@ -20,6 +20,7 @@ Catatan penting:
 
 - `user`
 - `faq`
+- `contact`
 - `count`
 - `recruitment`
 - `status`
@@ -164,6 +165,41 @@ Schema::create('count', function (Blueprint $table) {
     $table->id();
     $table->string('name', 32);
     $table->string('digit', 10);
+    $this->base($table);
+});
+```
+
+### 4.3.1 contact
+
+Fungsi:
+Menyimpan pesan yang dikirim pengunjung melalui form kontak publik.
+
+Kolom:
+
+| Kolom | Tipe | Null | Keterangan |
+| --- | --- | --- | --- |
+| id | bigint unsigned | no | primary key |
+| name | varchar(128) | no | nama lengkap pengirim |
+| email | varchar(128) | no | email pengirim |
+| subject | varchar(255) | no | subjek pesan |
+| message | text | no | isi pesan |
+| active | boolean | no | status data aktif |
+| created_by | bigint unsigned | no | user pembuat data atau fallback audit |
+| updated_by | bigint unsigned | yes | user terakhir yang mengubah data |
+| deleted_by | bigint unsigned | yes | user yang menghapus data |
+| created_at | timestamp | yes | bawaan Laravel |
+| updated_at | timestamp | yes | bawaan Laravel |
+| deleted_at | timestamp | yes | soft delete |
+
+Contoh migration:
+
+```php
+Schema::create('contact', function (Blueprint $table) {
+    $table->id();
+    $table->string('name', 128);
+    $table->string('email', 128);
+    $table->string('subject');
+    $table->text('message');
     $this->base($table);
 });
 ```
@@ -636,14 +672,15 @@ Urutan migration yang direkomendasikan:
 4. `create_status_table`
 5. `create_category_table`
 6. `create_faq_table`
-7. `create_count_table`
-8. `create_greeting_table`
-9. `create_organization_table`
-10. `create_milestone_table`
-11. `create_recruitment_table`
-12. `create_blog_table`
-13. `create_blog_image_table`
-14. `create_branch_structure_table`
+7. `create_contact_table`
+8. `create_count_table`
+9. `create_greeting_table`
+10. `create_organization_table`
+11. `create_milestone_table`
+12. `create_recruitment_table`
+13. `create_blog_table`
+14. `create_blog_image_table`
+15. `create_branch_structure_table`
 
 Alasan:
 Tabel seperti `recruitment`, `blog`, `blog_image`, `branch_structure`, dan `user` memiliki foreign key sehingga tabel referensinya perlu dibuat lebih dahulu.
@@ -667,6 +704,7 @@ Jika `user.branch_id` dibuat sebagai foreign key langsung, migration `branch` ha
 - `recruitment.status_id`
 - `recruitment.email`
 - `recruitment.nim`
+- `contact.email`
 - `blog.branch_id`
 - `blog.category_id`
 - `blog.slug`

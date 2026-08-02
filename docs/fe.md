@@ -48,14 +48,14 @@
 ### 7. Halaman Kontak (`/kontak`)
 - **Hero Section**: Banner header Kontak HIMSI.
 - **Informasi Kontak Section**: Email, telepon, alamat, dan sosial media organisasi dari model `Organization`.
-- **Kontak Cabang Section**: List cabang aktif beserta lokasi, sosial media, dan link grup WhatsApp dari model `Branch`.
+- **Form Kontak Section**: Form pesan publik dengan field nama, email, subjek, dan pesan.
 - **CTA Section**: Arahkan pengunjung ke email, WhatsApp, atau sosial media resmi.
 
 Catatan:
 - Halaman Divisi tidak dibuat sebagai route sendiri pada tahap awal. Divisi hanya tampil sebagai section di Home, Tentang Kami, dan detail Cabang.
 - FAQ tidak dibuat sebagai route sendiri pada tahap awal. FAQ hanya tampil sebagai section di Home.
 - Recruitment belum dibuat pada tahap awal, baik list maupun form.
-- Form kontak belum dibuat karena database saat ini belum memiliki tabel pesan kontak.
+- Form kontak menyimpan pesan pengunjung ke tabel `contact`.
 
 ---
 
@@ -65,7 +65,7 @@ Catatan:
 - `AboutController` -> `GET /tentang-kami`
 - `BranchController` -> `GET /cabang`, `GET /cabang/{branch}`
 - `BlogController` -> `GET /blog`, `GET /blog/{blog:slug}`
-- `ContactController` -> `GET /kontak`
+- `ContactController` -> `GET /kontak`, `POST /kontak`
 
 ## 3. Prinsip Data Flow
 - Controller mengambil data dari Model (`active = true`, soft delete excluded, eager loading).

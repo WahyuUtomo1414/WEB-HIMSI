@@ -28,7 +28,7 @@ Catatan:
 - Divisi tidak dibuat sebagai halaman sendiri. Divisi hanya menjadi section atau data pendukung.
 - FAQ tidak dibuat sebagai halaman sendiri. FAQ hanya menjadi section di Home.
 - Recruitment belum dibuat pada tahap awal, baik list maupun form.
-- Kontak dibuat sebagai halaman informatif, bukan form pesan, karena database saat ini belum memiliki tabel pesan kontak.
+- Kontak dibuat sebagai halaman informasi resmi dan form pesan publik. Pesan tersimpan ke tabel `contact`.
 
 ## 2. Prinsip Umum
 
@@ -202,6 +202,7 @@ Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 ```
 
 Catatan:
@@ -209,7 +210,7 @@ Catatan:
 - Tidak ada route `/divisi` pada tahap awal.
 - Tidak ada route `/faq` pada tahap awal.
 - Tidak ada route `/recruitment` pada tahap awal.
-- Tidak ada `POST /kontak` pada tahap awal.
+- `POST /kontak` dipakai untuk menyimpan pesan pengunjung.
 
 ## 8. Controller Publik
 
@@ -259,6 +260,7 @@ Contoh kondisi:
 - data divisi belum tersedia,
 - FAQ belum tersedia,
 - kontak cabang belum tersedia.
+- pesan kontak gagal tersimpan.
 
 Aturan:
 
@@ -554,12 +556,13 @@ Data detail:
 Model:
 
 - `App\Models\Organization`
-- `App\Models\Branch`
+- `App\Models\Contact`
 
 Route:
 
 ```php
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 ```
 
 View:
@@ -577,27 +580,32 @@ Data:
         'address' => $organization->address,
         'social_links' => $organization->sosial_media ?? [],
     ],
-    'branches' => $branches->map(fn ($branch) => [
-        'name' => $branch->name,
-        'location' => $branch->location,
-        'whatsapp_url' => $branch->grup_wa,
-        'social_links' => $branch->sosial_media ?? [],
-    ]),
 ]
 ```
 
 Catatan:
 
-- Halaman kontak tahap awal tidak membuat form.
-- Tidak ada `POST /kontak`.
-- Jika nanti butuh pesan pengunjung, buat tabel dan resource baru untuk pesan kontak.
+- Halaman kontak menampilkan form pesan publik.
+- `POST /kontak` validasi input lalu menyimpan ke tabel `contact`.
+- Pesan pengunjung dikelola dari Filament `ContactResource`.
+- Halaman kontak tidak menampilkan list cabang karena kontak cabang sudah tersedia di detail halaman cabang.
+
+Validasi:
+
+```php
+$validated = $request->validate([
+    'name' => ['required', 'string', 'max:128'],
+    'email' => ['required', 'email', 'max:128'],
+    'subject' => ['required', 'string', 'max:255'],
+    'message' => ['required', 'string', 'min:10'],
+]);
+```
 
 ## 12. Resource Berikutnya
 
 Resource yang bisa diintegrasikan setelah tahap awal:
 
 - recruitment publik,
-- form pesan kontak,
 - detail divisi jika nanti memang dibutuhkan,
 - halaman FAQ jika jumlah FAQ sudah banyak,
 - pencarian global.
@@ -605,7 +613,7 @@ Resource yang bisa diintegrasikan setelah tahap awal:
 Catatan:
 
 - Recruitment sudah memiliki tabel, tetapi belum masuk scope FE awal.
-- Form kontak belum bisa menyimpan data karena belum ada tabel pesan kontak.
+- Form kontak sudah memakai tabel `contact`.
 - Detail divisi tidak dibuat karena divisi saat ini cukup sebagai section.
 
 ## 13. Seeder Pendukung
@@ -644,7 +652,7 @@ Urutan yang disarankan:
 5. Buat `BranchController`.
 6. Buat `BlogController`.
 7. Buat `ContactController`.
-8. Tambahkan route publik.
+8. Tambahkan route publik GET dan POST kontak.
 9. Buat Blade Home.
 10. Buat Blade Tentang Kami.
 11. Buat Blade Cabang index dan detail.
@@ -661,7 +669,6 @@ Belum perlu:
 - halaman FAQ,
 - halaman recruitment,
 - form recruitment,
-- form kontak,
 - login publik,
 - komentar blog,
 - pencarian full text,

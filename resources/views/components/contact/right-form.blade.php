@@ -7,6 +7,12 @@
         <p class="text-xs sm:text-sm text-[#454652]">Silakan isi formulir di bawah ini untuk mengirimkan pesan, pertanyaan, atau usulan kerjasama.</p>
     </div>
 
+    @if (session('success'))
+        <div class="rounded-2xl border border-[#356ee7]/30 bg-[#f0f4ff] px-4 py-3 text-sm font-semibold text-[#001b79]">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('contact.store') }}" class="space-y-5">
         @csrf
 

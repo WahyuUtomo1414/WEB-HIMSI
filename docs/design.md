@@ -554,7 +554,7 @@ Aturan:
 Tujuan:
 
 - menyediakan informasi komunikasi resmi HIMSI,
-- menampilkan email, nomor telepon, alamat, sosial media, dan kontak cabang,
+- menampilkan email, nomor telepon, alamat, sosial media, dan form pesan,
 - membantu pengunjung memilih jalur komunikasi yang paling sesuai.
 
 Data:
@@ -563,19 +563,18 @@ Data:
 - `organization.no_tlpn`,
 - `organization.address`,
 - `organization.sosial_media`,
-- `branch.name`,
-- `branch.location`,
-- `branch.grup_wa`,
-- `branch.sosial_media`.
+- `contact.name`,
+- `contact.email`,
+- `contact.subject`,
+- `contact.message`.
 
 Aturan halaman:
 
-- halaman kontak tahap awal tidak memakai form,
 - tampilkan card informasi kontak organisasi,
 - tampilkan list sosial media,
-- tampilkan card cabang dengan link grup WhatsApp jika ada,
+- tampilkan form pesan kontak,
 - link eksternal memakai `target="_blank"` dan `rel="noopener"`,
-- jika data kontak kosong, tampilkan empty state yang jelas.
+- jika data kontak organisasi kosong, tampilkan empty state yang jelas.
 
 Contoh link kontak:
 
@@ -584,6 +583,20 @@ Contoh link kontak:
     {{ $email }}
 </a>
 ```
+
+Field form kontak:
+
+- nama lengkap,
+- email,
+- subjek,
+- pesan.
+
+Aturan form kontak:
+
+- error message tampil di bawah input,
+- success message tampil setelah submit berhasil,
+- data tersimpan ke tabel `contact`,
+- admin membaca pesan melalui `ContactResource`.
 
 ## 18. Section FAQ
 
@@ -700,7 +713,7 @@ Urutan pengerjaan desain yang disarankan:
 7. Komponen card cabang.
 8. Komponen card divisi.
 9. Komponen card struktur cabang.
-10. Kontak info dan cabang contact card.
+10. Kontak info dan form kontak.
 11. FAQ accordion untuk section Home.
 12. Halaman home.
 13. Halaman publik lainnya.
