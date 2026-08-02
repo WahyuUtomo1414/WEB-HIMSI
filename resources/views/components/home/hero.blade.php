@@ -1,36 +1,76 @@
 @props(['hero'])
 
-<section class="relative bg-gradient-to-b from-[#f0f4ff] via-[#f9f9fc] to-[#f9f9fc] pt-12 pb-20 overflow-hidden">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-7 space-y-6 text-left">
-                <span class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-xs font-bold text-[#001b79] border border-[#c5c5d4]/50 shadow-xs">
-                    <span class="h-2 w-2 rounded-full bg-[#356ee7]"></span>
-                    Official Website HIMSI UBSI
-                </span>
-                <h1 class="text-4xl font-extrabold text-[#000c46] tracking-tight sm:text-5xl lg:text-6xl leading-tight">
-                    {{ $hero['name'] }}
-                </h1>
-                <p class="text-lg text-[#454652] leading-relaxed">
-                    {{ $hero['description'] }}
-                </p>
-                <div class="pt-4 flex flex-wrap items-center gap-4">
-                    <a href="{{ route('about.index') }}" class="rounded-xl bg-[#001b79] px-6 py-3.5 text-base font-semibold text-white transition hover:bg-[#000c46] shadow-md hover:shadow-lg">
-                        Tentang Kami
-                    </a>
-                    <a href="{{ route('contact.index') }}" class="rounded-xl border border-[#001b79] px-6 py-3.5 text-base font-semibold text-[#001b79] transition hover:bg-[#f0f4ff]">
-                        Hubungi Kami
-                    </a>
-                </div>
+<section class="relative bg-[#000c46] min-h-screen flex items-center overflow-hidden isolate pt-20">
+    <!-- Background Video -->
+    <div class="absolute inset-0 -z-20">
+        <video class="h-full w-full object-cover opacity-60" autoplay muted loop playsinline poster="/images/placeholder.svg">
+            <source src="{{ asset('assets/Pembuatan_Video_Hero_Section_Website.mp4') }}" type="video/mp4">
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <!-- Dark Primary Overlay -->
+    <div class="absolute inset-0 -z-10 bg-slate-950/75"></div>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 relative z-10 w-full"
+         x-data="{
+            phrases: ['Teknologi', 'Kolaborasi', 'Inovasi', 'Teknologi, Kolaborasi Dan Inovasi'],
+            currentPhraseIndex: 0,
+            currentText: '',
+            isDeleting: false,
+            type() {
+                const fullPhrase = this.phrases[this.currentPhraseIndex];
+                if (this.isDeleting) {
+                    this.currentText = fullPhrase.substring(0, this.currentText.length - 1);
+                } else {
+                    this.currentText = fullPhrase.substring(0, this.currentText.length + 1);
+                }
+
+                let speed = this.isDeleting ? 40 : 90;
+
+                if (!this.isDeleting && this.currentText === fullPhrase) {
+                    speed = 1800;
+                    this.isDeleting = true;
+                } else if (this.isDeleting && this.currentText === '') {
+                    this.isDeleting = false;
+                    this.currentPhraseIndex = (this.currentPhraseIndex + 1) % this.phrases.length;
+                    speed = 400;
+                }
+
+                setTimeout(() => this.type(), speed);
+            }
+         }"
+         x-init="type()">
+
+        <div class="max-w-3xl py-20 lg:py-28 space-y-6">
+
+            <!-- Main Headline H1 -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">
+                <!-- Baris 1: HIMSI UBSI dengan efek stabilo dari kiri ke kanan -->
+                <span class="animate-stabilo font-bold px-2.5 py-0.5 my-1">HIMSI UBSI</span>
+                <br>
+                <!-- Baris 2: Teknologi, Kolaborasi Dan Inovasi dengan efek ketik warna putih -->
+                <span class="text-white" x-text="currentText">Teknologi, Kolaborasi Dan Inovasi</span><span class="animate-pulse text-white">|</span>
+            </h1>
+
+            <!-- Baris 3: Paragraf pendukung (Teks biasa tanpa efek) -->
+            <p class="text-base sm:text-lg lg:text-xl text-slate-300 leading-relaxed font-normal max-w-xl">
+                Persiapkan langkah mu menuju masa depan, dan kontribusi nyata bersama kami.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="pt-4 flex flex-col sm:flex-row items-center gap-4">
+                <a href="{{ route('contact.index') }}"
+                    class="w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-[#0453cd] px-7 py-3.5 text-base font-bold text-white shadow-lg hover:bg-[#356ee7] transition-all">
+                    Hubungi Kami <svg class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </a>
+                <a href="{{ route('about.index') }}"
+                    class="w-full sm:w-auto inline-flex justify-center items-center rounded-xl bg-white px-7 py-3.5 text-base font-bold text-slate-900 shadow-lg hover:bg-slate-100 transition-all">
+                    Tentang Kami
+                </a>
             </div>
 
-            <div class="lg:col-span-5 relative">
-                <div class="relative mx-auto max-w-md lg:max-w-none">
-                    <div class="aspect-[4/3] overflow-hidden rounded-3xl border-2 border-white bg-white shadow-2xl">
-                        <img src="{{ $hero['thumbnail_url'] }}" alt="{{ $hero['name'] }}" class="h-full w-full object-cover">
-                    </div>
-                </div>
-            </div>
         </div>
+
     </div>
 </section>

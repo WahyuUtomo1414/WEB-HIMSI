@@ -24,6 +24,10 @@
     --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
+[x-cloak] {
+    display: none !important;
+}
+
 body {
     font-family: var(--font-sans);
     background-color: var(--color-surface);
@@ -44,4 +48,35 @@ h1, h2, h3, h4, h5, h6 {
 
 .card-nexus:hover {
     box-shadow: 0 12px 32px rgba(0, 27, 121, 0.1);
+}
+
+/* Stabilo Left to Right Animation */
+@keyframes stabiloSweep {
+    0% {
+        transform: scaleX(0);
+    }
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+.animate-stabilo {
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    color: #020617;
+}
+
+.animate-stabilo::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: -4px;
+    right: -4px;
+    background-color: #facc15;
+    z-index: -1;
+    border-radius: 4px;
+    transform-origin: left center;
+    animation: stabiloSweep 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
