@@ -87,6 +87,22 @@ class HomeController extends Controller
                     'thumbnail_url' => '/images/placeholder.svg',
                     'is_dpp' => true,
                 ],
+                [
+                    'id' => 4,
+                    'name' => 'HIMSI DPC Cengkareng',
+                    'location' => 'UBSI Kampus Cengkareng',
+                    'sektor' => 'Jakarta Barat',
+                    'thumbnail_url' => '/images/placeholder.svg',
+                    'is_dpp' => false,
+                ],
+                [
+                    'id' => 5,
+                    'name' => 'HIMSI DPC BSD',
+                    'location' => 'UBSI Kampus BSD',
+                    'sektor' => 'Tangerang',
+                    'thumbnail_url' => '/images/placeholder.svg',
+                    'is_dpp' => false,
+                ],
             ],
             'blogs' => [
                 [
