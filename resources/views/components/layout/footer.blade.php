@@ -96,25 +96,29 @@
                 <h4 class="text-base font-bold text-white tracking-wide border-l-3 border-[#356ee7] pl-3">
                     Hubungi Kami
                 </h4>
-                <div class="space-y-3.5 text-sm text-slate-300">
-                    <div class="flex items-start gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
-                        <svg class="h-5 w-5 text-[#356ee7] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                        </svg>
-                        <div class="space-y-0.5">
+                <div class="space-y-4 text-sm text-slate-300">
+                    <div class="flex items-center gap-3.5 p-4.5 sm:p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all shadow-sm">
+                        <div class="h-11 w-11 rounded-xl bg-white/10 text-[#356ee7] flex items-center justify-center shrink-0">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <div class="space-y-1">
                             <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Sekretariat</span>
-                            <span class="text-xs text-white font-medium block">UBSI Kampus Pemuda / Utama</span>
+                            <span class="text-sm text-white font-semibold block leading-tight">UBSI Kampus Pemuda / Utama</span>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10">
-                        <svg class="h-5 w-5 text-[#356ee7] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                        </svg>
-                        <div class="space-y-0.5">
+                    <div class="flex items-center gap-3.5 p-4.5 sm:p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-white/20 transition-all shadow-sm">
+                        <div class="h-11 w-11 rounded-xl bg-white/10 text-[#356ee7] flex items-center justify-center shrink-0">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="space-y-1">
                             <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Email Resmi</span>
-                            <a href="mailto:info@himsi.org" class="text-xs text-[#356ee7] font-bold hover:underline block">info@himsi.org</a>
+                            <a href="mailto:info@himsi.org" class="text-sm text-[#356ee7] font-bold hover:underline block leading-tight">info@himsi.org</a>
                         </div>
                     </div>
                 </div>
