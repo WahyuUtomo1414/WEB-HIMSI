@@ -7,8 +7,13 @@
         <div class="absolute -right-20 -bottom-20 h-72 w-72 rounded-full bg-[#356ee7]/20 blur-3xl -z-10 pointer-events-none"></div>
 
         <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-6 text-center relative z-10">
-            <div class="flex items-center gap-2 justify-center">
-                <a href="{{ route('blog.index') }}" class="inline-flex items-center text-xs font-semibold text-[#356ee7] hover:text-white transition-colors">&larr; Kembali ke Daftar Blog</a>
+            <div class="flex items-center justify-center">
+                <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-1.5 text-xs font-bold text-white transition-all backdrop-blur-xs shadow-xs hover:border-white/40 group">
+                    <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+                    </svg>
+                    <span>Kembali ke Daftar Blog</span>
+                </a>
             </div>
             
             {{-- 1. Title and Date Publication Section --}}
@@ -21,13 +26,13 @@
         {{-- 2. Thumbnail Section --}}
         <x-blog.thumbnail :blog="$blog" />
 
-        {{-- 4. Quotes Section (If Available) --}}
-        <x-blog.quotes :blog="$blog" />
-
-        {{-- 3. Body Section --}}
+        {{-- 3. Body Section (Body first as requested) --}}
         <x-blog.body :blog="$blog" />
 
-        {{-- 5. Sosial Media Section (Share Buttons) --}}
+        {{-- 4. Quotes Section (Quote after body as requested) --}}
+        <x-blog.quotes :blog="$blog" />
+
+        {{-- 5. Media Sosial Organisasi Section --}}
         <x-blog.share :blog="$blog" />
 
         {{-- 6. List Blog Section (Related Blogs) --}}
