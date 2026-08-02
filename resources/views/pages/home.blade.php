@@ -23,10 +23,8 @@
             <x-home.branches :branches="$branches" />
         </div>
 
-        {{-- 6. List Blog/Artikel Section --}}
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <x-home.blogs :blogs="$blogs" />
-        </div>
+        {{-- 6. List Blog/Artikel Section (Full Width Section) --}}
+        <x-home.blogs :blogs="$blogs" />
 
         {{-- 7. FAQ Section --}}
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
