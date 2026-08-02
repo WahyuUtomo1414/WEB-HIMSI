@@ -1,4 +1,4 @@
-@props(['title', 'subtitle', 'backLink' => null, 'badge' => null, 'location' => null])
+@props(['title', 'subtitle' => null, 'backLink' => null, 'badge' => null, 'location' => null])
 
 <section class="relative bg-gradient-to-br from-[#000c46] via-[#00145c] to-[#001b79] text-white pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36 lg:pb-24 border-b border-[#001b79] overflow-hidden isolate">
     <!-- Subtle Background Glows -->
@@ -7,8 +7,13 @@
 
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 {{ $backLink ? 'space-y-4' : 'text-center space-y-4' }} relative z-10">
         @if ($backLink)
-            <div class="flex items-center gap-2">
-                <a href="{{ $backLink }}" class="inline-flex items-center text-xs font-semibold text-[#356ee7] hover:text-white transition-colors">&larr; Kembali ke Daftar Cabang</a>
+            <div class="flex items-center">
+                <a href="{{ $backLink }}" class="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 px-4 py-1.5 text-xs font-bold text-white transition-all backdrop-blur-xs shadow-xs hover:border-white/40 group">
+                    <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/>
+                    </svg>
+                    <span>Kembali ke Daftar Cabang</span>
+                </a>
             </div>
         @endif
 

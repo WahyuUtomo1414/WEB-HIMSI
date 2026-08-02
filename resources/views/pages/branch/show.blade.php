@@ -7,21 +7,27 @@
         :badge="'Sektor: ' . $branch['sektor']" 
         :location="$branch['location']" />
 
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-20 py-16">
+    <div class="space-y-24 md:space-y-32 py-16 md:py-24">
 
         {{-- 2. About Section --}}
-        <x-branch.about :branch="$branch" />
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <x-branch.about :branch="$branch" />
+        </div>
 
         {{-- 3. Sosial Media Section & WA Link --}}
-        <x-branch.social-media :branch="$branch" />
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <x-branch.social-media :branch="$branch" />
+        </div>
 
-        {{-- 4. Struktur Organisasi Section --}}
+        {{-- 4. Struktur Organisasi Section (Full Width Section) --}}
         <x-branch.structures :branch="$branch" :structures="$structures" />
 
         {{-- 5. CTA Section --}}
-        <x-common.cta-section 
-            title="Tertarik Bergabung Dengan {{ $branch['name'] }}?" 
-            subtitle="Hubungi pengurus atau bergabunglah dalam grup WhatsApp resmi cabang kami." />
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <x-common.cta-section 
+                title="Tertarik Bergabung Dengan {{ $branch['name'] }}?" 
+                subtitle="Hubungi pengurus atau bergabunglah dalam grup WhatsApp resmi cabang kami." />
+        </div>
 
     </div>
 
