@@ -6,6 +6,7 @@ use App\Filament\Resources\Branches\Pages\CreateBranch;
 use App\Filament\Resources\Branches\Pages\EditBranch;
 use App\Filament\Resources\Branches\Pages\ListBranches;
 use App\Filament\Resources\Branches\Pages\ViewBranch;
+use App\Filament\Resources\Branches\RelationManagers\StructuresRelationManager;
 use App\Filament\Resources\Branches\Schemas\BranchForm;
 use App\Filament\Resources\Branches\Schemas\BranchInfolist;
 use App\Filament\Resources\Branches\Tables\BranchesTable;
@@ -60,7 +61,7 @@ class BranchResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            StructuresRelationManager::class,
         ];
     }
 

@@ -24,12 +24,12 @@ class UsersTable
                 //
             ])
             ->recordActions([
-                ViewAction::make()->label('Lihat'),
-                EditAction::make()->label('Edit'),
+                ViewAction::make(),
+                EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make()->label('Hapus'),
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

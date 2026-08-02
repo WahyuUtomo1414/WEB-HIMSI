@@ -222,6 +222,10 @@ Pengecualian:
 - Halaman detail memakai `Infolist`.
 - `BlogImageResource` boleh hanya memakai `List`, `Create`, `View`, dan `Edit`, atau dikelola lewat relation manager pada `BlogResource`.
 - `BranchStructureResource` boleh hanya memakai resource mandiri, atau dikelola lewat relation manager pada `BranchResource`.
+- Form resource wajib memakai `Filament\Schemas\Components\Section` dan setiap section memakai `columnSpanFull()` agar input dikelompokkan per konteks, misalnya `Informasi Utama`, `Relasi`, `Media`, dan `Status`.
+- Infolist resource wajib memakai `Filament\Schemas\Components\Section` dengan minimal section `Informasi Utama` dan `Audit Data`; setiap section juga memakai `columnSpanFull()`.
+- Section `Audit Data` berisi `createdBy`, `created_at`, `updatedBy`, `updated_at`, `deletedBy`, dan `deleted_at` untuk resource domain yang memakai audit/soft delete.
+- `OrganizationResource` tidak menampilkan table karena data organisasi hanya satu record. Saat menu `Organisasi` dibuka, halaman index harus langsung mengarah ke halaman detail/infolist record organisasi pertama. Resource ini hanya membutuhkan halaman `view` dan `edit`; halaman `create` hanya dipakai sebagai fallback jika data organisasi belum tersedia.
 
 ## 8. Navigation Group
 
@@ -345,6 +349,7 @@ Catatan:
 
 - `ForceDeleteAction` boleh disembunyikan dari role non-super-admin.
 - `UserResource` tidak perlu action soft delete selama tabel `users` belum memakai soft delete.
+- Tombol `ViewAction` pada table list dihilangkan untuk resource ringkas berikut: `Count`, `Faq`, `Category`, `Status`, `Milestone`, `Greeting`, dan `BlogImage`.
 
 ## 13. Standar Upload File
 
@@ -599,6 +604,7 @@ Field:
 - `name`
 - `kode_org`
 - `logo`
+- `thumbnail`
 - `description`
 - `mision`
 - `vision`
@@ -612,8 +618,10 @@ Field:
 Catatan:
 
 - `logo` memakai `FileUpload`.
+- `thumbnail` memakai `FileUpload` atau URL/path gambar sesuai kebutuhan tampilan profil organisasi.
 - `mision` tetap mengikuti nama kolom ERD.
-- `mision` dan `sosial_media` memakai repeater atau key-value field karena bertipe JSON.
+- `mision` memakai repeater list dengan item `value`, sehingga data tersimpan sebagai array daftar misi.
+- `sosial_media` memakai repeater list dengan item `value`, sehingga data tersimpan sebagai array kontak atau URL.
 - `description` dan `purpose` memakai textarea.
 
 ### 14.14 Milestone
@@ -954,7 +962,7 @@ Tampilkan:
 Relation manager yang disarankan:
 
 - `BlogResource` memiliki relation manager untuk `BlogImage`.
-- `BranchResource` memiliki relation manager untuk `BranchStructure`.
+- `BranchResource` memiliki relation manager `StructuresRelationManager` untuk mengelola `BranchStructure` dari halaman detail Branch.
 - `BranchResource` dapat memiliki relation manager untuk `Blog`, `Recruitment`, dan `User`.
 - `DivisionResource` dapat memiliki relation manager untuk `BranchStructure`.
 - `CategoryResource` dapat memiliki relation manager untuk `Blog`.
@@ -964,6 +972,19 @@ Catatan:
 
 - Relation manager tidak wajib pada tahap awal.
 - Jika relation manager belum dibuat, resource mandiri tetap harus cukup untuk CRUD data.
+- Relation manager `Branch -> BranchStructure` memakai form section, infolist section, audit section, soft delete action/filter, dan tidak menginput manual `created_by`, `updated_by`, atau `deleted_by`.
+
+## 17.1 Resource Organisasi Single Record
+
+Ketentuan khusus `OrganizationResource`:
+
+- Data organisasi dianggap single record.
+- Menu `Organisasi` tidak menampilkan table/list.
+- Route index `/admin/organizations` langsung redirect ke halaman view record organisasi pertama.
+- Jika record organisasi belum ada, route index boleh redirect ke halaman create sebagai fallback.
+- Halaman view/infolist menjadi halaman utama untuk membaca data organisasi.
+- Halaman edit tetap tersedia untuk mengubah data organisasi.
+- Seeder `OrganizationSeeder` wajib menyiapkan satu record awal agar halaman organisasi langsung bisa dibuka.
 
 ## 18. Catatan Khusus Repo
 

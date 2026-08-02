@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             DivisionSeeder::class,
             FaqSeeder::class,
             StatusSeeder::class,
+            OrganizationSeeder::class,
             CategorySeeder::class,
             BlogSeeder::class,
         ]);

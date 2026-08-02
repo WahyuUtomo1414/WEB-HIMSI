@@ -56,17 +56,17 @@ class BlogsTable
                 SelectFilter::make('category_id')->label('Kategori')->relationship('category', 'name')->searchable()->preload(),
             ])
             ->recordActions([
-                ViewAction::make()->label('Lihat'),
-                EditAction::make()->label('Edit'),
-                DeleteAction::make()->label('Hapus'),
-                RestoreAction::make()->label('Pulihkan'),
-                ForceDeleteAction::make()->label('Hapus'),
+                ViewAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
+                RestoreAction::make(),
+                ForceDeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make()->label('Hapus'),
-                    RestoreBulkAction::make()->label('Pulihkan'),
-                    ForceDeleteBulkAction::make()->label('Hapus'),
+                    DeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
                 ]),
             ]);
     }

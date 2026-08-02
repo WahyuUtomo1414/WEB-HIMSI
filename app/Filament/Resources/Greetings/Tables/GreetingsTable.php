@@ -10,7 +10,6 @@ use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -51,17 +50,16 @@ class GreetingsTable
                 TrashedFilter::make()->label('Data Terhapus'),
             ])
             ->recordActions([
-                ViewAction::make()->label('Lihat'),
-                EditAction::make()->label('Edit'),
-                DeleteAction::make()->label('Hapus'),
-                RestoreAction::make()->label('Pulihkan'),
-                ForceDeleteAction::make()->label('Hapus'),
+                EditAction::make(),
+                DeleteAction::make(),
+                RestoreAction::make(),
+                ForceDeleteAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make()->label('Hapus'),
-                    RestoreBulkAction::make()->label('Pulihkan'),
-                    ForceDeleteBulkAction::make()->label('Hapus'),
+                    DeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
                 ]),
             ]);
     }

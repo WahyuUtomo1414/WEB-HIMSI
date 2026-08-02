@@ -524,6 +524,7 @@ Kolom:
 | name | varchar(255) | no | nama organisasi |
 | kode_org | varchar(128) | no | kode organisasi |
 | logo | varchar(128) | no | path logo organisasi |
+| thumbnail | varchar(255) | no | path thumbnail organisasi |
 | description | text | no | deskripsi organisasi |
 | mision | json | no | daftar misi organisasi |
 | vision | varchar(255) | no | visi organisasi |
@@ -548,6 +549,7 @@ Schema::create('organization', function (Blueprint $table) {
     $table->string('name');
     $table->string('kode_org', 128);
     $table->string('logo', 128);
+    $table->string('thumbnail');
     $table->text('description');
     $table->json('mision');
     $table->string('vision');
