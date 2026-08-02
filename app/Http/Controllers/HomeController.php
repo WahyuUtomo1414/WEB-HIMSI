@@ -53,6 +53,14 @@ class HomeController extends Controller
                     'image_url' => '/images/placeholder.svg',
                     'is_dpp' => false,
                 ],
+                [
+                    'id' => 4,
+                    'name' => 'Divisi Litbang & Inovasi',
+                    'description' => 'Mendorong inovasi melalui riset teknologi, pengembangan produk digital, dan evaluasi berkelanjutan.',
+                    'logo_url' => '/images/placeholder.svg',
+                    'image_url' => '/images/placeholder.svg',
+                    'is_dpp' => false,
+                ],
             ],
             'branches' => [
                 [
