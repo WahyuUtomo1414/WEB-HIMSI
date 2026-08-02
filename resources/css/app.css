@@ -1,9 +1,48 @@
 @import 'tailwindcss';
 
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+:root {
+    --color-primary: #000c46;
+    --color-primary-container: #001b79;
+    --color-secondary: #0453cd;
+    --color-secondary-container: #356ee7;
+    --color-surface: #f9f9fc;
+    --color-surface-tint: #f0f4ff;
+    --color-surface-container: #ffffff;
+    --color-text: #1a1c1e;
+    --color-muted: #454652;
+    --color-outline: #757683;
+    --color-outline-variant: #c5c5d4;
+    --color-error: #ba1a1a;
+}
+
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-heading: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+}
+
+.card-nexus {
+    background-color: #ffffff;
+    border: 1px solid rgba(197, 197, 212, 0.7);
+    box-shadow: 0 4px 20px rgba(0, 27, 121, 0.05);
+    transition: all 0.25s ease-in-out;
+}
+
+.card-nexus:hover {
+    box-shadow: 0 12px 32px rgba(0, 27, 121, 0.1);
 }
