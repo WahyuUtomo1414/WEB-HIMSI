@@ -31,7 +31,7 @@
         </div>
 
         <!-- Desktop Menu -->
-        <div class="hidden lg:flex lg:gap-x-8">
+        <div class="hidden lg:flex lg:items-center lg:gap-x-2 bg-white/10 backdrop-blur-md p-1.5 rounded-full border border-white/15">
             @php
                 $navLinks = [
                     ['name' => 'Beranda', 'url' => route('home')],
@@ -42,11 +42,14 @@
                 ];
             @endphp
             @foreach ($navLinks as $link)
+                @php
+                    $isActive = request()->url() == $link['url'];
+                @endphp
                 <a href="{{ $link['url'] }}"
                     :class="(!scrolled) ?
-                    '{{ request()->url() == $link['url'] ? 'text-white border-b-2 border-[#356ee7]' : 'text-slate-100 hover:text-[#356ee7]' }}' :
-                    '{{ request()->url() == $link['url'] ? 'text-[#000c46] border-b-2 border-[#356ee7]' : 'text-slate-600 hover:text-[#000c46]' }}'"
-                    class="text-sm font-semibold leading-6 transition-colors">
+                    '{{ $isActive ? 'bg-white text-[#000c46] font-bold shadow-sm' : 'text-white hover:text-amber-300' }}' :
+                    '{{ $isActive ? 'bg-[#000c46] text-white font-bold shadow-sm' : 'text-slate-700 hover:text-[#000c46]' }}'"
+                    class="text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full transition-all duration-200">
                     {{ $link['name'] }}
                 </a>
             @endforeach
@@ -55,10 +58,9 @@
         <!-- CTA Button -->
         <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center gap-4">
             <a href="{{ route('contact.index') }}"
-                :class="(!scrolled) ? 'bg-white/15 border border-white/20 text-white hover:bg-white/25' :
-                'text-white bg-[#000c46] hover:bg-[#001b79]'"
-                class="inline-flex items-center gap-2 text-sm font-semibold leading-6 px-5 py-2.5 rounded-full transition-all shadow hover:shadow-md transform hover:-translate-y-0.5">
-                Hubungi Kami <svg class="h-4 w-4 text-[#356ee7]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                class="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold leading-6 px-5 py-2 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 transition-all shadow-md hover:shadow-amber-500/20 transform hover:-translate-y-0.5">
+                <span>Daftar / Hubungi Kami</span>
+                <svg class="h-4 w-4 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
         </div>
     </nav>
