@@ -31,19 +31,12 @@
 - **Struktur Organisasi Section**: Card pengurus cabang (`BranchStructure`) beserta divisi dan posisi.
 - **CTA Section**: Banner CTA komunikasi cabang.
 
-### 5. Halaman Detail Divisi (`/divisi/{division}`)
-- **Hero Section**: Banner header nama divisi.
-- **Image Section**: Gambar & logo divisi (`Division.image` & `Division.logo`).
-- **About Section**: Deskripsi peran divisi.
-- **Job Description Section**: List tugas & tanggung jawab divisi (`Division.job_description`).
-- **CTA Section**: Banner CTA gabung/kontak divisi.
-
-### 6. Halaman Blog / Artikel (`/blog`)
+### 5. Halaman Blog / Artikel (`/blog`)
 - **Hero Section**: Banner header Blog & Publikasi HIMSI.
 - **Filter dan Search Section**: Search bar pencarian judul/konten & filter berdasarkan Kategori (`Category`).
 - **List Blog dan Pagination Section**: Grid kartu artikel blog aktif dilengkapi dengan pagination Laravel.
 
-### 7. Halaman Detail Blog / Artikel (`/blog/{blog:slug}`)
+### 6. Halaman Detail Blog / Artikel (`/blog/{blog:slug}`)
 - **Title and Date Publication Section**: Judul blog, tanggal rilis, nama cabang & nama kategori.
 - **Thumbnail Section**: Gambar utama artikel (`Blog.thumbnail`).
 - **Body Section**: Isi artikel lengkap dari rich editor.
@@ -52,10 +45,17 @@
 - **List Blog Section**: List artikel terkait (Related Blogs) dengan kategori yang sama.
 - **CTA Section**: Banner CTA baca artikel lainnya / kontak.
 
-### 8. Halaman Kontak (`/kontak`)
+### 7. Halaman Kontak (`/kontak`)
 - **Hero Section**: Banner header Kontak HIMSI.
-- **Left Section**: Informasi kontak resmi (Email, Telepon, Alamat, List Sosial Media Organisasi & Cabang).
-- **Right Section**: Form Kontak (Formulir pengiriman pesan pengunjung dengan validasi & feedback notification).
+- **Informasi Kontak Section**: Email, telepon, alamat, dan sosial media organisasi dari model `Organization`.
+- **Kontak Cabang Section**: List cabang aktif beserta lokasi, sosial media, dan link grup WhatsApp dari model `Branch`.
+- **CTA Section**: Arahkan pengunjung ke email, WhatsApp, atau sosial media resmi.
+
+Catatan:
+- Halaman Divisi tidak dibuat sebagai route sendiri pada tahap awal. Divisi hanya tampil sebagai section di Home, Tentang Kami, dan detail Cabang.
+- FAQ tidak dibuat sebagai route sendiri pada tahap awal. FAQ hanya tampil sebagai section di Home.
+- Recruitment belum dibuat pada tahap awal, baik list maupun form.
+- Form kontak belum dibuat karena database saat ini belum memiliki tabel pesan kontak.
 
 ---
 
@@ -64,9 +64,8 @@
 - `HomeController` -> `GET /`
 - `AboutController` -> `GET /tentang-kami`
 - `BranchController` -> `GET /cabang`, `GET /cabang/{branch}`
-- `DivisionController` -> `GET /divisi/{division}`
 - `BlogController` -> `GET /blog`, `GET /blog/{blog:slug}`
-- `ContactController` -> `GET /kontak`, `POST /kontak` (Handle pengiriman form kontak)
+- `ContactController` -> `GET /kontak`
 
 ## 3. Prinsip Data Flow
 - Controller mengambil data dari Model (`active = true`, soft delete excluded, eager loading).
