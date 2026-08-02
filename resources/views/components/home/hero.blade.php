@@ -4,8 +4,7 @@
     <!-- Background Video -->
     <div class="absolute inset-0 -z-20">
         <video class="h-full w-full object-cover opacity-60" autoplay muted loop playsinline poster="/images/placeholder.svg">
-            <source src="{{ asset('assets/Pembuatan_Video_Hero_Section_Website.mp4') }}" type="video/mp4">
-            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+            <source src="{{ asset('video/web_himsi.mp4') }}" type="video/mp4">
         </video>
     </div>
     
