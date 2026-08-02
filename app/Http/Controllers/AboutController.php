@@ -35,9 +35,9 @@ class AboutController extends Controller
                 ],
             ],
             'milestones' => [
-                ['id' => 1, 'sort' => 1, 'year' => '2018', 'list' => ['Pembentukan awal Himpunan Mahasiswa Sistem Informasi.']],
-                ['id' => 2, 'sort' => 2, 'year' => '2021', 'list' => ['Perluasan cabang DPC ke kampus UBSI Jabodetabek.']],
-                ['id' => 3, 'sort' => 3, 'year' => '2025', 'list' => ['Peluncuran Portal Website HIMSI Official.']],
+                ['id' => 1, 'sort' => 1, 'year' => '2018', 'list' => ['Pembentukan awal Himpunan Mahasiswa Sistem Informasi.', 'Pengukuhan pengurus perdana periode 2018/2019.']],
+                ['id' => 2, 'sort' => 2, 'year' => '2021', 'list' => ['Perluasan cabang DPC ke kampus UBSI Jabodetabek.', 'Penyelenggaraan Seminar Nasional Teknologi Informasi pertama.']],
+                ['id' => 3, 'sort' => 3, 'year' => '2025', 'list' => ['Peluncuran Portal Website HIMSI Official.', 'Pengembangan sistem admin terintegrasi dengan Filament.']],
             ],
             'divisions' => [
                 [
