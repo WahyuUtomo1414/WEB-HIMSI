@@ -2,89 +2,76 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Division;
+use App\Models\Greeting;
+use App\Models\Milestone;
+use App\Models\Organization;
 use Illuminate\View\View;
 
 class AboutController extends Controller
 {
     public function index(): View
     {
-        $data = [
+        $organization = Organization::query()
+            ->where('active', true)
+            ->latest()
+            ->first();
+
+        $milestones = Milestone::query()
+            ->where('active', true)
+            ->orderBy('sort')
+            ->get();
+
+        $divisions = Division::query()
+            ->where('active', true)
+            ->orderBy('name')
+            ->get();
+
+        $greeting = Greeting::query()
+            ->where('active', true)
+            ->latest()
+            ->first();
+
+        return view('pages.about', [
             'hero' => [
                 'title' => 'Tentang HIMSI UBSI',
                 'subtitle' => 'Mengenal Lebih Dekat Himpunan Mahasiswa Sistem Informasi UBSI',
             ],
             'organization' => [
-                'name' => 'HIMSI UBSI',
-                'kode_org' => 'HIMSI',
-                'description' => 'Himpunan Mahasiswa Sistem Informasi Universitas Bina Sarana Informatika adalah organisasi kemahasiswaan berbasis akademik dan profesi yang menaungi seluruh mahasiswa program studi Sistem Informasi.',
-                'vision' => 'Menjadi himpunan mahasiswa yang unggul, inovatif, dan berdaya saing tinggi dalam bidang teknologi informasi serta berakhlak mulia.',
-                'mision' => [
-                    'Menyelenggarakan kegiatan pengembangan skill koding & teknologi bagi mahasiswa.',
-                    'Membangun jejaring kolaborasi antara alumni, akademisi, dan dunia industri.',
-                    'Mendorong keaktifan mahasiswa dalam kompetisi ilmiah & pengabdian masyarakat.',
-                ],
-                'purpose' => 'HIMSI dibentuk untuk wadah pengasahan minat bakat, pengembangan potensi akademik, serta pembentukan karakter kepemimpinan mahasiswa Sistem Informasi.',
-                'address' => 'Jl. Pemuda No. 8, Rawamangun, Jakarta Timur',
-                'email' => 'info@himsi.org',
-                'no_tlpn' => '0812-3456-7890',
-                'logo_url' => '/images/placeholder.svg',
-                'thumbnail_url' => '/images/placeholder.svg',
-                'sosial_media' => [
-                    ['platform' => 'Instagram', 'url' => '@himsi.ubsi'],
-                    ['platform' => 'YouTube', 'url' => 'HIMSI UBSI Official'],
-                ],
+                'name' => $organization?->name ?? 'HIMSI UBSI',
+                'kode_org' => $organization?->kode_org ?? 'HIMSI',
+                'description' => $organization?->description ?? 'Himpunan Mahasiswa Sistem Informasi Universitas Bina Sarana Informatika adalah organisasi kemahasiswaan berbasis akademik dan profesi.',
+                'vision' => $organization?->vision ?? 'Menjadi himpunan mahasiswa yang unggul, inovatif, dan berdaya saing tinggi.',
+                'mision' => is_array($organization?->mision) ? $organization->mision : [],
+                'purpose' => $organization?->purpose ?? 'HIMSI dibentuk untuk wadah pengasahan minat bakat dan potensi akademik.',
+                'address' => $organization?->address ?? 'Jl. Pemuda No. 8, Rawamangun, Jakarta Timur',
+                'email' => $organization?->email ?? 'info@himsi.org',
+                'no_tlpn' => $organization?->no_tlpn ?? '0812-3456-7890',
+                'logo_url' => public_image_url($organization?->logo),
+                'thumbnail_url' => public_image_url($organization?->thumbnail),
+                'sosial_media' => is_array($organization?->sosial_media) ? $organization->sosial_media : [],
             ],
-            'milestones' => [
-                ['id' => 1, 'sort' => 1, 'year' => '2018', 'list' => ['Pembentukan awal Himpunan Mahasiswa Sistem Informasi.', 'Pengukuhan pengurus perdana periode 2018/2019.']],
-                ['id' => 2, 'sort' => 2, 'year' => '2021', 'list' => ['Perluasan cabang DPC ke kampus UBSI Jabodetabek.', 'Penyelenggaraan Seminar Nasional Teknologi Informasi pertama.']],
-                ['id' => 3, 'sort' => 3, 'year' => '2025', 'list' => ['Peluncuran Portal Website HIMSI Official.', 'Pengembangan sistem admin terintegrasi dengan Filament.']],
-            ],
-            'divisions' => [
-                [
-                    'id' => 1,
-                    'name' => 'Divisi Akademik & Riset',
-                    'description' => 'Fokus pada pengasahan skill koding, kajian ilmiah, dan penyelenggaraan workshop teknologi.',
-                    'logo_url' => '/images/placeholder.svg',
-                    'image_url' => '/images/placeholder.svg',
-                    'job_description' => ['Menyelenggarakan workshop', 'Kajian teknologi baru'],
-                    'is_dpp' => true,
-                ],
-                [
-                    'id' => 2,
-                    'name' => 'Divisi Humas & Media',
-                    'description' => 'Fokus pada manajemen media sosial, publikasi berita, dan menjalin kerjasama eksternal.',
-                    'logo_url' => '/images/placeholder.svg',
-                    'image_url' => '/images/placeholder.svg',
-                    'job_description' => ['Mengelola Instagram & Website', 'Publikasi artikel berita'],
-                    'is_dpp' => true,
-                ],
-                [
-                    'id' => 3,
-                    'name' => 'Divisi Litbang & Inovasi',
-                    'description' => 'Fokus pada riset teknologi, inovasi proyek perangkat lunak, dan pengawalan kompetisi.',
-                    'logo_url' => '/images/placeholder.svg',
-                    'image_url' => '/images/placeholder.svg',
-                    'job_description' => ['Riset software architecture', 'Pengembangan produk digital'],
-                    'is_dpp' => true,
-                ],
-                [
-                    'id' => 4,
-                    'name' => 'Divisi Kaderisasi & Organisasi',
-                    'description' => 'Fokus pada pembinaan karakter kepemimpinan, regenerasi pengurus, dan keakraban internal.',
-                    'logo_url' => '/images/placeholder.svg',
-                    'image_url' => '/images/placeholder.svg',
-                    'job_description' => ['Latihan kepemimpinan', 'Bonding internal pengurus'],
-                    'is_dpp' => true,
-                ],
-            ],
+            'milestones' => $milestones->map(fn ($m) => [
+                'id' => $m->id,
+                'sort' => $m->sort,
+                'year' => $m->year ? date('Y', strtotime($m->year)) : '',
+                'list' => is_array($m->list) ? $m->list : [],
+            ])->toArray(),
+            'divisions' => $divisions->map(fn ($d) => [
+                'id' => $d->id,
+                'name' => $d->name,
+                'description' => $d->description,
+                'logo_url' => public_image_url($d->logo),
+                'image_url' => public_image_url($d->image),
+                'job_description' => is_array($d->job_description) ? $d->job_description : [],
+                'is_dpp' => (bool) $d->is_dpp,
+            ])->toArray(),
             'greeting' => [
-                'name' => 'Ketua Umum HIMSI',
-                'position' => 'Ketua Umum Period 2025/2026',
-                'body' => 'Mari bersama-sama memajukan HIMSI UBSI menjadi organisasi yang solid dan berdampak nyata bagi mahasiswa.',
-                'image_url' => '/images/placeholder.svg',
+                'name' => $greeting?->name ?? 'Ketua Umum HIMSI',
+                'position' => $greeting?->position ?? 'Ketua Umum Period 2025/2026',
+                'body' => $greeting?->body ?? 'Mari bersama-sama memajukan HIMSI UBSI.',
+                'image_url' => public_image_url($greeting?->image),
             ],
-        ];
-
-        return view('pages.about', $data);
+        ]);
     }
 }
