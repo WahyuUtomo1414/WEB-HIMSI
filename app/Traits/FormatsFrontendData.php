@@ -9,10 +9,10 @@ trait FormatsFrontendData
     /**
      * Format file or image path to full public URL.
      */
-    protected function formatImageUrl(?string $path, string $fallback = '/images/placeholder.svg'): string
+    protected function formatImageUrl(?string $path, string $fallback = '/images/himsi.png'): string
     {
         if (empty($path)) {
-            return $fallback;
+            return asset(ltrim($fallback, '/'));
         }
 
         if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {

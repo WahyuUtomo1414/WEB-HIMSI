@@ -7,13 +7,13 @@
         <!-- Logo -->
         <div class="flex lg:flex-1">
             <a href="{{ route('home') }}" class="-m-1.5 p-1.5 flex items-center gap-3 group">
-                <img src="/images/placeholder.svg" alt="Logo HIMSI UBSI"
+                <img src="{{ asset('images/himsi.png') }}" alt="Logo HIMSI UBSI"
                     class="w-10 h-10 rounded-lg object-contain bg-white shadow-md p-1">
                 <div>
                     <span :class="(!scrolled) ? 'text-white' : 'text-[#000c46]'"
                         class="block font-bold text-lg leading-tight tracking-tight transition-colors">HIMSI UBSI</span>
                     <span :class="(!scrolled) ? 'text-slate-200' : 'text-slate-500'"
-                        class="block text-xs font-medium transition-colors">Sistem Informasi</span>
+                        class="block text-[10px] sm:text-xs font-medium tracking-tight transition-colors">Himpunan Mahasiswa Sistem Informasi</span>
                 </div>
             </a>
         </div>
@@ -63,8 +63,8 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu Drawer -->
-    <div x-show="mobileMenuOpen" class="lg:hidden" role="dialog" aria-modal="true" x-cloak>
+    <!-- Mobile Menu Drawer (x-cloak and style="display: none;" added to eliminate pre-load flash completely) -->
+    <div x-show="mobileMenuOpen" class="lg:hidden" role="dialog" aria-modal="true" x-cloak style="display: none;">
         <div x-show="mobileMenuOpen" x-transition.opacity class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm"
             @click="mobileMenuOpen = false"></div>
         <div x-show="mobileMenuOpen" 
@@ -78,9 +78,12 @@
 
             <div class="flex items-center justify-between">
                 <a href="{{ route('home') }}" class="-m-1.5 p-1.5 flex items-center gap-3">
-                    <img src="/images/placeholder.svg" alt="Logo HIMSI UBSI"
+                    <img src="{{ asset('images/himsi.png') }}" alt="Logo HIMSI UBSI"
                         class="w-8 h-8 rounded object-contain bg-white p-0.5 shadow-sm">
-                    <span class="font-bold text-slate-900">HIMSI UBSI</span>
+                    <div>
+                        <span class="font-bold text-slate-900 block leading-tight">HIMSI UBSI</span>
+                        <span class="text-[10px] font-medium text-slate-500 block">Himpunan Mahasiswa Sistem Informasi</span>
+                    </div>
                 </a>
                 <button type="button" @click="mobileMenuOpen = false"
                     class="-m-2.5 rounded-md p-2.5 text-slate-700 hover:bg-slate-50 transition-colors">
