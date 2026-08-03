@@ -20,8 +20,6 @@
 </head>
 <body class="bg-[#f9f9fc] text-[#1a1c1e] antialiased flex flex-col min-h-screen">
 
-    <x-common.splash-screen />
-
     <x-layout.navbar />
 
     <main class="flex-grow">

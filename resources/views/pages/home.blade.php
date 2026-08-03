@@ -1,5 +1,8 @@
 <x-layouts.public title="Beranda - HIMSI UBSI">
 
+    {{-- Splash Screen Loading Video (Hanya di Halaman Home) --}}
+    <x-common.splash-screen />
+
     {{-- 1. Hero Section --}}
     <x-home.hero :hero="$hero" />
 
