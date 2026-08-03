@@ -18,13 +18,26 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        $superAdmin = User::firstOrCreate(
+            ['email' => 'admin@himsi.org'],
+            [
+                'name' => 'Super Admin HIMSI',
+                'password' => Hash::make('password'),
+            ]
+        );
+
         User::firstOrCreate(
             ['email' => 'test@example.com'],
             [
                 'name' => 'Test User',
                 'password' => Hash::make('password'),
-            ],
+            ]
         );
+
+        if (class_exists(\Spatie\Permission\Models\Role::class)) {
+            $role = \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'super_admin', 'guard_name' => 'web']);
+            $superAdmin->assignRole($role);
+        }
 
         $this->call([
             BranchSeeder::class,
