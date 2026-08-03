@@ -8,7 +8,7 @@
     <!-- Full-bleed Photo Container -->
     <div class="h-64 sm:h-72 w-full overflow-hidden bg-[#f0f4ff]/80 relative flex items-center justify-center group-hover:bg-[#f0f4ff] transition-colors">
         @if ($hasPhoto)
-            <img src="{{ $person['image_url'] }}" alt="{{ $person['name'] }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <x-common.image :src="$person['image_url']" :alt="$person['name']" class="h-full w-full object-cover group-hover:scale-105 transition-all duration-500" />
         @else
             <!-- Default User Icon Fallback -->
             <div class="flex flex-col items-center justify-center gap-2 text-[#001b79]/40 group-hover:text-[#0453cd] group-hover:scale-105 transition-all duration-300">

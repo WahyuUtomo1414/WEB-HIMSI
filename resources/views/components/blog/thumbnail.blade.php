@@ -2,7 +2,7 @@
 
 <div x-data="{ openModal: false }" class="relative">
     <div @click="openModal = true" class="group cursor-pointer aspect-[16/9] overflow-hidden rounded-3xl border border-[#c5c5d4]/60 shadow-[0_8px_30px_rgba(0,27,121,0.08)] bg-[#f0f4ff]/70 relative">
-        <img src="{{ $blog['thumbnail_url'] }}" alt="{{ $blog['title'] }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <x-common.image :src="$blog['thumbnail_url']" :alt="$blog['title']" class="h-full w-full object-cover group-hover:scale-105 transition-all duration-500" />
         
         <!-- Hover Overlay & Zoom Icon -->
         <div class="absolute inset-0 bg-[#000c46]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white gap-2 font-bold text-sm backdrop-blur-xs">

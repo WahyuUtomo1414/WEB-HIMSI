@@ -7,8 +7,8 @@
             @foreach ($relatedBlogs as $item)
                 <article class="card-nexus rounded-2xl overflow-hidden flex flex-col justify-between">
                     <div class="space-y-3">
-                        <div class="h-36 overflow-hidden">
-                            <img src="{{ $item['thumbnail_url'] }}" alt="{{ $item['title'] }}" class="h-full w-full object-cover">
+                        <div class="h-36 overflow-hidden relative">
+                            <x-common.image :src="$item['thumbnail_url']" :alt="$item['title']" class="h-full w-full object-cover" />
                         </div>
                         <div class="p-4 space-y-1">
                             <span class="text-[10px] font-bold text-[#0453cd] uppercase">{{ $item['category_name'] }}</span>

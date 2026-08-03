@@ -7,7 +7,7 @@
                 <div>
                     <!-- Thumbnail Container (Light tint, no heavy dark overlay) -->
                     <div class="h-52 sm:h-56 w-full overflow-hidden relative bg-[#f0f4ff]/70 flex items-center justify-center p-4 border-b border-[#c5c5d4]/40">
-                        <img src="{{ $blog['thumbnail_url'] }}" alt="{{ $blog['title'] }}" class="h-full w-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500">
+                        <x-common.image :src="$blog['thumbnail_url']" :alt="$blog['title']" class="h-full w-full object-cover rounded-xl group-hover:scale-105 transition-all duration-500" />
                     </div>
 
                     <!-- Article Details -->

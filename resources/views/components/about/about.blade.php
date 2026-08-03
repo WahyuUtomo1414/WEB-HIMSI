@@ -55,7 +55,7 @@
     <div class="lg:col-span-6">
         <div class="relative rounded-3xl overflow-hidden border border-[#c5c5d4]/60 bg-[#f0f4ff]/70 shadow-[0_12px_32px_rgba(0,27,121,0.08)] p-3 group">
             <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 relative flex items-center justify-center">
-                <img src="{{ $organization['thumbnail_url'] }}" alt="{{ $organization['name'] }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <x-common.image :src="$organization['thumbnail_url']" :alt="$organization['name']" class="h-full w-full object-cover group-hover:scale-105 transition-all duration-500" />
                 <div class="absolute top-4 right-4 z-10">
                     <span class="rounded-full bg-white/90 backdrop-blur-xs px-3.5 py-1 text-xs font-bold text-[#001b79] shadow-sm">
                         Profil Organisasi

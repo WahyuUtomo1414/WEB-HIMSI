@@ -87,9 +87,9 @@
                 <div class="flex-none w-[85%] sm:w-[360px] md:w-[400px] snap-start">
                     <div class="group h-full rounded-2xl bg-white border border-[#c5c5d4]/60 shadow-[0_4px_20px_rgba(0,27,121,0.04)] hover:shadow-[0_12px_32px_rgba(0,27,121,0.12)] hover:border-[#0453cd]/40 transition-all duration-300 overflow-hidden flex flex-col justify-between">
                         
-                        <!-- Thumbnail Container -->
-                        <div class="h-56 sm:h-60 overflow-hidden relative bg-[#f0f4ff]/70 flex items-center justify-center p-4 border-b border-[#c5c5d4]/40">
-                            <img src="{{ $branch['thumbnail_url'] }}" alt="{{ $branch['name'] }}" class="h-full w-full object-contain group-hover:scale-105 transition-transform duration-500">
+                        <!-- Thumbnail Container (Taller height) -->
+                        <div class="h-64 sm:h-72 lg:h-80 overflow-hidden relative bg-[#f0f4ff]/70 flex items-center justify-center p-4 border-b border-[#c5c5d4]/40">
+                            <x-common.image :src="$branch['thumbnail_url']" :alt="$branch['name']" class="h-full w-full object-contain group-hover:scale-105 transition-all duration-500" />
                             
                             <div class="absolute top-4 right-4 flex items-center gap-1.5 z-10">
                                 @if (isset($branch['is_dpp']) && $branch['is_dpp'])

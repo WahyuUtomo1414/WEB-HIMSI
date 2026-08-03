@@ -22,7 +22,7 @@
                         <div class="space-y-4">
                             <!-- Thumbnail Container -->
                             <div class="h-52 sm:h-56 overflow-hidden relative bg-[#f0f4ff]/70 flex items-center justify-center p-4 border-b border-[#c5c5d4]/40">
-                                <img src="{{ $blog['thumbnail_url'] }}" alt="{{ $blog['title'] }}" class="h-full w-full object-contain group-hover:scale-105 transition-transform duration-500">
+                                <x-common.image :src="$blog['thumbnail_url']" :alt="$blog['title']" class="h-full w-full object-cover rounded-xl group-hover:scale-105 transition-all duration-500" />
                             </div>
 
                             <!-- Content -->
