@@ -36,8 +36,8 @@
                                 <h3 class="text-lg font-bold text-[#000c46] group-hover:text-[#0453cd] transition-colors leading-snug line-clamp-2">
                                     {{ $blog['title'] }}
                                 </h3>
-                                <p class="text-xs text-[#454652] leading-relaxed">
-                                    {{ \Illuminate\Support\Str::limit(strip_tags($blog['body'] ?? $blog['quotes'] ?? ''), 50, '...') }}
+                                <p class="text-sm text-[#454652] leading-relaxed line-clamp-3">
+                                    {{ \Illuminate\Support\Str::limit(strip_tags($blog['body'] ?? $blog['quotes'] ?? ''), 100, '...') }}
                                 </p>
                             </div>
                         </div>

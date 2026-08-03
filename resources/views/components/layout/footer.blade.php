@@ -20,16 +20,11 @@
                 <p class="text-sm text-slate-300 leading-relaxed max-w-sm">
                     Himpunan Mahasiswa Sistem Informasi Universitas Bina Sarana Informatika. Wadah pengembangan akademik, inovasi teknologi, dan pengabdian mahasiswa.
                 </p>
-                <div class="flex items-center gap-3 pt-1">
-                    <a href="https://instagram.com" target="_blank" rel="noopener" class="h-9 w-9 rounded-xl bg-white/10 hover:bg-[#356ee7] flex items-center justify-center text-white transition-all shadow-sm">
-                        <span class="text-xs font-bold">IG</span>
-                    </a>
-                    <a href="https://youtube.com" target="_blank" rel="noopener" class="h-9 w-9 rounded-xl bg-white/10 hover:bg-[#356ee7] flex items-center justify-center text-white transition-all shadow-sm">
-                        <span class="text-xs font-bold">YT</span>
-                    </a>
-                    <a href="mailto:info@himsi.org" class="h-9 w-9 rounded-xl bg-white/10 hover:bg-[#356ee7] flex items-center justify-center text-white transition-all shadow-sm">
-                        <span class="text-xs font-bold">EM</span>
-                    </a>
+                @php
+                    $orgData = $organization ?? \App\Models\Organization::query()->where('active', true)->latest()->first();
+                @endphp
+                <div class="pt-1">
+                    <x-common.social-icons :socials="$orgData?->sosial_media" variant="footer" size="md" />
                 </div>
             </div>
 

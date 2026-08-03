@@ -63,25 +63,6 @@
     {{-- Social Media Grid --}}
     <div class="rounded-3xl p-6 bg-white border border-[#c5c5d4]/60 shadow-[0_4px_20px_rgba(0,27,121,0.04)] space-y-4">
         <h4 class="text-sm font-bold text-[#000c46]">Media Sosial Resmi:</h4>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            @foreach ($organization['sosial_media'] as $medsos)
-                @php
-                    $platform = is_array($medsos) ? ($medsos['platform'] ?? 'Media Sosial') : 'Media Sosial';
-                    $val = is_array($medsos) ? ($medsos['url'] ?? ($medsos['value'] ?? implode(', ', $medsos))) : $medsos;
-                @endphp
-                <div class="group p-3 rounded-2xl bg-[#f0f4ff]/70 border border-[#356ee7]/20 hover:border-[#0453cd]/40 hover:bg-white transition-all duration-300 flex items-center justify-between gap-2 shadow-xs">
-                    <div class="flex items-center gap-2 min-w-0">
-                        <span class="h-2 w-2 rounded-full bg-[#0453cd] shrink-0"></span>
-                        <div class="min-w-0">
-                            <span class="block text-[10px] font-bold text-[#454652] uppercase tracking-wider">{{ $platform }}</span>
-                            <span class="text-xs font-bold text-[#001b79] truncate block">{{ $val }}</span>
-                        </div>
-                    </div>
-                    <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-[#0453cd] group-hover:translate-x-0.5 transition-all shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
-                    </svg>
-                </div>
-            @endforeach
-        </div>
+        <x-common.social-icons :socials="$organization['sosial_media']" variant="contact" size="md" />
     </div>
 </div>

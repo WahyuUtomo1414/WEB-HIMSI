@@ -3,7 +3,8 @@
 namespace App\Filament\Resources\Branches\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -23,7 +24,31 @@ class BranchForm
                     Textarea::make('description')->label('Deskripsi')->required()->columnSpanFull(),
                     TextInput::make('grup_wa')->label('Grup WhatsApp')->maxLength(128)->required(),
                     TextInput::make('sektor')->label('Sektor')->maxLength(128)->required(),
-                    KeyValue::make('sosial_media')->label('Sosial Media')->keyLabel('Platform')->valueLabel('URL')->required()->columnSpanFull(),
+                    Repeater::make('sosial_media')
+                        ->label('Sosial Media')
+                        ->schema([
+                            Select::make('platform')
+                                ->label('Platform')
+                                ->options([
+                                    'instagram' => 'Instagram',
+                                    'email' => 'Email',
+                                    'linkedin' => 'LinkedIn',
+                                    'tiktok' => 'TikTok',
+                                    'youtube' => 'YouTube',
+                                    'facebook' => 'Facebook',
+                                    'wa' => 'WhatsApp',
+                                ])
+                                ->required(),
+                            TextInput::make('url')
+                                ->label('Link / Username / Nomor')
+                                ->required()
+                                ->maxLength(255),
+                        ])
+                        ->columns(2)
+                        ->addActionLabel('Tambah Sosial Media')
+                        ->defaultItems(0)
+                        ->reorderable()
+                        ->columnSpanFull(),
                     Toggle::make('is_dpp')->label('DPP')->default(false)->required(),
                     Toggle::make('active')->label('Aktif')->default(true)->required(),
                 ])

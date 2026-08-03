@@ -36,7 +36,8 @@ class BranchSeeder extends Seeder
                     'grup_wa' => $row['grup_wa'],
                     'sektor' => $row['sektor'],
                     'sosial_media' => [
-                        'instagram' => 'https://instagram.com/'.Str::slug($row['name'], ''),
+                        ['platform' => 'instagram', 'url' => 'https://instagram.com/'.Str::slug($row['name'], '')],
+                        ['platform' => 'wa', 'url' => $row['grup_wa']],
                     ],
                     'is_dpp' => false,
                     'active' => true,

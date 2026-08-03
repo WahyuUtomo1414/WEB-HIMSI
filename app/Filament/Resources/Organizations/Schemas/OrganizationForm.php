@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Organizations\Schemas;
 
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -41,15 +42,27 @@ class OrganizationForm
                     Repeater::make('sosial_media')
                         ->label('Sosial Media')
                         ->schema([
-                            TextInput::make('value')
-                                ->label('Kontak atau URL')
+                            Select::make('platform')
+                                ->label('Platform')
+                                ->options([
+                                    'instagram' => 'Instagram',
+                                    'email' => 'Email',
+                                    'linkedin' => 'LinkedIn',
+                                    'tiktok' => 'TikTok',
+                                    'youtube' => 'YouTube',
+                                    'facebook' => 'Facebook',
+                                    'wa' => 'WhatsApp',
+                                ])
+                                ->required(),
+                            TextInput::make('url')
+                                ->label('Link / Username / Nomor')
                                 ->required()
                                 ->maxLength(255),
                         ])
+                        ->columns(2)
                         ->addActionLabel('Tambah Sosial Media')
-                        ->defaultItems(1)
+                        ->defaultItems(0)
                         ->reorderable()
-                        ->required()
                         ->columnSpanFull(),
                     TextInput::make('email')->label('Email')->email()->maxLength(128)->required(),
                     TextInput::make('no_tlpn')->label('Nomor Telepon')->maxLength(18)->required(),
