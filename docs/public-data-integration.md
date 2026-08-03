@@ -401,6 +401,11 @@ Data utama:
 ]
 ```
 
+Catatan:
+
+- `organization.sosial_media` memakai format key-value fixed, misalnya `instagram`, `website`, `youtube`, `linkedin`, `tiktok`, `facebook`, `wa`, dan `email`.
+- FE hanya menampilkan social link yang value-nya terisi.
+
 ### 11.3 Cabang
 
 Model:
@@ -473,6 +478,11 @@ Data detail:
         'whatsapp' => $structure->no_wa,
     ]),
 ]
+
+Catatan:
+
+- `branch.sosial_media` memakai format key-value fixed, misalnya `instagram`, `website`, `youtube`, `linkedin`, `tiktok`, `facebook`, dan `wa`.
+- FE hanya menampilkan social link yang value-nya terisi.
 ```
 
 ### 11.4 Blog / Artikel
@@ -582,6 +592,11 @@ Data:
     ],
 ]
 ```
+
+Catatan:
+
+- Social link kontak berasal dari `organization.sosial_media`.
+- FE hanya menampilkan social link yang value-nya terisi.
 
 Catatan:
 

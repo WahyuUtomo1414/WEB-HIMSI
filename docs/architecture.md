@@ -595,7 +595,6 @@ Resource yang sudah menjadi bagian arsitektur admin:
 - `RecruitmentResource`
 - `StatusResource`
 - `BlogResource`
-- `BlogImageResource`
 - `CategoryResource`
 - `BranchResource`
 - `BranchStructureResource`
@@ -607,6 +606,7 @@ Resource yang sudah menjadi bagian arsitektur admin:
 
 Catatan:
 
+- Gambar blog dikelola lewat relation manager `Gambar Blog` di `BlogResource`, bukan lewat resource sidebar mandiri.
 - Detail aturan Filament ada di `docs/filament-resource.md`.
 - Database dan model domain ada di `docs/database.md`.
 - Panel admin tidak perlu halaman Blade manual.

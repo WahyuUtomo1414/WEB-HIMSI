@@ -407,7 +407,7 @@ Kolom:
 | description | text | no | deskripsi branch |
 | grup_wa | varchar(128) | no | link atau nomor grup WhatsApp |
 | sektor | varchar(128) | no | sektor/wilayah branch |
-| sosial_media | json | no | daftar media sosial branch |
+| sosial_media | json | no | daftar media sosial branch dalam format key-value fixed |
 | is_dpp | boolean | no | penanda branch DPP |
 | active | boolean | no | status data aktif |
 | created_by | bigint unsigned | no | user pembuat data |
@@ -433,6 +433,26 @@ Schema::create('branch', function (Blueprint $table) {
     $this->base($table);
 });
 ```
+
+Format `sosial_media` branch:
+
+```php
+[
+    'instagram' => 'https://instagram.com/dpccontoh',
+    'website' => '',
+    'youtube' => '',
+    'linkedin' => '',
+    'tiktok' => '',
+    'facebook' => '',
+    'wa' => 'https://chat.whatsapp.com/...',
+]
+```
+
+Catatan:
+
+- Key sosial media dibuat fixed dari Filament form.
+- Value kosong boleh disimpan sementara saat input, tetapi sebaiknya dibuang sebelum save atau difilter sebelum tampil di FE.
+- FE hanya menampilkan item yang value link-nya terisi.
 
 ### 4.10 division
 
@@ -566,7 +586,7 @@ Kolom:
 | vision | varchar(255) | no | visi organisasi |
 | purpose | text | no | tujuan organisasi |
 | address | varchar(255) | no | alamat organisasi |
-| sosial_media | json | no | daftar media sosial organisasi |
+| sosial_media | json | no | daftar media sosial organisasi dalam format key-value fixed |
 | email | varchar(128) | no | email organisasi |
 | no_tlpn | varchar(18) | no | nomor telepon organisasi |
 | active | boolean | no | status data aktif |
@@ -597,6 +617,26 @@ Schema::create('organization', function (Blueprint $table) {
     $this->base($table);
 });
 ```
+
+Format `sosial_media` organisasi:
+
+```php
+[
+    'instagram' => 'https://instagram.com/himsi.ubsi',
+    'website' => 'https://himsi.test',
+    'youtube' => 'https://youtube.com/@himsiubsi',
+    'linkedin' => 'https://linkedin.com/company/himsiubsi',
+    'tiktok' => 'https://tiktok.com/@himsiubsi',
+    'facebook' => 'https://facebook.com/himsiubsi',
+    'wa' => 'https://wa.me/6281234567890',
+    'email' => 'info@himsi.org',
+]
+```
+
+Catatan:
+
+- Key sosial media dibuat fixed dari Filament form.
+- FE hanya menampilkan item yang value link-nya terisi.
 
 Catatan:
 Nama kolom pada ERD tertulis `mision`. Jika ingin memakai ejaan bahasa Inggris yang umum, bisa dipertimbangkan menjadi `mission`, tetapi dokumentasi ini tetap mengikuti ERD.

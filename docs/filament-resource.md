@@ -222,7 +222,7 @@ Pengecualian:
 
 - `UserResource` boleh memakai `List`, `Create`, dan `Edit`.
 - Halaman detail memakai `Infolist`.
-- `BlogImageResource` boleh hanya memakai `List`, `Create`, `View`, dan `Edit`, atau dikelola lewat relation manager pada `BlogResource`.
+- `BlogImage` tidak memakai resource mandiri di sidebar; data gambar blog dikelola lewat relation manager pada `BlogResource`.
 - `BranchStructureResource` boleh hanya memakai resource mandiri, atau dikelola lewat relation manager pada `BranchResource`.
 - Form resource wajib memakai `Filament\Schemas\Components\Section` dan setiap section memakai `columnSpanFull()` agar input dikelompokkan per konteks, misalnya `Informasi Utama`, `Relasi`, `Media`, dan `Status`.
 - Infolist resource wajib memakai `Filament\Schemas\Components\Section` dengan minimal section `Informasi Utama` dan `Audit Data`; setiap section juga memakai `columnSpanFull()`.
@@ -237,7 +237,6 @@ Pengecualian:
 | `Faq` | `Konten` |
 | `Count` | `Konten` |
 | `Blog` | `Konten` |
-| `BlogImage` | `Konten` |
 | `Category` | `Master Data` |
 | `Status` | `Master Data` |
 | `Recruitment` | `Recruitment` |
@@ -258,7 +257,6 @@ Pengecualian:
 | `Recruitment` | `Recruitment` | `Recruitment` | `Recruitment` | `Recruitment` | `heroicon-o-user-plus` |
 | `Status` | `Status Recruitment` | `Status Recruitment` | `Status Recruitment` | `Master Data` | `heroicon-o-check-circle` |
 | `Blog` | `Blog` | `Blog` | `Blog` | `Konten` | `heroicon-o-newspaper` |
-| `BlogImage` | `Gambar Blog` | `Gambar Blog` | `Gambar Blog` | `Konten` | `heroicon-o-photo` |
 | `Category` | `Kategori Blog` | `Kategori Blog` | `Kategori Blog` | `Master Data` | `heroicon-o-tag` |
 | `Branch` | `Branch` | `Branch` | `Branch` | `Organisasi` | `heroicon-o-building-office-2` |
 | `BranchStructure` | `Struktur Branch` | `Struktur Branch` | `Struktur Branch` | `Organisasi` | `heroicon-o-user-group` |
@@ -384,7 +382,7 @@ Mapping directory upload:
 | `RecruitmentResource` | `ektm` | `public` | `recruitment/ektm` |
 | `RecruitmentResource` | `cv` | `public` | `recruitment/cv` |
 | `BlogResource` | `thumbnail` | `public` | `blog/thumbnail` |
-| `BlogImageResource` | `image` | `public` | `blog/image` |
+| `BlogResource` relation manager `Gambar Blog` | `image` | `public` | `blog/image` |
 | `BranchResource` | `thumbnail` | `public` | `branch` |
 | `BranchStructureResource` | `image` | `public` | `branch_structure` |
 | `DivisionResource` | `logo` | `public` | `division/logo` |
@@ -545,7 +543,8 @@ Catatan:
 
 - `thumbnail` memakai `FileUpload`.
 - `description` memakai textarea.
-- `sosial_media` memakai repeater atau key-value field karena bertipe JSON.
+- `sosial_media` memakai field fixed per platform dengan state path JSON seperti `sosial_media.instagram`, `sosial_media.website`, `sosial_media.youtube`, `sosial_media.linkedin`, `sosial_media.tiktok`, `sosial_media.facebook`, dan `sosial_media.wa`.
+- Link kosong tidak perlu tampil di FE.
 - `is_dpp` dan `active` memakai toggle.
 
 ### 14.10 Division
@@ -623,7 +622,8 @@ Catatan:
 - `thumbnail` memakai `FileUpload` atau URL/path gambar sesuai kebutuhan tampilan profil organisasi.
 - `mision` tetap mengikuti nama kolom ERD.
 - `mision` memakai repeater list dengan item `value`, sehingga data tersimpan sebagai array daftar misi.
-- `sosial_media` memakai repeater list dengan item `value`, sehingga data tersimpan sebagai array kontak atau URL.
+- `sosial_media` memakai field fixed per platform dengan state path JSON seperti `sosial_media.instagram`, `sosial_media.website`, `sosial_media.youtube`, `sosial_media.linkedin`, `sosial_media.tiktok`, `sosial_media.facebook`, `sosial_media.wa`, dan `sosial_media.email`.
+- Link kosong tidak perlu tampil di FE.
 - `description` dan `purpose` memakai textarea.
 
 ### 14.14 Milestone
@@ -972,8 +972,7 @@ Relation manager yang disarankan:
 
 Catatan:
 
-- Relation manager tidak wajib pada tahap awal.
-- Jika relation manager belum dibuat, resource mandiri tetap harus cukup untuk CRUD data.
+- Relation manager `Blog -> Gambar Blog` sudah dipakai sebagai pengganti resource mandiri `BlogImageResource`.
 - Relation manager `Branch -> BranchStructure` memakai form section, infolist section, audit section, soft delete action/filter, dan tidak menginput manual `created_by`, `updated_by`, atau `deleted_by`.
 
 ## 17.1 Resource Organisasi Single Record
