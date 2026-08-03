@@ -3,7 +3,7 @@
 <section class="space-y-8">
     <x-common.section-header 
         badge="Tugas Utama"
-        title="Job Description & Tanggung Jawab" 
+        title="Tugas Utama & Tanggung Jawab" 
         subtitle="Daftar tugas inti dan ruang lingkup program kerja divisi" 
         align="left" />
 
@@ -21,6 +21,6 @@
             @endforeach
         </div>
     @else
-        <x-common.empty-state title="Job Description Belum Tersedia" message="Detail daftar tugas divisi ini akan segera dilengkapi." />
+        <x-common.empty-state title="Tugas Utama Belum Tersedia" message="Detail daftar tugas divisi ini akan segera dilengkapi." />
     @endif
 </section>

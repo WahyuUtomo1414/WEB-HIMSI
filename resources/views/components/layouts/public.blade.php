@@ -20,6 +20,8 @@
 </head>
 <body class="bg-[#f9f9fc] text-[#1a1c1e] antialiased flex flex-col min-h-screen">
 
+    <x-common.splash-screen />
+
     <x-layout.navbar />
 
     <main class="flex-grow">
@@ -43,13 +45,19 @@
 
     <!-- Global Floating Animated WhatsApp Button (Bottom Right) -->
     @php
-        $globalSocialMedia = $globalOrganization?->sosial_media ?? [];
-        $floatingWhatsappUrl = $globalSocialMedia['wa'] ?? null;
+        $waUrl = 'https://wa.me/6281234567890';
+        if (isset($globalOrganization?->sosial_media) && is_array($globalOrganization->sosial_media)) {
+            foreach ($globalOrganization->sosial_media as $item) {
+                if (is_array($item) && isset($item['platform'], $item['url']) && in_array(strtolower($item['platform']), ['wa', 'whatsapp']) && filled($item['url'])) {
+                    $waUrl = $item['url'];
+                    break;
+                }
+            }
+        }
     @endphp
 
-    @if (filled($floatingWhatsappUrl))
     <div class="fixed bottom-6 right-6 z-[9999]">
-        <a href="{{ $floatingWhatsappUrl }}" target="_blank" rel="noopener" 
+        <a href="{{ $waUrl }}" target="_blank" rel="noopener" 
            title="Hubungi Kami via WhatsApp"
            class="relative h-16 w-16 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center shadow-[0_4px_24px_rgba(37,211,102,0.5)] hover:scale-110 transition-all duration-300 group">
             <!-- Pulsing outer ring animation -->
@@ -61,7 +69,6 @@
             </svg>
         </a>
     </div>
-    @endif
 
 </body>
 </html>
