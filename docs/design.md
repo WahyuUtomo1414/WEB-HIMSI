@@ -103,6 +103,7 @@ Token warna:
 | Primary Container | `#001b79` | tombol utama, highlight utama |
 | Secondary | `#0453cd` | link, aksi sekunder, indikator |
 | Secondary Container | `#356ee7` | badge dan aksen interaktif |
+| Amber Accent | `#f59e0b` | aksen emas hero, tombol hero CTA, badge highlight |
 | Surface | `#f9f9fc` | background halaman |
 | Surface Tint | `#f0f4ff` | section lembut dan tag |
 | Surface Container | `#ffffff` | card utama |
@@ -121,6 +122,7 @@ Contoh CSS variable:
   --color-primary-container: #001b79;
   --color-secondary: #0453cd;
   --color-secondary-container: #356ee7;
+  --color-amber-accent: #f59e0b;
   --color-surface: #f9f9fc;
   --color-surface-tint: #f0f4ff;
   --color-surface-container: #ffffff;
@@ -137,6 +139,7 @@ Jika memakai Tailwind langsung:
 - primary dark: `#000c46`,
 - primary: `#001b79`,
 - secondary: `#0453cd`,
+- amber accent: `#f59e0b` (`bg-amber-500` / `text-amber-400`),
 - soft background: `#f0f4ff`,
 - page background: `#f9f9fc`,
 - text utama: `#1a1c1e`.
