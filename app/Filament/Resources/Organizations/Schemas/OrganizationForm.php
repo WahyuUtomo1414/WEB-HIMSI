@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Organizations\Schemas;
 
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -39,30 +38,18 @@ class OrganizationForm
                     TextInput::make('vision')->label('Visi')->maxLength(255)->required()->columnSpanFull(),
                     Textarea::make('purpose')->label('Tujuan')->required()->columnSpanFull(),
                     TextInput::make('address')->label('Alamat')->maxLength(255)->required()->columnSpanFull(),
-                    Repeater::make('sosial_media')
-                        ->label('Sosial Media')
+                    Section::make('Sosial Media')
                         ->schema([
-                            Select::make('platform')
-                                ->label('Platform')
-                                ->options([
-                                    'instagram' => 'Instagram',
-                                    'email' => 'Email',
-                                    'linkedin' => 'LinkedIn',
-                                    'tiktok' => 'TikTok',
-                                    'youtube' => 'YouTube',
-                                    'facebook' => 'Facebook',
-                                    'wa' => 'WhatsApp',
-                                ])
-                                ->required(),
-                            TextInput::make('url')
-                                ->label('Link / Username / Nomor')
-                                ->required()
-                                ->maxLength(255),
+                            TextInput::make('sosial_media.instagram')->label('Instagram')->url()->maxLength(255),
+                            TextInput::make('sosial_media.website')->label('Website')->url()->maxLength(255),
+                            TextInput::make('sosial_media.youtube')->label('YouTube')->url()->maxLength(255),
+                            TextInput::make('sosial_media.linkedin')->label('LinkedIn')->url()->maxLength(255),
+                            TextInput::make('sosial_media.tiktok')->label('TikTok')->url()->maxLength(255),
+                            TextInput::make('sosial_media.facebook')->label('Facebook')->url()->maxLength(255),
+                            TextInput::make('sosial_media.wa')->label('WhatsApp')->maxLength(255),
+                            TextInput::make('sosial_media.email')->label('Email Sosial')->email()->maxLength(255),
                         ])
                         ->columns(2)
-                        ->addActionLabel('Tambah Sosial Media')
-                        ->defaultItems(0)
-                        ->reorderable()
                         ->columnSpanFull(),
                     TextInput::make('email')->label('Email')->email()->maxLength(128)->required(),
                     TextInput::make('no_tlpn')->label('Nomor Telepon')->maxLength(18)->required(),

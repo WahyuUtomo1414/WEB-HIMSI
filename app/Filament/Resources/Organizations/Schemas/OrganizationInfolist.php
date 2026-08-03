@@ -36,14 +36,18 @@ class OrganizationInfolist
                             ->columnSpanFull(),
                         TextEntry::make('purpose')->label('Tujuan')->columnSpanFull(),
                         TextEntry::make('address')->label('Alamat')->columnSpanFull(),
-                        RepeatableEntry::make('sosial_media')
-                            ->label('Sosial Media')
+                        Section::make('Sosial Media')
                             ->schema([
-                                TextEntry::make('value')
-                                    ->label('')
-                                    ->bulleted(),
+                                TextEntry::make('sosial_media.instagram')->label('Instagram')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.website')->label('Website')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.youtube')->label('YouTube')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.linkedin')->label('LinkedIn')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.tiktok')->label('TikTok')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.facebook')->label('Facebook')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.wa')->label('WhatsApp')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.email')->label('Email Sosial')->url(fn ($state) => filled($state) ? 'mailto:'.$state : null)->placeholder('-'),
                             ])
-                            ->contained(false)
+                            ->columns(2)
                             ->columnSpanFull(),
                         IconEntry::make('active')->label('Aktif')->boolean(),
                     ])

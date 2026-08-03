@@ -23,7 +23,18 @@ class BranchInfolist
                         TextEntry::make('sektor')->label('Sektor'),
                         IconEntry::make('is_dpp')->label('DPP')->boolean(),
                         TextEntry::make('description')->label('Deskripsi')->columnSpanFull(),
-                        TextEntry::make('sosial_media')->label('Sosial Media')->formatStateUsing(fn ($state): string => json_encode($state, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))->columnSpanFull(),
+                        Section::make('Sosial Media')
+                            ->schema([
+                                TextEntry::make('sosial_media.instagram')->label('Instagram')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.website')->label('Website')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.youtube')->label('YouTube')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.linkedin')->label('LinkedIn')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.tiktok')->label('TikTok')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.facebook')->label('Facebook')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                                TextEntry::make('sosial_media.wa')->label('WhatsApp')->url(fn ($state) => $state)->openUrlInNewTab()->placeholder('-'),
+                            ])
+                            ->columns(2)
+                            ->columnSpanFull(),
                         IconEntry::make('active')->label('Aktif')->boolean(),
                     ])
                     ->columns(2)

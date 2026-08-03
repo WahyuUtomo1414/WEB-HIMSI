@@ -59,16 +59,16 @@ class ContactController extends Controller
     private function mapSocialMedia(array $socialMedia): array
     {
         return collect($socialMedia)
-            ->map(function ($item): array {
+            ->map(function ($item, string|int $key): array {
                 if (is_array($item)) {
                     return [
-                        'platform' => $item['platform'] ?? 'Media Sosial',
+                        'platform' => $item['platform'] ?? (is_string($key) ? $key : 'Media Sosial'),
                         'url' => $item['url'] ?? $item['value'] ?? '',
                     ];
                 }
 
                 return [
-                    'platform' => 'Media Sosial',
+                    'platform' => is_string($key) ? $key : 'Media Sosial',
                     'url' => (string) $item,
                 ];
             })
