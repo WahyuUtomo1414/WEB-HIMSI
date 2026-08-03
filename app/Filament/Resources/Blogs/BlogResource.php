@@ -6,6 +6,7 @@ use App\Filament\Resources\Blogs\Pages\CreateBlog;
 use App\Filament\Resources\Blogs\Pages\EditBlog;
 use App\Filament\Resources\Blogs\Pages\ListBlogs;
 use App\Filament\Resources\Blogs\Pages\ViewBlog;
+use App\Filament\Resources\Blogs\RelationManagers\ImagesRelationManager;
 use App\Filament\Resources\Blogs\Schemas\BlogForm;
 use App\Filament\Resources\Blogs\Schemas\BlogInfolist;
 use App\Filament\Resources\Blogs\Tables\BlogsTable;
@@ -60,7 +61,7 @@ class BlogResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ImagesRelationManager::class,
         ];
     }
 
