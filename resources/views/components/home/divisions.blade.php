@@ -2,7 +2,7 @@
 
 @props(['divisions'])
 
-<section class="w-full bg-[#eef4ff] py-16 sm:py-20 lg:py-28 border-y border-[#c5c5d4]/40">
+<section class="w-full bg-[#eef4ff] py-10 sm:py-14 lg:py-16 border-y border-[#c5c5d4]/40">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         @if (count($divisions) > 0)
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">

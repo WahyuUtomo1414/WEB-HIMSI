@@ -3,7 +3,7 @@
     {{-- 1. Hero Section --}}
     <x-home.hero :hero="$hero" />
 
-    <div class="space-y-28 md:space-y-36 lg:space-y-44 py-20 md:py-28 lg:py-36">
+    <div class="space-y-8 sm:space-y-12 lg:space-y-16 py-8 sm:py-12 lg:py-14">
 
         {{-- 2. Count Section --}}
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

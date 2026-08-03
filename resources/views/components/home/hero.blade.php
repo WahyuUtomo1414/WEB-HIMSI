@@ -1,6 +1,6 @@
 @props(['hero'])
 
-<section class="relative min-h-[92vh] sm:min-h-screen flex items-center overflow-hidden isolate pt-24 pb-16"
+<section class="relative min-h-screen flex items-center overflow-hidden isolate pt-20 pb-12"
          x-data="{
             phrases: ['Sistem Informasi'],
             currentPhraseIndex: 0,
@@ -31,7 +31,7 @@
          x-init="type()">
     <!-- Background Video (Full visibility & sharp contrast) -->
     <div class="absolute inset-0 -z-20">
-        <video class="h-full w-full object-cover opacity-90 scale-105" autoplay muted loop playsinline poster="/images/placeholder.svg">
+        <video class="h-full w-full object-cover opacity-90 scale-105" autoplay muted loop playsinline>
             <source src="{{ asset('video/web_himsi.mp4') }}" type="video/mp4">
         </video>
     </div>
