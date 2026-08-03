@@ -429,6 +429,7 @@ Query index:
 ```php
 $search = request('search');
 $sector = request('sektor');
+$type = request('type');
 
 $branches = Branch::query()
     ->where('active', true)
@@ -441,8 +442,10 @@ $branches = Branch::query()
         });
     })
     ->when($sector, fn ($query) => $query->where('sektor', $sector))
+    ->when($type === 'dpp', fn ($query) => $query->where('is_dpp', true))
+    ->when($type === 'dpc', fn ($query) => $query->where('is_dpp', false))
     ->latest()
-    ->paginate(12);
+    ->get();
 ```
 
 Data card:
@@ -515,6 +518,7 @@ $blogs = Blog::query()
     ->with(['category', 'branch'])
     ->where('active', true)
     ->whereHas('category', fn ($query) => $query->where('active', true))
+    ->whereHas('branch', fn ($query) => $query->where('active', true))
     ->when($search, function ($query) use ($search) {
         $query->where(function ($query) use ($search) {
             $query
@@ -525,7 +529,8 @@ $blogs = Blog::query()
     })
     ->when($categoryId, fn ($query) => $query->where('category_id', $categoryId))
     ->latest()
-    ->paginate(12);
+    ->paginate(6)
+    ->withQueryString();
 ```
 
 Data card:

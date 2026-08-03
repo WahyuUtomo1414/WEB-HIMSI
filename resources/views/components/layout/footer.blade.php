@@ -1,4 +1,9 @@
 <footer class="bg-[#000c46] text-white pt-16 pb-12 border-t border-[#001b79] relative overflow-hidden isolate">
+    @php
+        $footerOrganization = $globalOrganization ?? null;
+        $footerDivisions = $globalDivisions ?? collect();
+    @endphp
+
     <!-- Subtle Background Glows -->
     <div class="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-[#0453cd]/15 blur-3xl -z-10 pointer-events-none"></div>
     <div class="absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-[#356ee7]/15 blur-3xl -z-10 pointer-events-none"></div>
@@ -13,18 +18,15 @@
                         <img src="{{ asset('images/himsi.png') }}" alt="Logo HIMSI UBSI" class="h-full w-full object-contain">
                     </div>
                     <div>
-                        <span class="text-xl font-extrabold text-white tracking-tight block leading-tight">HIMSI UBSI</span>
-                        <span class="text-[10px] font-semibold text-white tracking-tight block opacity-90">Himpunan Mahasiswa Sistem Informasi</span>
+                        <span class="text-xl font-extrabold text-white tracking-tight block leading-tight">{{ $footerOrganization?->kode_org ?? 'HIMSI UBSI' }}</span>
+                        <span class="text-[10px] font-semibold text-white tracking-tight block opacity-90">{{ $footerOrganization?->name ?? 'Himpunan Mahasiswa Sistem Informasi' }}</span>
                     </div>
                 </div>
                 <p class="text-sm text-slate-300 leading-relaxed max-w-sm">
                     Himpunan Mahasiswa Sistem Informasi Universitas Bina Sarana Informatika. Wadah pengembangan akademik, inovasi teknologi, dan pengabdian mahasiswa.
                 </p>
-                @php
-                    $orgData = $organization ?? \App\Models\Organization::query()->where('active', true)->latest()->first();
-                @endphp
                 <div class="pt-1">
-                    <x-common.social-icons :socials="$orgData?->sosial_media" variant="footer" size="md" />
+                    <x-common.social-icons :socials="$footerOrganization?->sosial_media" variant="footer" size="md" />
                 </div>
             </div>
 
@@ -68,21 +70,17 @@
                     Divisi
                 </h4>
                 <ul class="space-y-2.5 text-sm text-slate-300">
-                    <li>
-                        <span class="hover:text-white transition cursor-default">Akademik & Riset</span>
-                    </li>
-                    <li>
-                        <span class="hover:text-white transition cursor-default">Humas & Media</span>
-                    </li>
-                    <li>
-                        <span class="hover:text-white transition cursor-default">PSDM & Kaderisasi</span>
-                    </li>
-                    <li>
-                        <span class="hover:text-white transition cursor-default">Kewirausahaan</span>
-                    </li>
-                    <li>
-                        <span class="hover:text-white transition cursor-default">Kominfo</span>
-                    </li>
+                    @forelse ($footerDivisions as $division)
+                        <li>
+                            <a href="{{ route('division.show', $division) }}" class="hover:text-[#356ee7] hover:translate-x-1 inline-flex items-center gap-1.5 transition-all">
+                                <span>&rsaquo;</span> {{ $division->name }}
+                            </a>
+                        </li>
+                    @empty
+                        <li>
+                            <span class="text-slate-400">Data divisi belum tersedia</span>
+                        </li>
+                    @endforelse
                 </ul>
             </div>
 
@@ -101,7 +99,7 @@
                         </div>
                         <div class="space-y-1">
                             <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Sekretariat</span>
-                            <span class="text-sm text-white font-semibold block leading-tight">UBSI Kampus Pemuda / Utama</span>
+                            <span class="text-sm text-white font-semibold block leading-tight">{{ $footerOrganization?->address ?? 'Alamat belum tersedia' }}</span>
                         </div>
                     </div>
 
@@ -113,7 +111,7 @@
                         </div>
                         <div class="space-y-1">
                             <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Email Resmi</span>
-                            <a href="mailto:info@himsi.org" class="text-sm text-[#356ee7] font-bold hover:underline block leading-tight">info@himsi.org</a>
+                            <a href="mailto:{{ $footerOrganization?->email ?? 'info@himsi.org' }}" class="text-sm text-[#356ee7] font-bold hover:underline block leading-tight">{{ $footerOrganization?->email ?? 'info@himsi.org' }}</a>
                         </div>
                     </div>
                 </div>
@@ -123,8 +121,8 @@
 
         {{-- Bottom Copyright --}}
         <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-            <p>&copy; {{ date('Y') }} HIMSI UBSI. All rights reserved.</p>
-            <p class="text-slate-300 font-medium">Himpunan Mahasiswa Sistem Informasi - Universitas Bina Sarana Informatika</p>
+            <p>&copy; {{ date('Y') }} {{ $footerOrganization?->kode_org ?? 'HIMSI UBSI' }}. All rights reserved.</p>
+            <p class="text-slate-300 font-medium">{{ $footerOrganization?->name ?? 'Himpunan Mahasiswa Sistem Informasi - Universitas Bina Sarana Informatika' }}</p>
         </div>
     </div>
 </footer>

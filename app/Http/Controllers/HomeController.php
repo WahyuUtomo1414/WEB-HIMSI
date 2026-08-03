@@ -46,6 +46,8 @@ class HomeController extends Controller
         $latestBlogs = Blog::query()
             ->with(['category', 'branch'])
             ->where('active', true)
+            ->whereHas('category', fn ($q) => $q->where('active', true))
+            ->whereHas('branch', fn ($q) => $q->where('active', true))
             ->latest()
             ->limit(3)
             ->get();
@@ -98,7 +100,7 @@ class HomeController extends Controller
                 'quotes' => $b->quotes,
                 'body' => $b->body,
                 'category_name' => $b->category?->name ?? 'Umum',
-                'branch_name' => $b->branch?->name ?? 'DPP Pusat',
+                'branch_name' => $b->branch?->name ?? '-',
                 'thumbnail_url' => public_image_url($b->thumbnail),
                 'formatted_date' => $b->created_at?->format('d M Y') ?? date('d M Y'),
             ])->toArray(),

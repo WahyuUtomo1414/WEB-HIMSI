@@ -2,18 +2,23 @@
         x-init="scrolled = window.scrollY > 20; window.addEventListener('scroll', () => scrolled = window.scrollY > 20)"
         :class="(!scrolled && !mobileMenuOpen) ? 'bg-transparent border-transparent shadow-none' : 'bg-white border-b border-slate-100 shadow-sm'"
         class="fixed top-0 inset-x-0 w-full z-50 transition-all duration-300">
+    @php
+        $navbarOrganization = $globalOrganization ?? null;
+        $navbarLogo = asset('images/himsi.png');
+    @endphp
+
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
 
         <!-- Logo -->
         <div class="flex lg:flex-1">
             <a href="{{ route('home') }}" class="-m-1.5 p-1.5 flex items-center gap-3 group">
-                <img src="{{ asset('images/himsi.png') }}" alt="Logo HIMSI UBSI"
+                <img src="{{ $navbarLogo }}" alt="Logo {{ $navbarOrganization?->kode_org ?? 'HIMSI UBSI' }}"
                     class="w-10 h-10 rounded-lg object-contain bg-white shadow-md p-1">
                 <div>
                     <span :class="(!scrolled) ? 'text-white' : 'text-[#000c46]'"
-                        class="block font-bold text-lg leading-tight tracking-tight transition-colors">HIMSI UBSI</span>
+                        class="block font-bold text-lg leading-tight tracking-tight transition-colors">{{ $navbarOrganization?->kode_org ?? 'HIMSI UBSI' }}</span>
                     <span :class="(!scrolled) ? 'text-slate-200' : 'text-slate-500'"
-                        class="block text-[10px] sm:text-xs font-medium tracking-tight transition-colors">Himpunan Mahasiswa Sistem Informasi</span>
+                        class="block text-[10px] sm:text-xs font-medium tracking-tight transition-colors">{{ $navbarOrganization?->name ?? 'Himpunan Mahasiswa Sistem Informasi' }}</span>
                 </div>
             </a>
         </div>
@@ -80,11 +85,11 @@
 
             <div class="flex items-center justify-between">
                 <a href="{{ route('home') }}" class="-m-1.5 p-1.5 flex items-center gap-3">
-                    <img src="{{ asset('images/himsi.png') }}" alt="Logo HIMSI UBSI"
+                    <img src="{{ $navbarLogo }}" alt="Logo {{ $navbarOrganization?->kode_org ?? 'HIMSI UBSI' }}"
                         class="w-8 h-8 rounded object-contain bg-white p-0.5 shadow-sm">
                     <div>
-                        <span class="font-bold text-slate-900 block leading-tight">HIMSI UBSI</span>
-                        <span class="text-[10px] font-medium text-slate-500 block">Himpunan Mahasiswa Sistem Informasi</span>
+                        <span class="font-bold text-slate-900 block leading-tight">{{ $navbarOrganization?->kode_org ?? 'HIMSI UBSI' }}</span>
+                        <span class="text-[10px] font-medium text-slate-500 block">{{ $navbarOrganization?->name ?? 'Himpunan Mahasiswa Sistem Informasi' }}</span>
                     </div>
                 </a>
                 <button type="button" @click="mobileMenuOpen = false"

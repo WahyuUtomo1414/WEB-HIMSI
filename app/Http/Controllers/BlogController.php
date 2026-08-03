@@ -17,7 +17,8 @@ class BlogController extends Controller
         $query = Blog::query()
             ->with(['category', 'branch'])
             ->where('active', true)
-            ->whereHas('category', fn ($q) => $q->where('active', true));
+            ->whereHas('category', fn ($q) => $q->where('active', true))
+            ->whereHas('branch', fn ($q) => $q->where('active', true));
 
         if (! empty($search)) {
             $query->where(function ($q) use ($search) {
@@ -40,7 +41,7 @@ class BlogController extends Controller
             'quotes' => $b->quotes,
             'body' => $b->body,
             'category_name' => $b->category?->name ?? 'Umum',
-            'branch_name' => $b->branch?->name ?? 'DPP Pusat',
+            'branch_name' => $b->branch?->name ?? '-',
             'thumbnail_url' => public_image_url($b->thumbnail),
             'formatted_date' => $b->created_at?->format('d M Y') ?? date('d M Y'),
         ])->toArray();
@@ -68,12 +69,16 @@ class BlogController extends Controller
         $blog = Blog::query()
             ->with(['category', 'branch', 'images' => fn ($q) => $q->where('active', true)])
             ->where('active', true)
+            ->whereHas('category', fn ($q) => $q->where('active', true))
+            ->whereHas('branch', fn ($q) => $q->where('active', true))
             ->where('slug', $slug)
             ->firstOrFail();
 
         $relatedBlogs = Blog::query()
             ->with(['category', 'branch'])
             ->where('active', true)
+            ->whereHas('category', fn ($q) => $q->where('active', true))
+            ->whereHas('branch', fn ($q) => $q->where('active', true))
             ->where('id', '!=', $blog->id)
             ->where('category_id', $blog->category_id)
             ->latest()
@@ -88,7 +93,7 @@ class BlogController extends Controller
                 'quotes' => $blog->quotes,
                 'body' => $blog->body,
                 'category_name' => $blog->category?->name ?? 'Umum',
-                'branch_name' => $blog->branch?->name ?? 'DPP Pusat',
+                'branch_name' => $blog->branch?->name ?? '-',
                 'thumbnail_url' => public_image_url($blog->thumbnail),
                 'formatted_date' => $blog->created_at?->format('d M Y') ?? date('d M Y'),
                 'images' => $blog->images->map(fn ($img) => [
@@ -103,7 +108,7 @@ class BlogController extends Controller
                 'slug' => $b->slug,
                 'quotes' => $b->quotes,
                 'category_name' => $b->category?->name ?? 'Umum',
-                'branch_name' => $b->branch?->name ?? 'DPP Pusat',
+                'branch_name' => $b->branch?->name ?? '-',
                 'thumbnail_url' => public_image_url($b->thumbnail),
                 'formatted_date' => $b->created_at?->format('d M Y') ?? date('d M Y'),
             ])->toArray(),

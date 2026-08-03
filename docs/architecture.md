@@ -184,6 +184,7 @@ Halaman publik yang akan dibuat pada tahap awal:
 | Tentang Kami | `/tentang-kami` | `AboutController` | `index` | profil organisasi, visi, misi, tujuan, milestone, sambutan, divisi |
 | Cabang | `/cabang` | `BranchController` | `index` | list cabang aktif, sektor, DPP/DPC |
 | Detail Cabang | `/cabang/{branch}` | `BranchController` | `show` | detail cabang, struktur cabang, blog cabang |
+| Detail Divisi | `/divisi/{division}` | `DivisionController` | `show` | detail divisi aktif dan job description |
 | Blog | `/blog` | `BlogController` | `index` | list blog aktif, kategori, pagination |
 | Detail Blog | `/blog/{blog:slug}` | `BlogController` | `show` | detail blog, gambar tambahan, blog terkait |
 | Kontak | `/kontak` | `ContactController` | `index` | alamat, email, nomor telepon, sosial media, form pesan |
@@ -193,7 +194,7 @@ Catatan:
 
 - Detail blog sebaiknya memakai route model binding slug karena tabel `blog` sudah punya kolom `slug`.
 - Detail cabang boleh memakai id terlebih dahulu. Jika nanti ingin URL lebih rapi, tambahkan kolom `slug` pada `branch`.
-- Divisi tidak dibuat sebagai halaman sendiri pada tahap awal. Data divisi tampil sebagai section di Home, Tentang Kami, atau detail Cabang.
+- Divisi tampil sebagai section di Home dan Tentang Kami, serta memiliki halaman detail `/divisi/{division}` berbasis model `Division`.
 - FAQ tidak dibuat sebagai halaman sendiri pada tahap awal. Data FAQ tampil sebagai section di Home.
 - Recruitment belum dibuat pada tahap awal, baik list maupun form.
 - Kontak dibuat sebagai halaman publik. Data informasi kontak dibaca dari `organization`, sedangkan form pesan disimpan ke tabel `contact`.
@@ -521,12 +522,13 @@ Catatan:
 
 ### 13.6 Section Divisi dan FAQ
 
-Divisi dan FAQ tidak punya route sendiri pada tahap awal.
+FAQ tidak punya route sendiri pada tahap awal. Divisi memiliki route detail, tetapi index/list divisi tetap tidak dibuat sebagai halaman publik mandiri.
 
 Divisi:
 
 - tampil sebagai section di Home,
 - tampil lebih lengkap di Tentang Kami,
+- detail divisi memakai `DivisionController@show`,
 - dipakai sebagai label relasi pada struktur Cabang.
 
 FAQ:

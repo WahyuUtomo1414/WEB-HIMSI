@@ -28,7 +28,7 @@ class ContactController extends Controller
                 'email' => $organization?->email ?? 'email belum tersedia',
                 'no_tlpn' => $organization?->no_tlpn ?? 'Nomor telepon belum tersedia',
                 'sosial_media' => $this->mapSocialMedia($organization?->sosial_media ?? []),
-                'logo_url' => '/images/placeholder.svg',
+                'logo_url' => public_image_url($organization?->logo),
             ],
         ];
 

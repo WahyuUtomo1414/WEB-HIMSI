@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Division;
+use App\Models\Organization;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,28 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('*', function ($view): void {
+            static $organization = null;
+            static $divisions = null;
+            static $loaded = false;
+
+            if (! $loaded) {
+                $organization = Organization::query()
+                    ->where('active', true)
+                    ->latest()
+                    ->first();
+
+                $divisions = Division::query()
+                    ->where('active', true)
+                    ->orderBy('name')
+                    ->limit(6)
+                    ->get();
+
+                $loaded = true;
+            }
+
+            $view->with('globalOrganization', $organization);
+            $view->with('globalDivisions', $divisions);
+        });
     }
 }

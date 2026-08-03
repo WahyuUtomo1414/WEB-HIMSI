@@ -63,7 +63,7 @@ class BranchController extends Controller
                 'is_dpp' => (bool) $b->is_dpp,
                 'sosial_media' => is_array($b->sosial_media) ? $b->sosial_media : [],
             ])->toArray(),
-            'sektors' => count($allSektors) > 0 ? $allSektors : ['Pusat', 'Jakarta Timur', 'Depok', 'Bekasi', 'Tangerang'],
+            'sektors' => $allSektors,
             'currentSearch' => $search,
             'currentSektor' => $sektor,
             'currentType' => $type,
@@ -83,6 +83,7 @@ class BranchController extends Controller
         $blogs = Blog::query()
             ->with('category')
             ->where('active', true)
+            ->whereHas('category', fn ($q) => $q->where('active', true))
             ->where('branch_id', $branch->id)
             ->latest()
             ->limit(3)

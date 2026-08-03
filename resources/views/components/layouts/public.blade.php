@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? 'HIMSI UBSI - Himpunan Mahasiswa Sistem Informasi' }}</title>
     <meta name="description" content="Website Resmi Himpunan Mahasiswa Sistem Informasi (HIMSI) Universitas Bina Sarana Informatika">
+    <link rel="icon" type="image/png" href="{{ asset('images/himsi.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/himsi.png') }}">
     
     <style>
         [x-cloak] { display: none !important; }
@@ -40,8 +42,14 @@
     <x-layout.footer />
 
     <!-- Global Floating Animated WhatsApp Button (Bottom Right) -->
+    @php
+        $globalSocialMedia = $globalOrganization?->sosial_media ?? [];
+        $floatingWhatsappUrl = $globalSocialMedia['wa'] ?? null;
+    @endphp
+
+    @if (filled($floatingWhatsappUrl))
     <div class="fixed bottom-6 right-6 z-[9999]">
-        <a href="https://wa.me/628123456789" target="_blank" rel="noopener" 
+        <a href="{{ $floatingWhatsappUrl }}" target="_blank" rel="noopener" 
            title="Hubungi Kami via WhatsApp"
            class="relative h-16 w-16 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center shadow-[0_4px_24px_rgba(37,211,102,0.5)] hover:scale-110 transition-all duration-300 group">
             <!-- Pulsing outer ring animation -->
@@ -53,6 +61,7 @@
             </svg>
         </a>
     </div>
+    @endif
 
 </body>
 </html>

@@ -6,11 +6,8 @@
             <h4 class="text-lg font-bold text-[#000c46]">Media Sosial Resmi Organisasi</h4>
             <p class="text-xs text-[#454652]">Ikuti kanal resmi HIMSI UBSI untuk kabar kegiatan dan informasi terkini</p>
         </div>
-        @php
-            $orgData = \App\Models\Organization::query()->where('active', true)->latest()->first();
-        @endphp
         <div class="flex items-center gap-2">
-            <x-common.social-icons :socials="$orgData?->sosial_media" size="md" />
+            <x-common.social-icons :socials="$globalOrganization?->sosial_media" size="md" />
         </div>
     </div>
 </div>
