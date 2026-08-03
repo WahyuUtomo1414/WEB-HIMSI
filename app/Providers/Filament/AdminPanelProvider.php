@@ -30,8 +30,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandName('HIMSI UBSI')
-            ->brandLogo(asset('images/himsi.png'))
-            ->brandLogoHeight('2.25rem')
+            // ->brandLogo(asset('images/himsi.png'))
+            // ->brandLogoHeight('2.25rem')
             ->favicon(asset('images/himsi.png'))
             ->darkMode(false)
             ->colors([
