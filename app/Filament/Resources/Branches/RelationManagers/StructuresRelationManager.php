@@ -57,6 +57,12 @@ class StructuresRelationManager extends RelationManager
                             ->relationship('division', 'name')
                             ->searchable()
                             ->preload(),
+                        TextInput::make('sort')
+                            ->label('Urutan')
+                            ->numeric()
+                            ->default(0)
+                            ->minValue(0)
+                            ->required(),
                         TextInput::make('position')
                             ->label('Posisi')
                             ->maxLength(128)
@@ -92,6 +98,7 @@ class StructuresRelationManager extends RelationManager
                     ->schema([
                         TextEntry::make('name')->label('Nama Pengurus'),
                         TextEntry::make('division.name')->label('Divisi')->placeholder('-'),
+                        TextEntry::make('sort')->label('Urutan'),
                         TextEntry::make('position')->label('Posisi'),
                         ImageEntry::make('image')->label('Foto')->disk('public'),
                         TextEntry::make('no_wa')->label('Nomor WhatsApp'),
@@ -120,6 +127,7 @@ class StructuresRelationManager extends RelationManager
             ->columns([
                 TextColumn::make('name')->label('Nama Pengurus')->searchable()->sortable(),
                 TextColumn::make('division.name')->label('Divisi')->placeholder('-')->searchable()->sortable(),
+                TextColumn::make('sort')->label('Urutan')->numeric()->sortable(),
                 TextColumn::make('position')->label('Posisi')->searchable(),
                 ImageColumn::make('image')->label('Foto')->disk('public'),
                 TextColumn::make('no_wa')->label('Nomor WhatsApp')->searchable(),
@@ -147,6 +155,7 @@ class StructuresRelationManager extends RelationManager
                 TrashedFilter::make()->label('Data Terhapus'),
                 SelectFilter::make('division_id')->label('Divisi')->relationship('division', 'name')->searchable()->preload(),
             ])
+            ->defaultSort('sort')
             ->headerActions([
                 CreateAction::make()->label('Buat'),
             ])

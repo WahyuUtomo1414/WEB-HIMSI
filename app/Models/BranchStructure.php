@@ -16,6 +16,13 @@ class BranchStructure extends Model
 
     protected $guarded = ['id'];
 
+    protected function casts(): array
+    {
+        return [
+            'sort' => 'integer',
+        ];
+    }
+
     public function branch(): BelongsTo
     {
         return $this->belongsTo(Branch::class, 'branch_id');

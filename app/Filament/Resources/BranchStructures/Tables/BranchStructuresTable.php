@@ -27,6 +27,7 @@ class BranchStructuresTable
                 TextColumn::make('name')->label('Nama Pengurus')->searchable()->sortable(),
                 TextColumn::make('branch.name')->label('Branch')->searchable()->sortable(),
                 TextColumn::make('division.name')->label('Divisi')->placeholder('-')->searchable()->sortable(),
+                TextColumn::make('sort')->label('Urutan')->numeric()->sortable(),
                 TextColumn::make('position')->label('Posisi')->searchable(),
                 TextColumn::make('no_wa')->label('Nomor WhatsApp')->searchable(),
                 IconColumn::make('active')->label('Aktif')->boolean()->sortable(),
@@ -54,6 +55,7 @@ class BranchStructuresTable
                 SelectFilter::make('branch_id')->label('Branch')->relationship('branch', 'name')->searchable()->preload(),
                 SelectFilter::make('division_id')->label('Divisi')->relationship('division', 'name')->searchable()->preload(),
             ])
+            ->defaultSort('sort')
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),

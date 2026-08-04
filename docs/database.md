@@ -506,6 +506,7 @@ Kolom:
 | branch_id | bigint unsigned | no | foreign key ke `branch.id` |
 | name | varchar(128) | no | nama pengurus |
 | division_id | bigint unsigned | yes | foreign key ke `division.id`, opsional |
+| sort | integer unsigned | no | urutan tampil struktur pengurus |
 | position | varchar(128) | no | jabatan pengurus |
 | image | varchar(255) | no | path foto pengurus |
 | no_wa | varchar(18) | no | nomor WhatsApp pengurus |
@@ -525,6 +526,7 @@ Schema::create('branch_structure', function (Blueprint $table) {
     $table->foreignId('branch_id')->constrained('branch');
     $table->string('name', 128);
     $table->foreignId('division_id')->nullable()->constrained('division');
+    $table->unsignedInteger('sort')->default(0);
     $table->string('position', 128);
     $table->string('image');
     $table->string('no_wa', 18);
@@ -955,6 +957,13 @@ class BranchStructure extends Model
     protected $table = 'branch_structure';
 
     protected $guarded = ['id'];
+
+    protected function casts(): array
+    {
+        return [
+            'sort' => 'integer',
+        ];
+    }
 
     public function branch(): BelongsTo
     {

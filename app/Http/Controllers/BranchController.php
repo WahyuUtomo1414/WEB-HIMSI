@@ -74,7 +74,10 @@ class BranchController extends Controller
     {
         $branch = Branch::query()
             ->with(['structures' => function ($q) {
-                $q->where('active', true)->with('division');
+                $q->where('active', true)
+                    ->with('division')
+                    ->orderBy('sort')
+                    ->orderBy('id');
             }])
             ->where('active', true)
             ->where('id', $id)
@@ -105,6 +108,7 @@ class BranchController extends Controller
                 'id' => $s->id,
                 'name' => $s->name,
                 'position' => $s->position,
+                'sort' => $s->sort,
                 'no_wa' => $s->no_wa,
                 'division_name' => $s->division?->name ?? 'Pengurus Harian',
                 'image_url' => public_image_url($s->image),

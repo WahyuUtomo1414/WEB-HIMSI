@@ -19,6 +19,7 @@ class BranchStructureInfolist
                         TextEntry::make('branch.name')->label('Branch'),
                         TextEntry::make('name')->label('Nama Pengurus'),
                         TextEntry::make('division.name')->label('Divisi')->placeholder('-'),
+                        TextEntry::make('sort')->label('Urutan'),
                         TextEntry::make('position')->label('Posisi'),
                         ImageEntry::make('image')->label('Foto')->disk('public'),
                         TextEntry::make('no_wa')->label('Nomor WhatsApp'),

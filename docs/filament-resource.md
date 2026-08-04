@@ -572,6 +572,7 @@ Field:
 - `branch_id`
 - `name`
 - `division_id`
+- `sort`
 - `position`
 - `image`
 - `no_wa`
@@ -581,6 +582,7 @@ Catatan:
 
 - `branch_id` memakai select relasi ke `Branch`.
 - `division_id` memakai select relasi ke `Division` dan opsional.
+- `sort` memakai numeric input untuk menentukan urutan tampil pada halaman detail cabang.
 - `image` memakai `FileUpload`.
 
 ### 14.12 Greeting
@@ -759,6 +761,7 @@ Kolom:
 - `name`
 - `branch.name`
 - `division.name`
+- `sort`
 - `position`
 - `no_wa`
 - `active`
@@ -906,6 +909,7 @@ Tampilkan:
 - branch
 - nama pengurus
 - divisi
+- urutan
 - posisi
 - foto
 - nomor WhatsApp

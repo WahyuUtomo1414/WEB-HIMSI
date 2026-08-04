@@ -476,6 +476,7 @@ Data detail:
     'structures' => $branch->structures->map(fn ($structure) => [
         'name' => $structure->name,
         'position' => $structure->position,
+        'sort' => $structure->sort,
         'division' => $structure->division?->name,
         'image_url' => public_image_url($structure->image),
         'whatsapp' => $structure->no_wa,
@@ -483,6 +484,8 @@ Data detail:
 ]
 
 Catatan:
+
+- Struktur cabang diurutkan berdasarkan `sort`, lalu `id`.
 
 - `branch.sosial_media` memakai format key-value fixed, misalnya `instagram`, `website`, `youtube`, `linkedin`, `tiktok`, `facebook`, dan `wa`.
 - FE hanya menampilkan social link yang value-nya terisi.
