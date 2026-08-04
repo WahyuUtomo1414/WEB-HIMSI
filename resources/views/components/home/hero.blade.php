@@ -29,9 +29,18 @@
             }
          }"
          x-init="type()">
-    <!-- Background Video (Full visibility & sharp contrast) -->
-    <div class="absolute inset-0 -z-20">
-        <video class="h-full w-full object-cover opacity-90 scale-105" autoplay muted loop playsinline>
+    <!-- Background Video (Full visibility & sharp contrast with Forced Muted Autoplay) -->
+    <div class="absolute inset-0 -z-20 pointer-events-none">
+        <video x-ref="heroVideo"
+               x-init="$nextTick(() => { if ($refs.heroVideo) { $refs.heroVideo.muted = true; $refs.heroVideo.play().catch(() => {}); } })"
+               class="h-full w-full object-cover opacity-90 scale-105 pointer-events-none" 
+               autoplay 
+               muted 
+               loop 
+               playsinline
+               webkit-playsinline
+               tabindex="-1"
+               controlslist="nodownload nofullscreen noremoteplayback">
             <source src="{{ asset('video/web_himsi.mp4') }}" type="video/mp4">
         </video>
     </div>
