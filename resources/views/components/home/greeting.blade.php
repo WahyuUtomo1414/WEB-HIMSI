@@ -12,8 +12,8 @@
             </div>
             <div class="md:col-span-8 space-y-4">
                 <x-common.section-header title="Sambutan Pengurus" align="left" />
-                <div class="text-base text-[#454652] leading-relaxed italic relative pl-4 border-l-4 border-[#001b79]">
-                    "{{ $greeting['body'] }}"
+                <div class="text-base text-[#454652] leading-relaxed italic relative pl-4 border-l-4 border-[#001b79] prose prose-sm max-w-none">
+                    {!! $greeting['body'] !!}
                 </div>
             </div>
         </div>

@@ -34,8 +34,8 @@ class AboutController extends Controller
 
         return view('pages.about', [
             'hero' => [
-                'title' => 'Tentang HIMSI UBSI',
-                'subtitle' => 'Mengenal Lebih Dekat Himpunan Mahasiswa Sistem Informasi UBSI',
+                'title' => 'Tentang ' . ($organization?->kode_org ?? 'HIMSI UBSI'),
+                'subtitle' => 'Mengenal Lebih Dekat ' . ($organization?->name ?? 'Himpunan Mahasiswa Sistem Informasi UBSI'),
             ],
             'organization' => [
                 'name' => $organization?->name ?? 'HIMSI UBSI',

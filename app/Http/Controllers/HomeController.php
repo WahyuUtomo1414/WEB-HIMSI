@@ -40,7 +40,7 @@ class HomeController extends Controller
         $branches = Branch::query()
             ->where('active', true)
             ->latest()
-            ->limit(6)
+            ->limit(10)
             ->get();
 
         $latestBlogs = Blog::query()

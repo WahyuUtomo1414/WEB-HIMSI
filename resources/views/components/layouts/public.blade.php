@@ -24,14 +24,28 @@
 
     <main class="flex-grow">
         @if (session('success'))
-            <div class="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
-                <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-800 flex items-center justify-between shadow-sm">
+            <div x-data="{ show: true }" 
+                 x-show="show" 
+                 x-init="setTimeout(() => show = false, 5000)"
+                 x-transition:enter="transition ease-out duration-300 transform"
+                 x-transition:enter-start="-translate-y-full opacity-0"
+                 x-transition:enter-end="translate-y-0 opacity-100"
+                 x-transition:leave="transition ease-in duration-300 transform"
+                 x-transition:leave-start="translate-y-0 opacity-100"
+                 x-transition:leave-end="-translate-y-full opacity-0"
+                 class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] w-full max-w-md px-4 sm:px-0">
+                <div class="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-800 flex items-center justify-between shadow-lg">
                     <div class="flex items-center gap-3">
                         <svg class="h-5 w-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
                         <span class="text-sm font-medium">{{ session('success') }}</span>
                     </div>
+                    <button @click="show = false" class="text-emerald-500 hover:text-emerald-700 focus:outline-none ml-4 transition-colors">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
                 </div>
             </div>
         @endif
