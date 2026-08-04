@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ENV_FILE="${1:-deployment/env}"
+ENV_FILE="${1:-deployment/.env}"
 
 if ! command -v gh >/dev/null 2>&1; then
     echo "GitHub CLI (gh) is required."

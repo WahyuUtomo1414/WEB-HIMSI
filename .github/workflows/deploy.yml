@@ -3,7 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - '**'
+      - main
   workflow_dispatch:
 
 concurrency:
@@ -14,7 +14,6 @@ jobs:
   deploy:
     name: Deploy to hosting
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' || github.ref_name == vars.DEPLOY_BRANCH
 
     steps:
       - name: Checkout
