@@ -20,14 +20,6 @@ git pull origin "$DEPLOY_BRANCH"
 
 composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
 
-if [ -f package-lock.json ]; then
-    npm ci
-else
-    npm install
-fi
-
-npm run build
-
 php artisan down || true
 site_is_down=1
 php artisan migrate --force
