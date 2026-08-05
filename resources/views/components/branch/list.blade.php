@@ -46,8 +46,8 @@
                     
                     <div class="space-y-4">
                         <!-- Thumbnail Container (Taller height) -->
-                        <div class="h-64 sm:h-72 lg:h-80 overflow-hidden relative bg-[#f0f4ff]/70 flex items-center justify-center p-4 border-b border-[#c5c5d4]/40">
-                            <x-common.image :src="$branch['thumbnail_url']" :alt="$branch['name']" class="h-full w-full object-contain group-hover:scale-105 transition-all duration-500" />
+                        <div class="h-64 sm:h-72 lg:h-80 overflow-hidden relative bg-[#f0f4ff]/70 flex items-center justify-center border-b border-[#c5c5d4]/40">
+                            <x-common.image :src="$branch['thumbnail_url']" :alt="$branch['name']" class="h-full w-full object-cover group-hover:scale-105 transition-all duration-500" />
                             
                             <div class="absolute top-4 right-4 flex items-center gap-1.5 z-10">
                                 @if ($branch['is_dpp'])

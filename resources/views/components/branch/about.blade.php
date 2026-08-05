@@ -41,9 +41,9 @@
     </div>
 
     <div class="lg:col-span-5">
-        <div class="relative rounded-3xl overflow-hidden border border-[#c5c5d4]/60 bg-[#f0f4ff]/70 shadow-[0_12px_32px_rgba(0,27,121,0.08)] p-3 group">
-            <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-slate-100 relative flex items-center justify-center">
-                <x-common.image :src="$branch['thumbnail_url']" :alt="$branch['name']" class="h-full w-full object-contain group-hover:scale-105 transition-all duration-500" />
+        <div class="relative rounded-3xl overflow-hidden border border-[#c5c5d4]/60 bg-[#f0f4ff]/70 shadow-[0_12px_32px_rgba(0,27,121,0.08)] group">
+            <div class="aspect-[4/3] overflow-hidden bg-slate-100 relative flex items-center justify-center">
+                <x-common.image :src="$branch['thumbnail_url']" :alt="$branch['name']" class="h-full w-full object-cover group-hover:scale-105 transition-all duration-500" />
             </div>
         </div>
     </div>
