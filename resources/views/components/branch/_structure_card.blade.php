@@ -6,7 +6,7 @@
 
 <div class="group rounded-2xl bg-white border border-[#c5c5d4]/60 shadow-[0_4px_16px_rgba(0,27,121,0.04)] hover:shadow-[0_12px_32px_rgba(0,27,121,0.12)] hover:border-[#0453cd]/40 transition-all duration-300 overflow-hidden flex flex-col justify-between h-full">
     <!-- Full-bleed Photo Container -->
-    <div class="h-64 sm:h-72 lg:h-80 w-full overflow-hidden bg-[#f0f4ff]/80 relative border-b border-[#c5c5d4]/40 flex items-center justify-center group-hover:bg-[#f0f4ff] transition-colors">
+    <div class="h-64 sm:h-72 lg:h-80 w-full overflow-hidden bg-[#f0f4ff]/80 relative flex items-center justify-center group-hover:bg-[#f0f4ff] transition-colors">
         @if ($hasPhoto)
             <x-common.image :src="$person['image_url']" :alt="$person['name']" class="h-full w-full object-cover group-hover:scale-105 transition-all duration-500" />
         @else

@@ -52,8 +52,7 @@
 
                     <div class="space-y-4">
                         <!-- Thumbnail Container (Full Bleed) -->
-                        <div
-                            class="h-64 sm:h-72 lg:h-80 w-full overflow-hidden relative bg-[#f0f4ff]/70 border-b border-[#c5c5d4]/40">
+                        <div class="h-64 sm:h-72 lg:h-80 w-full overflow-hidden relative bg-[#f0f4ff]/70">
                             <x-common.image :src="$branch['thumbnail_url']" :alt="$branch['name']"
                                 class="h-full w-full object-cover group-hover:scale-105 transition-all duration-500" />
 

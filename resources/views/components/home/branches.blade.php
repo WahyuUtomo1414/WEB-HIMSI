@@ -82,8 +82,7 @@
                         class="group h-full rounded-2xl bg-white border border-[#c5c5d4]/60 shadow-[0_4px_20px_rgba(0,27,121,0.04)] hover:shadow-[0_12px_32px_rgba(0,27,121,0.12)] hover:border-[#0453cd]/40 transition-all duration-300 overflow-hidden flex flex-col justify-between">
 
                         <!-- Thumbnail Container (Full Bleed) -->
-                        <div
-                            class="h-64 sm:h-72 lg:h-80 w-full overflow-hidden relative bg-[#f0f4ff]/70 border-b border-[#c5c5d4]/40">
+                        <div class="h-64 sm:h-72 lg:h-80 w-full overflow-hidden relative bg-[#f0f4ff]/70">
                             <x-common.image :src="$branch['thumbnail_url']" :alt="$branch['name']"
                                 class="h-full w-full object-cover group-hover:scale-105 transition-all duration-500" />
 
