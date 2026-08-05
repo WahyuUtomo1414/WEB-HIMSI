@@ -8,10 +8,14 @@ use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\RecruitmentController;
+
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/tentang-kami', [AboutController::class, 'index'])->name('about.index');
+
+Route::get('/rekrutmen', [RecruitmentController::class, 'index'])->name('recruitment.index');
 
 Route::get('/cabang', [BranchController::class, 'index'])->name('branch.index');
 Route::get('/cabang/{branch}', [BranchController::class, 'show'])->name('branch.show');
