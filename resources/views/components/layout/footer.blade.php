@@ -20,6 +20,7 @@
                     <div
                         class="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-white p-1 flex items-center justify-center shadow-xl border-2 border-white/30 shrink-0">
                         <img src="{{ asset('images/himsi.png') }}" alt="Logo HIMSI UBSI"
+                            loading="lazy"
                             class="h-full w-full object-contain">
                     </div>
                     <div class="space-y-0.5">

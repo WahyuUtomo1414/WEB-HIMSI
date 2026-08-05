@@ -16,7 +16,7 @@
                     <div @click="activeImage = '{{ $img['image_url'] }}'; activeDesc = '{{ addslashes($img['description'] ?? '') }}'" 
                          class="group cursor-pointer rounded-2xl overflow-hidden border border-[#c5c5d4]/60 shadow-[0_4px_16px_rgba(0,27,121,0.04)] hover:shadow-[0_8px_24px_rgba(0,27,121,0.12)] hover:border-[#0453cd]/40 transition-all duration-300 bg-white">
                         <div class="h-48 sm:h-52 w-full overflow-hidden relative bg-[#f0f4ff]/70 flex items-center justify-center">
-                            <img src="{{ $img['image_url'] }}" alt="{{ $img['description'] ?? '' }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="{{ $img['image_url'] }}" alt="{{ $img['description'] ?? '' }}" loading="lazy" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                             
                             <!-- Hover Overlay & Zoom Icon -->
                             <div class="absolute inset-0 bg-[#000c46]/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center text-white gap-2 font-bold text-xs backdrop-blur-xs">
@@ -63,7 +63,7 @@
 
             <!-- Clean Floating Image -->
             <div @click.stop class="relative max-w-5xl max-h-[85vh] flex flex-col items-center cursor-default">
-                <img :src="activeImage" :alt="activeDesc" class="max-h-[80vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl border border-white/10">
+                <img :src="activeImage" :alt="activeDesc" loading="lazy" class="max-h-[80vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl border border-white/10">
                 <template x-if="activeDesc">
                     <p class="mt-3 text-xs sm:text-sm font-semibold text-slate-300 text-center max-w-xl" x-text="activeDesc"></p>
                 </template>

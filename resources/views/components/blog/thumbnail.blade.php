@@ -36,7 +36,7 @@
 
             <!-- Clean Floating Image -->
             <div @click.stop class="relative max-w-5xl max-h-[85vh] flex flex-col items-center cursor-default">
-                <img src="{{ $blog['thumbnail_url'] }}" alt="{{ $blog['title'] }}" class="max-h-[80vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl border border-white/10">
+                <img src="{{ $blog['thumbnail_url'] }}" alt="{{ $blog['title'] }}" loading="lazy" class="max-h-[80vh] w-auto max-w-full object-contain rounded-2xl shadow-2xl border border-white/10">
                 <p class="mt-3 text-xs sm:text-sm font-semibold text-slate-300 text-center max-w-xl">{{ $blog['title'] }}</p>
             </div>
         </div>

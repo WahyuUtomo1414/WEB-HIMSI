@@ -15,7 +15,7 @@
                         <div class="flex items-center justify-between">
                             <div class="h-12 w-12 rounded-2xl bg-[#001b79]/5 p-2.5 flex items-center justify-center text-[#0453cd] group-hover:bg-[#001b79] group-hover:text-white transition-all duration-300 shadow-xs">
                                 @if (isset($division['logo_url']) && $division['logo_url'] !== '/images/placeholder.svg')
-                                    <img src="{{ $division['logo_url'] }}" alt="{{ $division['name'] }}" class="h-full w-full object-contain">
+                                    <img src="{{ $division['logo_url'] }}" alt="{{ $division['name'] }}" loading="lazy" class="h-full w-full object-contain">
                                 @else
                                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />

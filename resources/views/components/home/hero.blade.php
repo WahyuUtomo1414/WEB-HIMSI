@@ -39,6 +39,7 @@
                loop 
                playsinline
                webkit-playsinline
+               preload="metadata"
                tabindex="-1"
                controlslist="nodownload nofullscreen noremoteplayback">
             <source src="{{ asset('video/web_himsi.mp4') }}" type="video/mp4">
