@@ -122,13 +122,13 @@
 
             <!-- CTA Buttons -->
             <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-5">
-                <button @click="showRegisterModal = true" 
-                        class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm sm:text-base tracking-wide shadow-[0_0_35px_rgba(245,158,11,0.6)] hover:shadow-[0_0_55px_rgba(245,158,11,0.9)] transition-all duration-300 transform hover:scale-105 group cursor-pointer">
+                <a href="{{ route('recruitment.create') }}" 
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm sm:text-base tracking-wide shadow-[0_0_35px_rgba(245,158,11,0.6)] hover:shadow-[0_0_55px_rgba(245,158,11,0.9)] transition-all duration-300 transform hover:scale-105 group cursor-pointer">
                     <span>DAFTAR SEKARANG</span>
                     <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
                     </svg>
-                </button>
+                </a>
 
                 <a href="#divisions" 
                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold text-sm sm:text-base backdrop-blur-md transition-all duration-300 hover:scale-105">
@@ -369,10 +369,10 @@
                     </p>
 
                     <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <button @click="showRegisterModal = true" 
-                                class="w-full sm:w-auto px-8 py-4 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-base shadow-xl hover:shadow-amber-400/50 transition-all hover:scale-105 cursor-pointer">
+                        <a href="{{ route('recruitment.create') }}" 
+                           class="w-full sm:w-auto px-8 py-4 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-base shadow-xl hover:shadow-amber-400/50 transition-all hover:scale-105 cursor-pointer inline-block">
                             ISI FORMULIR PENDAFTARAN
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -444,10 +444,10 @@
                         <button @click="openModal = false" class="px-6 py-3 rounded-xl bg-white/10 text-white font-extrabold text-sm hover:bg-white/20 transition-colors">
                             Tutup
                         </button>
-                        <button @click="openModal = false; formData.division = selectedDivision?.name; showRegisterModal = true" 
-                                class="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:shadow-[0_0_35px_rgba(245,158,11,0.8)] transition-all transform hover:scale-105 cursor-pointer">
+                        <a href="{{ route('recruitment.create') }}" 
+                           class="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:shadow-[0_0_35px_rgba(245,158,11,0.8)] transition-all transform hover:scale-105 cursor-pointer inline-block text-center">
                             Pilih Divisi Ini & Daftar Sekarang
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -481,48 +481,87 @@
                         <p class="text-xs sm:text-sm text-slate-300">Isi data diri Anda secara benar untuk mengikuti tahapan seleksi.</p>
                     </div>
 
-                    <form @submit.prevent="submitForm()" class="space-y-4 pt-2">
+                    <form action="{{ route('recruitment.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4 pt-2">
+                        @csrf
+
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-bold text-slate-300 mb-1">Nama Lengkap *</label>
-                                <input type="text" x-model="formData.name" required placeholder="Contoh: Budi Pratama" 
+                                <input type="text" name="name" required placeholder="Contoh: Budi Pratama" 
                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-300 mb-1">NIM (Nomor Induk Mahasiswa) *</label>
-                                <input type="text" x-model="formData.nim" required placeholder="Contoh: 12234567" 
+                                <input type="text" name="nim" required placeholder="Contoh: 12234567" 
                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 mb-1">Semester *</label>
+                                <select name="semester" required class="w-full px-4 py-3 rounded-xl bg-[#030712] border border-white/15 text-white focus:outline-none focus:border-amber-400 text-sm">
+                                    <option value="">-- Pilih Semester --</option>
+                                    <option value="Semester 1">Semester 1</option>
+                                    <option value="Semester 2">Semester 2</option>
+                                    <option value="Semester 3">Semester 3</option>
+                                    <option value="Semester 4">Semester 4</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 mb-1">Cabang DPC Pilihan *</label>
+                                <select name="branch_id" required class="w-full px-4 py-3 rounded-xl bg-[#030712] border border-white/15 text-white focus:outline-none focus:border-amber-400 text-sm">
+                                    <option value="">-- Pilih Cabang (DPC) --</option>
+                                    @foreach ($branches as $b)
+                                        <option value="{{ $b->id }}">{{ $b->name }} ({{ $b->location }})</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-bold text-slate-300 mb-1">Email UBSI / Pribadi *</label>
-                                <input type="email" x-model="formData.email" required placeholder="nama@gmail.com" 
+                                <input type="email" name="email" required placeholder="nama@gmail.com" 
                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-300 mb-1">No. WhatsApp Aktif *</label>
-                                <input type="tel" x-model="formData.phone" required placeholder="08123456789" 
+                                <input type="tel" name="no_wa" required placeholder="08123456789" 
+                                       class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 mb-1">Username Instagram *</label>
+                                <input type="text" name="instagram" required placeholder="@username" 
+                                       class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 mb-1">Bukti Follow Instagram DPC *</label>
+                                <input type="text" name="follow_dpc" placeholder="Username IG yang follow" 
                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Pilihan Divisi Utama *</label>
-                            <select x-model="formData.division" required 
-                                    class="w-full px-4 py-3 rounded-xl bg-[#030712] border border-white/15 text-white focus:outline-none focus:border-amber-400 text-sm">
-                                <option value="">-- Pilih Divisi Pilihan 1 --</option>
-                                @foreach ($divisions as $d)
-                                    <option value="{{ $d['name'] }}">{{ $d['name'] }}</option>
-                                @endforeach
-                            </select>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Motivasi & Alasan Bergabung *</label>
+                            <textarea name="description" required rows="3" placeholder="Mengapa Anda ingin bergabung dengan HIMSI UBSI?" 
+                                      class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm"></textarea>
                         </div>
 
-                        <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Motivasi Singkat *</label>
-                            <textarea x-model="formData.reason" required rows="3" placeholder="Mengapa Anda ingin bergabung dengan HIMSI UBSI?" 
-                                      class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm"></textarea>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 mb-1">Upload e-KTM (Opsional)</label>
+                                <input type="file" name="ektm" accept="image/*,.pdf" 
+                                       class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-300 mb-1">Upload CV (PDF, Opsional)</label>
+                                <input type="file" name="cv" accept=".pdf" 
+                                       class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950">
+                            </div>
                         </div>
 
                         <div class="pt-4 flex justify-end gap-3">
@@ -530,9 +569,8 @@
                                 Batal
                             </button>
                             <button type="submit" 
-                                    :disabled="submitted"
-                                    class="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-black text-sm shadow-lg hover:brightness-110 flex items-center gap-2">
-                                <span x-text="submitted ? 'MENGIRIM...' : 'KIRIM PENDAFTARAN'"></span>
+                                    class="px-8 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-[0_0_20px_rgba(245,158,11,0.5)] hover:shadow-[0_0_35px_rgba(245,158,11,0.8)] transition-all cursor-pointer">
+                                KIRIM PENDAFTARAN & MASUK GRUP WA
                             </button>
                         </div>
                     </form>

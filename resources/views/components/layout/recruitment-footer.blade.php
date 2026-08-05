@@ -77,10 +77,10 @@
                 </p>
             </div>
 
-            <button @click="showRegisterModal = true" 
-                    class="anim-3d-bounce shrink-0 px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-[0_0_30px_rgba(245,158,11,0.6)] hover:shadow-[0_0_50px_rgba(245,158,11,0.9)] transition-all cursor-pointer">
+            <a href="{{ route('recruitment.create') }}" 
+               class="anim-3d-bounce shrink-0 px-8 py-4 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-sm uppercase tracking-wider shadow-[0_0_30px_rgba(245,158,11,0.6)] hover:shadow-[0_0_50px_rgba(245,158,11,0.9)] transition-all cursor-pointer">
                 🚀 FORMULIR PENDAFTARAN
-            </button>
+            </a>
         </div>
 
         <!-- 4-Column Footer Layout -->

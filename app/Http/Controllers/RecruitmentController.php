@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RecruitmentNotificationMail;
+use App\Models\Branch;
 use App\Models\Division;
 use App\Models\Organization;
+use App\Models\Recruitment;
+use App\Models\Status;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class RecruitmentController extends Controller
 {
@@ -13,6 +20,9 @@ class RecruitmentController extends Controller
 
         // Fetch real divisions from Division Model
         $dbDivisions = Division::all();
+
+        // Fetch real branches from Branch Model
+        $branches = Branch::all();
 
         $badgeColors = [
             ['badge' => 'Tech & Research', 'color' => 'blue', 'glow' => 'rgba(59, 130, 246, 0.45)'],
@@ -126,7 +136,7 @@ class RecruitmentController extends Controller
                 'step' => '04',
                 'title' => 'Welcoming & First Gathering',
                 'date' => '29 Agustus 2026',
-                'desc' => 'Pengumuman pengurus resmi dan acara keakraban pembukaan periode baru HIMSI UBSI.',
+                'desc' => 'Pengumuman generasi penerus resmi dan acara keakraban pembukaan periode baru HIMSI UBSI.',
                 'color' => 'from-emerald-500 to-teal-600'
             ]
         ];
@@ -154,6 +164,77 @@ class RecruitmentController extends Controller
             ]
         ];
 
-        return view('pages.recruitment', compact('organization', 'divisions', 'timelines', 'faqs'));
+        return view('pages.recruitment', compact('organization', 'divisions', 'timelines', 'faqs', 'branches'));
+    }
+
+    public function create()
+    {
+        $organization = Organization::first();
+        $branches = Branch::all();
+        $divisions = Division::all();
+
+        return view('pages.recruitment-form', compact('organization', 'branches', 'divisions'));
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:128',
+            'nim' => 'required|string|max:10',
+            'semester' => 'required|string|max:16',
+            'email' => 'required|email|max:128',
+            'no_wa' => 'required|string|max:16',
+            'branch_id' => 'required|exists:branch,id',
+            'instagram' => 'required|string|max:128',
+            'description' => 'required|string',
+            'follow_dpc' => 'required|file|image|mimes:jpg,jpeg,png,webp|max:3072',
+            'ektm' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'cv' => 'nullable|file|mimes:pdf|max:5024',
+        ]);
+
+        // Handle file uploads
+        $followDpcPath = $request->file('follow_dpc')->store('recruitment/follow_dpc', 'public');
+
+        $ektmPath = $request->hasFile('ektm')
+            ? $request->file('ektm')->store('recruitment/ektm', 'public')
+            : 'default-ektm.jpg';
+
+        $cvPath = $request->hasFile('cv')
+            ? $request->file('cv')->store('recruitment/cv', 'public')
+            : null;
+
+        // Default Status ID
+        $statusId = Status::where('name', 'Belum Diverifikasi')->first()?->id ?? Status::first()?->id ?? 1;
+
+        // Create Recruitment Model Record
+        $recruitment = Recruitment::create([
+            'name' => $validated['name'],
+            'nim' => $validated['nim'],
+            'semester' => $validated['semester'],
+            'ektm' => $ektmPath,
+            'email' => $validated['email'],
+            'instagram' => $validated['instagram'],
+            'no_wa' => $validated['no_wa'],
+            'description' => $validated['description'],
+            'branch_id' => $validated['branch_id'],
+            'follow_dpc' => $followDpcPath,
+            'cv' => $cvPath,
+            'status_id' => $statusId,
+        ]);
+
+        // Send Email Notification immediately without Queue
+        try {
+            Mail::to($recruitment->email)->send(new RecruitmentNotificationMail($recruitment));
+        } catch (\Throwable $e) {
+            Log::error('Recruitment email failed to send: ' . $e->getMessage());
+        }
+
+        // Auto Redirect to Branch WhatsApp Group
+        $branch = Branch::find($validated['branch_id']);
+        $waGroup = ($branch && filled($branch->grup_wa))
+            ? $branch->grup_wa
+            : 'https://chat.whatsapp.com/DD7fue3sDAf6Zv6bRoQQs5';
+
+        return redirect()->away($waGroup);
     }
 }

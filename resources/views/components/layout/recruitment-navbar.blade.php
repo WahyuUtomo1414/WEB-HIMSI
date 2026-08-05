@@ -35,10 +35,10 @@
 
         <!-- Right Action Button -->
         <div class="flex items-center gap-3">
-            <button @click="showRegisterModal = true" 
-                    class="px-4 sm:px-5 py-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(245,158,11,0.4)] hover:shadow-[0_0_25px_rgba(245,158,11,0.7)] hover:scale-105 transition-all duration-300 cursor-pointer">
+            <a href="{{ route('recruitment.create') }}" 
+               class="px-4 sm:px-5 py-2 rounded-full bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(245,158,11,0.4)] hover:shadow-[0_0_25px_rgba(245,158,11,0.7)] hover:scale-105 transition-all duration-300 cursor-pointer">
                 <span>Daftar Sekarang</span>
-            </button>
+            </a>
         </div>
     </div>
 </nav>
