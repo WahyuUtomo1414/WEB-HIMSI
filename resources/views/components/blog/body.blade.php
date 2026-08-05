@@ -1,7 +1,7 @@
 @props(['blog'])
 
 <div x-data="{ activeImage: null, activeDesc: null }" class="space-y-6">
-    <article class="prose prose-lg max-w-none prose-headings:text-[#000c46] prose-headings:font-bold prose-p:text-[#454652] prose-p:leading-relaxed prose-a:text-[#0453cd] prose-strong:text-[#000c46]">
+    <article class="rich-content prose prose-lg max-w-none">
         {!! $blog['body'] !!}
     </article>
 
