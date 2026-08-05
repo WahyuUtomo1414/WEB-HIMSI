@@ -44,7 +44,7 @@
                                     <div class="flex items-center justify-between">
                                         <div class="h-12 w-12 rounded-xl bg-[#f0f4ff] group-hover:bg-[#001b79] text-[#0453cd] group-hover:text-white flex items-center justify-center p-2.5 transition-colors duration-300 shadow-sm">
                                             @if (isset($division['logo_url']) && $division['logo_url'] !== '/images/placeholder.svg')
-                                                <img src="{{ $division['logo_url'] }}" alt="{{ $division['name'] }}" class="h-full w-full object-contain">
+                                                <img src="{{ $division['logo_url'] }}" alt="{{ $division['name'] }}" loading="lazy" class="h-full w-full object-contain">
                                             @else
                                                 @if ($index % 4 === 0)
                                                     <!-- Academic / Education Icon -->

@@ -23,7 +23,7 @@
         <div class="pt-4 flex items-center justify-between gap-6 border-t border-white/10">
             <div class="flex items-center gap-5">
                 <div class="h-20 w-20 sm:h-24 sm:w-24 rounded-3xl bg-white p-3 border-2 border-white/30 shadow-2xl flex items-center justify-center shrink-0">
-                    <img src="{{ $division['logo_url'] }}" alt="{{ $division['name'] }}" class="h-full w-full object-contain">
+                    <img src="{{ $division['logo_url'] }}" alt="{{ $division['name'] }}" loading="lazy" class="h-full w-full object-contain">
                 </div>
                 <div class="space-y-2">
                     <div class="flex items-center gap-3">
