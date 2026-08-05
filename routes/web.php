@@ -23,3 +23,6 @@ Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.sho
 
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
+
+//trigger deploy
+//trigger deploy
