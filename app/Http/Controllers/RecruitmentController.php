@@ -189,8 +189,8 @@ class RecruitmentController extends Controller
             'instagram' => 'required|string|max:128',
             'description' => 'required|string',
             'follow_dpc' => 'required|file|image|mimes:jpg,jpeg,png,webp|max:3072',
-            'ektm' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-            'cv' => 'nullable|file|mimes:pdf|max:5024',
+            'ektm' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+            'cv' => 'required|file|mimes:pdf|max:5024',
         ]);
 
         // Handle file uploads
