@@ -6,6 +6,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserForm
@@ -21,10 +22,17 @@ class UserForm
                             ->maxLength(255)
                             ->required(),
                         Select::make('branch_id')
-                            ->label('Branch')
+                            ->label('Cabang')
                             ->relationship('branch', 'name')
                             ->searchable()
                             ->preload(),
+                        Select::make('roles')
+                            ->label('Roles')
+                            ->relationship('roles', 'name')
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->visible(fn (): bool => self::canManageRoles()),
                         TextInput::make('email')
                             ->label('Email')
                             ->email()
@@ -43,5 +51,10 @@ class UserForm
                     ->columns(2)
                     ->columnSpanFull(),
             ]);
+    }
+
+    private static function canManageRoles(): bool
+    {
+        return Auth::user()?->roles()->whereKey(1)->exists() ?? false;
     }
 }
