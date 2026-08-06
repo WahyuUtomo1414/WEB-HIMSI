@@ -39,8 +39,18 @@
                loop
                playsinline 
                webkit-playsinline
+               preload="auto"
                tabindex="-1"
                controlslist="nodownload nofullscreen noremoteplayback"
+               x-init="$nextTick(() => { 
+                   if ($refs.splashVideo) { 
+                       $refs.splashVideo.muted = true; 
+                       $refs.splashVideo.defaultMuted = true; 
+                       $refs.splashVideo.play().catch(() => {}); 
+                   } 
+               })"
+               onloadeddata="this.muted=true; this.play().catch(() => {});"
+               oncanplay="this.muted=true; this.play().catch(() => {});"
                @ended="dismiss()">
             <source src="{{ asset('video/clarion.mp4') }}" type="video/mp4">
         </video>

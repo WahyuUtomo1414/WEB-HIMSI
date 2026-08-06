@@ -540,8 +540,8 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-slate-300 mb-1">Bukti Follow Instagram DPC *</label>
-                                <input type="text" name="follow_dpc" placeholder="Username IG yang follow" 
-                                       class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm">
+                                <input type="file" name="follow_dpc" accept="image/*" required
+                                       class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950">
                             </div>
                         </div>
 
@@ -553,13 +553,13 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-xs font-bold text-slate-300 mb-1">Upload e-KTM (Opsional)</label>
-                                <input type="file" name="ektm" accept="image/*,.pdf" 
+                                <label class="block text-xs font-bold text-slate-300 mb-1">Upload e-KTM * (JPG/PNG/PDF, Max 2MB)</label>
+                                <input type="file" name="ektm" accept="image/*,.pdf" required
                                        class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-300 mb-1">Upload CV (PDF, Opsional)</label>
-                                <input type="file" name="cv" accept=".pdf" 
+                                <label class="block text-xs font-bold text-slate-300 mb-1">Upload CV * (PDF, Max 5MB)</label>
+                                <input type="file" name="cv" accept=".pdf" required
                                        class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-slate-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950">
                             </div>
                         </div>

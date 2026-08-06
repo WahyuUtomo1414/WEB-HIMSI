@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Blogs\Schemas;
 
+use App\Support\ImageUploadOptimizer;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
@@ -20,7 +21,7 @@ class BlogForm
                     Select::make('branch_id')->label('Branch')->relationship('branch', 'name')->searchable()->preload()->required(),
                     TextInput::make('title')->label('Judul')->maxLength(128)->required(),
                     TextInput::make('slug')->label('Slug')->maxLength(128)->required()->unique(ignoreRecord: true),
-                    FileUpload::make('thumbnail')->label('Thumbnail')->image()->disk('public')->directory('blog/thumbnail')->visibility('public')->preserveFilenames()->maxSize(2048)->required(),
+                    FileUpload::make('thumbnail')->label('Thumbnail')->image()->disk('public')->directory('blog/thumbnail')->visibility('public')->maxSize(2048)->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1600 x 900 px. Otomatis dikonversi ke WebP.')->saveUploadedFileUsing(fn ($component, $file) => ImageUploadOptimizer::storeWebp($component, $file, maxWidth: 1600, quality: 85))->required(),
                     TextInput::make('quotes')->label('Quotes')->maxLength(255),
                     RichEditor::make('body')->label('Isi Blog')->required()->columnSpanFull(),
                     Select::make('category_id')->label('Kategori')->relationship('category', 'name')->searchable()->preload()->required(),

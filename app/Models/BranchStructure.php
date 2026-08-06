@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Support\BranchStructurePosition;
 use App\Traits\AuditedBySoftDelete;
+use App\Traits\FlushesPublicCache;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,11 +12,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BranchStructure extends Model
 {
-    use AuditedBySoftDelete, HasFactory, SoftDeletes;
+    use AuditedBySoftDelete, FlushesPublicCache, HasFactory, SoftDeletes;
 
     protected $table = 'branch_structure';
 
     protected $guarded = ['id'];
+
+    protected static function booted(): void
+    {
+        static::saving(function (BranchStructure $branchStructure): void {
+            $branchStructure->sort = BranchStructurePosition::sortFor($branchStructure->position);
+        });
+    }
 
     protected function casts(): array
     {

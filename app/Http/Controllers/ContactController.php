@@ -4,33 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\Contact;
 use App\Models\Organization;
+use App\Support\PublicCache\PublicCacheKey;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class ContactController extends Controller
 {
     public function index(): View
     {
-        $organization = Organization::query()
-            ->where('active', true)
-            ->latest()
-            ->first();
+        $data = Cache::remember(PublicCacheKey::contact(), now()->addHour(), function (): array {
+            $organization = Organization::query()
+                ->where('active', true)
+                ->latest()
+                ->first();
 
-        $data = [
-            'hero' => [
-                'title' => 'Hubungi Kami',
-                'subtitle' => 'Sampaikan Pertanyaan, Saran, atau Kerjasama dengan Pengurus HIMSI',
-            ],
-            'organization' => [
-                'name' => $organization?->name ?? 'HIMSI UBSI',
-                'address' => $organization?->address ?? 'Alamat belum tersedia',
-                'email' => $organization?->email ?? 'email belum tersedia',
-                'no_tlpn' => $organization?->no_tlpn ?? 'Nomor telepon belum tersedia',
-                'sosial_media' => $this->mapSocialMedia($organization?->sosial_media ?? []),
-                'logo_url' => public_image_url($organization?->logo),
-            ],
-        ];
+            return [
+                'hero' => [
+                    'title' => 'Hubungi Kami',
+                    'subtitle' => 'Sampaikan Pertanyaan, Saran, atau Kerjasama dengan Pengurus HIMSI',
+                ],
+                'organization' => [
+                    'name' => $organization?->name ?? 'HIMSI UBSI',
+                    'address' => $organization?->address ?? 'Alamat belum tersedia',
+                    'email' => $organization?->email ?? 'email belum tersedia',
+                    'no_tlpn' => $organization?->no_tlpn ?? 'Nomor telepon belum tersedia',
+                    'sosial_media' => $this->mapSocialMedia($organization?->sosial_media ?? []),
+                    'logo_url' => public_image_url($organization?->logo),
+                ],
+            ];
+        });
 
         return view('pages.contact', $data);
     }

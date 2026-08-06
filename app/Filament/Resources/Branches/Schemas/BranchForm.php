@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Branches\Schemas;
 
+use App\Support\ImageUploadOptimizer;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -18,7 +19,7 @@ class BranchForm
                 ->schema([
                     TextInput::make('name')->label('Nama Branch')->maxLength(128)->required(),
                     TextInput::make('location')->label('Lokasi')->maxLength(128)->required(),
-                    FileUpload::make('thumbnail')->label('Thumbnail')->image()->disk('public')->directory('branch')->visibility('public')->preserveFilenames()->maxSize(2048)->required(),
+                    FileUpload::make('thumbnail')->label('Thumbnail')->image()->disk('public')->directory('branch')->visibility('public')->maxSize(2048)->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1600 x 900 px. Otomatis dikonversi ke WebP.')->saveUploadedFileUsing(fn ($component, $file) => ImageUploadOptimizer::storeWebp($component, $file, maxWidth: 1600, quality: 85))->required(),
                     Textarea::make('description')->label('Deskripsi')->required()->columnSpanFull(),
                     TextInput::make('grup_wa')->label('Grup WhatsApp')->maxLength(128)->required(),
                     TextInput::make('sektor')->label('Sektor')->maxLength(128)->required(),

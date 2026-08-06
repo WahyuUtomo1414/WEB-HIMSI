@@ -16,7 +16,7 @@ class BranchStructureInfolist
             ->components([
                 Section::make('Informasi Utama')
                     ->schema([
-                        TextEntry::make('branch.name')->label('Branch'),
+                        TextEntry::make('branch.name')->label('Cabang'),
                         TextEntry::make('name')->label('Nama Pengurus'),
                         TextEntry::make('division.name')->label('Divisi')->placeholder('-'),
                         TextEntry::make('sort')->label('Urutan'),
