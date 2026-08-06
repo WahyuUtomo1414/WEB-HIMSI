@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\BranchStructurePosition;
 use App\Traits\AuditedBySoftDelete;
 use App\Traits\FlushesPublicCache;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,13 @@ class BranchStructure extends Model
     protected $table = 'branch_structure';
 
     protected $guarded = ['id'];
+
+    protected static function booted(): void
+    {
+        static::saving(function (BranchStructure $branchStructure): void {
+            $branchStructure->sort = BranchStructurePosition::sortFor($branchStructure->position);
+        });
+    }
 
     protected function casts(): array
     {

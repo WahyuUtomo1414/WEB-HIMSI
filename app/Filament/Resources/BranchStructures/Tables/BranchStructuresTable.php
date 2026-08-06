@@ -25,7 +25,7 @@ class BranchStructuresTable
         return $table
             ->columns([
                 TextColumn::make('name')->label('Nama Pengurus')->searchable()->sortable(),
-                TextColumn::make('branch.name')->label('Branch')->searchable()->sortable(),
+                TextColumn::make('branch.name')->label('Cabang')->searchable()->sortable(),
                 TextColumn::make('division.name')->label('Divisi')->placeholder('-')->searchable()->sortable(),
                 TextColumn::make('sort')->label('Urutan')->numeric()->sortable(),
                 TextColumn::make('position')->label('Posisi')->searchable(),
@@ -52,7 +52,7 @@ class BranchStructuresTable
             ->filters([
                 TernaryFilter::make('active')->label('Status Aktif'),
                 TrashedFilter::make()->label('Data Terhapus'),
-                SelectFilter::make('branch_id')->label('Branch')->relationship('branch', 'name')->searchable()->preload(),
+                SelectFilter::make('branch_id')->label('Cabang')->relationship('branch', 'name')->searchable()->preload(),
                 SelectFilter::make('division_id')->label('Divisi')->relationship('division', 'name')->searchable()->preload(),
             ])
             ->defaultSort('sort')

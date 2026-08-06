@@ -104,12 +104,6 @@
                                         d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                                 </svg>
                             </a>
-                            @if (!empty($branch['grup_wa']))
-                                <a href="{{ $branch['grup_wa'] }}" target="_blank" rel="noopener"
-                                    class="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full hover:bg-emerald-600 hover:text-white transition-all shadow-xs">
-                                    <span>Grup WA</span>
-                                </a>
-                            @endif
                         </div>
                     </div>
 
