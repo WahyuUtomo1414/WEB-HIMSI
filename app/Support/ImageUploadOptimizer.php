@@ -3,7 +3,9 @@
 namespace App\Support;
 
 use Filament\Forms\Components\BaseFileUpload;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManagerStatic as Image;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -59,7 +61,48 @@ class ImageUploadOptimizer
         }
     }
 
-    private static function isSupportedImage(TemporaryUploadedFile $file): bool
+    public static function storeUploadedWebp(
+        UploadedFile $file,
+        string $disk,
+        string $directory,
+        int $maxWidth = 1600,
+        int $quality = 85,
+    ): string {
+        if (! self::isSupportedImage($file)) {
+            return $file->store($directory, $disk);
+        }
+
+        try {
+            Image::configure(['driver' => 'gd']);
+
+            $image = Image::make($file->getRealPath())->orientate();
+
+            if ($image->width() > $maxWidth) {
+                $image->resize($maxWidth, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+            }
+
+            $path = trim(trim($directory, '/').'/'.Str::ulid().'.webp', '/');
+
+            Storage::disk($disk)->put($path, (string) $image->encode('webp', $quality));
+            Storage::disk($disk)->setVisibility($path, 'public');
+
+            return $path;
+        } catch (Throwable $exception) {
+            Log::error('Error converting uploaded image to WebP: '.$exception->getMessage(), [
+                'filename' => $file->getClientOriginalName(),
+                'mime' => $file->getMimeType(),
+                'disk' => $disk,
+                'directory' => $directory,
+            ]);
+
+            return $file->store($directory, $disk);
+        }
+    }
+
+    private static function isSupportedImage(UploadedFile $file): bool
     {
         return in_array($file->getMimeType(), [
             'image/jpeg',

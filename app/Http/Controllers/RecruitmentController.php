@@ -8,6 +8,7 @@ use App\Models\Division;
 use App\Models\Organization;
 use App\Models\Recruitment;
 use App\Models\Status;
+use App\Support\ImageUploadOptimizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -37,7 +38,7 @@ class RecruitmentController extends Controller
             $divisions = $dbDivisions->map(function ($div, $index) use ($badgeColors) {
                 $style = $badgeColors[$index % count($badgeColors)];
                 $jobs = is_array($div->job_description) ? $div->job_description : json_decode($div->job_description, true) ?? [];
-                
+
                 return [
                     'id' => $div->id,
                     'name' => $div->name,
@@ -48,8 +49,8 @@ class RecruitmentController extends Controller
                     'requirements' => count($jobs) > 0 ? $jobs : [
                         'Mahasiswa aktif Sistem Informasi UBSI',
                         'Memiliki komitmen dan minat pengembangan diri',
-                        'Mampu bekerja dalam tim secara profesional'
-                    ]
+                        'Mampu bekerja dalam tim secara profesional',
+                    ],
                 ];
             })->toArray();
         } else {
@@ -65,8 +66,8 @@ class RecruitmentController extends Controller
                     'requirements' => [
                         'Menyusun kurikulum pelatihan internal',
                         'Mengelola kegiatan belajar mengajar',
-                        'Mengadakan seminar, workshop, dan pelatihan rutin'
-                    ]
+                        'Mengadakan seminar, workshop, dan pelatihan rutin',
+                    ],
                 ],
                 [
                     'id' => 2,
@@ -78,8 +79,8 @@ class RecruitmentController extends Controller
                     'requirements' => [
                         'Mengelola media sosial organisasi',
                         'Membuat konten publikasi kreatif',
-                        'Mengelola website dan sistem informasi'
-                    ]
+                        'Mengelola website dan sistem informasi',
+                    ],
                 ],
                 [
                     'id' => 3,
@@ -91,8 +92,8 @@ class RecruitmentController extends Controller
                     'requirements' => [
                         'Mengelola data dan database anggota',
                         'Menyusun program pengembangan diri',
-                        'Mengatur penempatan dan rotasi anggota'
-                    ]
+                        'Mengatur penempatan dan rotasi anggota',
+                    ],
                 ],
                 [
                     'id' => 4,
@@ -104,9 +105,9 @@ class RecruitmentController extends Controller
                     'requirements' => [
                         'Melakukan riset dan analisis organisasi',
                         'Mengembangkan inovasi program kerja',
-                        'Mengevaluasi efektivitas kegiatan organisasi'
-                    ]
-                ]
+                        'Mengevaluasi efektivitas kegiatan organisasi',
+                    ],
+                ],
             ];
         }
 
@@ -116,52 +117,52 @@ class RecruitmentController extends Controller
                 'title' => 'Pendaftaran & Pengumpulan Berkas',
                 'date' => '01 - 14 Agustus 2026',
                 'desc' => 'Pengisian formulir online, memilih divisi pilihan, dan mengunggah berkas persyaratan pendaftaran.',
-                'color' => 'from-blue-500 to-indigo-600'
+                'color' => 'from-blue-500 to-indigo-600',
             ],
             [
                 'step' => '02',
                 'title' => 'Pengumuman Seleksi Berkas',
                 'date' => '17 Agustus 2026',
                 'desc' => 'Hasil verifikasi administrasi akan diumumkan di website resmi dan grup WhatsApp calon pengurus.',
-                'color' => 'from-purple-500 to-pink-600'
+                'color' => 'from-purple-500 to-pink-600',
             ],
             [
                 'step' => '03',
                 'title' => 'Sesi Wawancara & Screening',
                 'date' => '20 - 23 Agustus 2026',
                 'desc' => 'Eksplorasi minat bakat, motivasi bergabung, serta penyesuaian dengan divisi pilihan utama.',
-                'color' => 'from-amber-500 to-red-600'
+                'color' => 'from-amber-500 to-red-600',
             ],
             [
                 'step' => '04',
                 'title' => 'Welcoming & First Gathering',
                 'date' => '29 Agustus 2026',
                 'desc' => 'Pengumuman generasi penerus resmi dan acara keakraban pembukaan periode baru HIMSI UBSI.',
-                'color' => 'from-emerald-500 to-teal-600'
-            ]
+                'color' => 'from-emerald-500 to-teal-600',
+            ],
         ];
 
         $faqs = [
             [
                 'question' => 'Siapa saja yang diperbolehkan mendaftar Open Recruitment HIMSI?',
-                'answer' => 'Seluruh mahasiswa aktif Program Studi Sistem Informasi UBSI (kampus manapun) semester 1 hingga semester 4 diperbolehkan mendaftar.'
+                'answer' => 'Seluruh mahasiswa aktif Program Studi Sistem Informasi UBSI (kampus manapun) semester 1 hingga semester 4 diperbolehkan mendaftar.',
             ],
             [
                 'question' => 'Apakah diperbolehkan memilih lebih dari satu divisi?',
-                'answer' => 'Boleh! Pendaftar dapat memilih 1 Divisi Utama (Pilihan 1) dan 1 Divisi Cadangan (Pilihan 2) pada formulir pendaftaran.'
+                'answer' => 'Boleh! Pendaftar dapat memilih 1 Divisi Utama (Pilihan 1) dan 1 Divisi Cadangan (Pilihan 2) pada formulir pendaftaran.',
             ],
             [
                 'question' => 'Apakah proses rekrutmen ini dipungut biaya?',
-                'answer' => 'Sama sekali TIDAK dipungut biaya (100% Gratis). Hati-hati terhadap pihak yang mengatasnamakan HIMSI untuk pemungutan biaya.'
+                'answer' => 'Sama sekali TIDAK dipungut biaya (100% Gratis). Hati-hati terhadap pihak yang mengatasnamakan HIMSI untuk pemungutan biaya.',
             ],
             [
                 'question' => 'Bagaimana jika saya belum berpengalaman dalam organisasi sebelumnya?',
-                'answer' => 'Jangan khawatir! HIMSI adalah tempat terbaik untuk belajar. Yang terpenting adalah komitmen, semangat belajar, dan niat berkontribusi.'
+                'answer' => 'Jangan khawatir! HIMSI adalah tempat terbaik untuk belajar. Yang terpenting adalah komitmen, semangat belajar, dan niat berkontribusi.',
             ],
             [
                 'question' => 'Apakah ada sertifikat pengurus setelah masa jabatan selesai?',
-                'answer' => 'Ya, seluruh pengurus yang menyelesaikan masa kepengurusan akan menerima E-Sertifikat Resmi bertandatangan Pembina & Ketua Jurusan yang diakui kampus.'
-            ]
+                'answer' => 'Ya, seluruh pengurus yang menyelesaikan masa kepengurusan akan menerima E-Sertifikat Resmi bertandatangan Pembina & Ketua Jurusan yang diakui kampus.',
+            ],
         ];
 
         return view('pages.recruitment', compact('organization', 'divisions', 'timelines', 'faqs', 'branches'));
@@ -180,10 +181,10 @@ class RecruitmentController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:128',
-            'nim' => 'required|string|max:10',
+            'nim' => 'required|string|max:10|unique:recruitment,nim',
             'semester' => 'required|string|max:16',
             'email' => 'required|email|max:128',
-            'no_wa' => 'required|string|max:16',
+            'no_wa' => 'required|string|max:16|unique:recruitment,no_wa',
             'branch_id' => 'required|exists:branch,id',
             'instagram' => 'required|string|max:128',
             'description' => 'required|string',
@@ -193,10 +194,16 @@ class RecruitmentController extends Controller
         ]);
 
         // Handle file uploads
-        $followDpcPath = $request->file('follow_dpc')->store('recruitment/follow_dpc', 'public');
+        $followDpcPath = ImageUploadOptimizer::storeUploadedWebp(
+            file: $request->file('follow_dpc'),
+            disk: 'public',
+            directory: 'recruitment/follow_dpc',
+            maxWidth: 1600,
+            quality: 82,
+        );
 
         $ektmPath = $request->hasFile('ektm')
-            ? $request->file('ektm')->store('recruitment/ektm', 'public')
+            ? $this->storeEktmFile($request->file('ektm'))
             : 'default-ektm.jpg';
 
         $cvPath = $request->hasFile('cv')
@@ -226,7 +233,7 @@ class RecruitmentController extends Controller
         try {
             Mail::to($recruitment->email)->send(new RecruitmentNotificationMail($recruitment));
         } catch (\Throwable $e) {
-            Log::error('Recruitment email failed to send: ' . $e->getMessage());
+            Log::error('Recruitment email failed to send: '.$e->getMessage());
         }
 
         // Auto Redirect to Branch WhatsApp Group
@@ -236,5 +243,20 @@ class RecruitmentController extends Controller
             : 'https://chat.whatsapp.com/DD7fue3sDAf6Zv6bRoQQs5';
 
         return redirect()->away($waGroup);
+    }
+
+    private function storeEktmFile($file): string
+    {
+        if (str($file->getMimeType())->startsWith('image/')) {
+            return ImageUploadOptimizer::storeUploadedWebp(
+                file: $file,
+                disk: 'public',
+                directory: 'recruitment/ektm',
+                maxWidth: 1600,
+                quality: 85,
+            );
+        }
+
+        return $file->store('recruitment/ektm', 'public');
     }
 }
