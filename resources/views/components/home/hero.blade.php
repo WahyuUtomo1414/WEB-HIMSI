@@ -58,7 +58,7 @@
                })"
                onloadeddata="this.muted=true; this.play().catch(() => {});"
                oncanplay="this.muted=true; this.play().catch(() => {});">
-            <source src="{{ asset('video/web_himsi.mp4') }}" type="video/mp4">
+            <source src="{{ asset('video/web_himsi5.mp4') }}" type="video/mp4">
         </video>
     </div>
 
