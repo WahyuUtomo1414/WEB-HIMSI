@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Branches\RelationManagers;
 
+use App\Support\ImageUploadOptimizer;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -73,9 +74,9 @@ class StructuresRelationManager extends RelationManager
                             ->disk('public')
                             ->directory('branch_structure')
                             ->visibility('public')
-                            ->preserveFilenames()
                             ->maxSize(2048)
-                            ->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1000 x 1000 px.')
+                            ->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1000 x 1000 px. Otomatis dikonversi ke WebP.')
+                            ->saveUploadedFileUsing(fn ($component, $file) => ImageUploadOptimizer::storeWebp($component, $file, maxWidth: 1000, quality: 85))
                             ->required(),
                         TextInput::make('no_wa')
                             ->label('Nomor WhatsApp')

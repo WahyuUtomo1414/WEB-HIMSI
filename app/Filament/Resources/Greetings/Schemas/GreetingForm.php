@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Greetings\Schemas;
 
+use App\Support\ImageUploadOptimizer;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
@@ -19,7 +20,7 @@ class GreetingForm
                     TextInput::make('name')->label('Nama')->maxLength(128)->required(),
                     TextInput::make('position')->label('Posisi')->maxLength(128)->required(),
                     RichEditor::make('body')->label('Isi Sambutan')->required()->columnSpanFull(),
-                    FileUpload::make('image')->label('Gambar')->image()->disk('public')->directory('greeting')->visibility('public')->preserveFilenames()->maxSize(2048)->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1200 x 1200 px.')->required(),
+                    FileUpload::make('image')->label('Gambar')->image()->disk('public')->directory('greeting')->visibility('public')->maxSize(2048)->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1200 x 1200 px. Otomatis dikonversi ke WebP.')->saveUploadedFileUsing(fn ($component, $file) => ImageUploadOptimizer::storeWebp($component, $file, maxWidth: 1200, quality: 85))->required(),
                     Toggle::make('active')->label('Aktif')->default(true)->required(),
                 ])
                 ->columns(2)
