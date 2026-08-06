@@ -18,8 +18,8 @@ class DivisionForm
             Section::make('Informasi Utama')
                 ->schema([
                     TextInput::make('name')->label('Nama Divisi')->maxLength(128)->required(),
-                    FileUpload::make('logo')->label('Logo')->image()->disk('public')->directory('division/logo')->visibility('public')->preserveFilenames()->maxSize(2048)->required(),
-                    FileUpload::make('image')->label('Gambar')->image()->disk('public')->directory('division/image')->visibility('public')->preserveFilenames()->maxSize(2048)->required(),
+                    FileUpload::make('logo')->label('Logo')->image()->disk('public')->directory('division/logo')->visibility('public')->preserveFilenames()->maxSize(2048)->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 512 x 512 px.')->required(),
+                    FileUpload::make('image')->label('Gambar')->image()->disk('public')->directory('division/image')->visibility('public')->preserveFilenames()->maxSize(2048)->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1600 x 900 px.')->required(),
                     Textarea::make('description')->label('Deskripsi')->required()->columnSpanFull(),
                     KeyValue::make('job_description')->label('Job Description')->keyLabel('Urutan')->valueLabel('Deskripsi')->required()->columnSpanFull(),
                     Toggle::make('is_dpp')->label('DPP')->default(false)->required(),

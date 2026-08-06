@@ -54,6 +54,7 @@ class ImagesRelationManager extends RelationManager
                             ->visibility('public')
                             ->preserveFilenames()
                             ->maxSize(2048)
+                            ->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1600 x 900 px.')
                             ->required(),
                         TextInput::make('description')
                             ->label('Deskripsi')

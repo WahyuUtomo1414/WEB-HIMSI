@@ -19,8 +19,8 @@ class OrganizationForm
                 ->schema([
                     TextInput::make('name')->label('Nama Organisasi')->maxLength(255)->required(),
                     TextInput::make('kode_org')->label('Kode Organisasi')->maxLength(128)->required(),
-                    FileUpload::make('logo')->label('Logo')->image()->disk('public')->directory('organization')->visibility('public')->preserveFilenames()->maxSize(2048)->required(),
-                    FileUpload::make('thumbnail')->label('Thumbnail')->image()->disk('public')->directory('organization/thumbnail')->visibility('public')->preserveFilenames()->maxSize(2048)->required(),
+                    FileUpload::make('logo')->label('Logo')->image()->disk('public')->directory('organization')->visibility('public')->preserveFilenames()->maxSize(2048)->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 512 x 512 px.')->required(),
+                    FileUpload::make('thumbnail')->label('Thumbnail')->image()->disk('public')->directory('organization/thumbnail')->visibility('public')->preserveFilenames()->maxSize(2048)->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1600 x 900 px.')->required(),
                     Textarea::make('description')->label('Deskripsi')->required()->columnSpanFull(),
                     Repeater::make('mision')
                         ->label('Misi')

@@ -19,7 +19,7 @@ class GreetingForm
                     TextInput::make('name')->label('Nama')->maxLength(128)->required(),
                     TextInput::make('position')->label('Posisi')->maxLength(128)->required(),
                     RichEditor::make('body')->label('Isi Sambutan')->required()->columnSpanFull(),
-                    FileUpload::make('image')->label('Gambar')->image()->disk('public')->directory('greeting')->visibility('public')->preserveFilenames()->maxSize(2048)->required(),
+                    FileUpload::make('image')->label('Gambar')->image()->disk('public')->directory('greeting')->visibility('public')->preserveFilenames()->maxSize(2048)->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1200 x 1200 px.')->required(),
                     Toggle::make('active')->label('Aktif')->default(true)->required(),
                 ])
                 ->columns(2)

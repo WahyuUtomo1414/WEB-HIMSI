@@ -75,6 +75,7 @@ class StructuresRelationManager extends RelationManager
                             ->visibility('public')
                             ->preserveFilenames()
                             ->maxSize(2048)
+                            ->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1000 x 1000 px.')
                             ->required(),
                         TextInput::make('no_wa')
                             ->label('Nomor WhatsApp')

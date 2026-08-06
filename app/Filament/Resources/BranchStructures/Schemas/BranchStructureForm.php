@@ -21,7 +21,7 @@ class BranchStructureForm
                     Select::make('division_id')->label('Divisi')->relationship('division', 'name')->searchable()->preload(),
                     TextInput::make('sort')->label('Urutan')->numeric()->default(0)->minValue(0)->required(),
                     TextInput::make('position')->label('Posisi')->maxLength(128)->required(),
-                    FileUpload::make('image')->label('Foto')->image()->disk('public')->directory('branch_structure')->visibility('public')->preserveFilenames()->maxSize(2048)->required(),
+                    FileUpload::make('image')->label('Foto')->image()->disk('public')->directory('branch_structure')->visibility('public')->preserveFilenames()->maxSize(2048)->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1000 x 1000 px.')->required(),
                     TextInput::make('no_wa')->label('Nomor WhatsApp')->maxLength(18)->required(),
                     Toggle::make('active')->label('Aktif')->default(true)->required(),
                 ])
