@@ -48,7 +48,7 @@ class RecruitmentExport
                             $recruitment->semester,
                             $recruitment->email,
                             $recruitment->instagram,
-                            $recruitment->no_wa,
+                            WhatsAppFormatter::url($recruitment->no_wa),
                             $recruitment->branch?->name,
                             $recruitment->status?->name,
                             $recruitment->description,

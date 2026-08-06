@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Recruitments\Schemas;
 
+use App\Filament\Resources\Recruitments\Support\WhatsAppFormatter;
 use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
@@ -21,7 +22,12 @@ class RecruitmentInfolist
                         TextEntry::make('semester')->label('Semester'),
                         TextEntry::make('email')->label('Email'),
                         TextEntry::make('instagram')->label('Instagram'),
-                        TextEntry::make('no_wa')->label('Nomor WhatsApp'),
+                        TextEntry::make('no_wa')
+                            ->label('Nomor WhatsApp')
+                            ->formatStateUsing(fn ($state) => WhatsAppFormatter::normalize($state) ?? '-')
+                            ->url(fn ($state) => WhatsAppFormatter::url($state))
+                            ->openUrlInNewTab()
+                            ->badge(),
                     ])
                     ->columns(2)
                     ->columnSpanFull(),
