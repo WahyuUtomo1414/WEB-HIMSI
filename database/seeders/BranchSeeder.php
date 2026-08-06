@@ -51,33 +51,33 @@ class BranchSeeder extends Seeder
 
             // Nanti di jalanin kalo udah ada data role
 
-            // $email = Str::slug($row['name'], '').'@gmail.com';
-            // $password = Str::random(16);
-            // $user = User::firstOrNew(['email' => $email]);
-            // $isNewUser = ! $user->exists;
+            $email = Str::slug($row['name'], '').'@gmail.com';
+            $password = Str::random(16);
+            $user = User::firstOrNew(['email' => $email]);
+            $isNewUser = ! $user->exists;
 
-            // $user->name = 'KOOR RSDM '.$row['name'];
-            // $user->branch_id = $branch->id;
+            $user->name = 'KOOR RSDM '.$row['name'];
+            $user->branch_id = $branch->id;
 
-            // if ($isNewUser) {
-            //     $user->password = Hash::make($password);
-            // }
+            if ($isNewUser) {
+                $user->password = Hash::make($password);
+            }
 
-            // $user->save();
+            $user->save();
 
-            // if (method_exists($user, 'assignRole') && class_exists(Role::class)) {
-            //     $role = Role::find(2);
+            if (method_exists($user, 'assignRole') && class_exists(Role::class)) {
+                $role = Role::find(3);
 
-            //     if ($role) {
-            //         $user->assignRole($role->name);
-            //     }
-            // }
+                if ($role) {
+                    $user->assignRole($role->name);
+                }
+            }
 
-            // $message = $isNewUser
-            //     ? "Akun cabang dibuat: {$user->email}, password: {$password}"
-            //     : "Akun cabang sudah ada: {$user->email}";
+            $message = $isNewUser
+                ? "Akun cabang dibuat: {$user->email}, password: {$password}"
+                : "Akun cabang sudah ada: {$user->email}";
 
-            // $this->command?->info($message);
+            $this->command?->info($message);
         }
     }
 }
