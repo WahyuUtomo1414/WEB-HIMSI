@@ -1,4 +1,16 @@
-@props(['blogs', 'paginator'])
+@php
+    $isPaginatorObj = is_object($paginator) && method_exists($paginator, 'firstItem');
+    $firstItem = $isPaginatorObj ? $paginator->firstItem() : ($paginator['firstItem'] ?? 0);
+    $lastItem = $isPaginatorObj ? $paginator->lastItem() : ($paginator['lastItem'] ?? 0);
+    $total = $isPaginatorObj ? $paginator->total() : ($paginator['total'] ?? 0);
+    $onFirstPage = $isPaginatorObj ? $paginator->onFirstPage() : ($paginator['onFirstPage'] ?? true);
+    $hasMorePages = $isPaginatorObj ? $paginator->hasMorePages() : ($paginator['hasMorePages'] ?? false);
+    $previousPageUrl = $isPaginatorObj ? $paginator->previousPageUrl() : ($paginator['previousPageUrl'] ?? '#');
+    $nextPageUrl = $isPaginatorObj ? $paginator->nextPageUrl() : ($paginator['nextPageUrl'] ?? '#');
+    $currentPage = $isPaginatorObj ? $paginator->currentPage() : ($paginator['currentPage'] ?? 1);
+    $lastPage = $isPaginatorObj ? $paginator->lastPage() : ($paginator['lastPage'] ?? 1);
+    $pageUrls = $isPaginatorObj ? $paginator->getUrlRange(1, $lastPage) : ($paginator['pageUrls'] ?? [1 => '#']);
+@endphp
 
 @if (count($blogs) > 0)
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -54,16 +66,16 @@
     <div class="pt-10 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#c5c5d4]/60">
         <p class="text-xs font-semibold text-[#454652]">
             Menampilkan
-            <span class="font-bold text-[#000c46]">{{ $paginator->firstItem() }}</span>
+            <span class="font-bold text-[#000c46]">{{ $firstItem }}</span>
             sampai
-            <span class="font-bold text-[#000c46]">{{ $paginator->lastItem() }}</span>
+            <span class="font-bold text-[#000c46]">{{ $lastItem }}</span>
             dari
-            <span class="font-bold text-[#000c46]">{{ $paginator->total() }}</span>
+            <span class="font-bold text-[#000c46]">{{ $total }}</span>
             artikel
         </p>
 
         <nav class="inline-flex items-center gap-2">
-            @if ($paginator->onFirstPage())
+            @if ($onFirstPage)
                 <span class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-slate-100 text-xs font-bold text-slate-400 shadow-xs cursor-not-allowed">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
@@ -71,7 +83,7 @@
                     <span>Sebelumnya</span>
                 </span>
             @else
-                <a href="{{ $paginator->previousPageUrl() }}" class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-white text-xs font-bold text-[#000c46] hover:bg-[#001b79] hover:text-white hover:border-[#001b79] transition-all shadow-xs group">
+                <a href="{{ $previousPageUrl }}" class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-white text-xs font-bold text-[#000c46] hover:bg-[#001b79] hover:text-white hover:border-[#001b79] transition-all shadow-xs group">
                     <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
                     </svg>
@@ -79,8 +91,8 @@
                 </a>
             @endif
 
-            @foreach ($paginator->getUrlRange(1, $paginator->lastPage()) as $page => $url)
-                @if ($page === $paginator->currentPage())
+            @foreach ($pageUrls as $page => $url)
+                @if ($page === $currentPage)
                     <span class="h-9 w-9 rounded-xl bg-[#001b79] text-white font-bold text-xs flex items-center justify-center shadow-xs">
                         {{ $page }}
                     </span>
@@ -91,8 +103,8 @@
                 @endif
             @endforeach
 
-            @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-white text-xs font-bold text-[#000c46] hover:bg-[#001b79] hover:text-white hover:border-[#001b79] transition-all shadow-xs group">
+            @if ($hasMorePages)
+                <a href="{{ $nextPageUrl }}" class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-white text-xs font-bold text-[#000c46] hover:bg-[#001b79] hover:text-white hover:border-[#001b79] transition-all shadow-xs group">
                     <span>Selanjutnya</span>
                     <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
