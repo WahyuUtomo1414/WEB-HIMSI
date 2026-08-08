@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Branches\RelationManagers;
 
+use App\Support\BranchStructurePosition;
+use App\Support\ImageUploadOptimizer;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -13,6 +15,7 @@ use Filament\Actions\RestoreAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -21,6 +24,8 @@ use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
@@ -36,11 +41,11 @@ class StructuresRelationManager extends RelationManager
 {
     protected static string $relationship = 'structures';
 
-    protected static ?string $title = 'Struktur Branch';
+    protected static ?string $title = 'Struktur Cabang';
 
-    protected static ?string $modelLabel = 'Struktur Branch';
+    protected static ?string $modelLabel = 'Struktur Cabang';
 
-    protected static ?string $pluralModelLabel = 'Struktur Branch';
+    protected static ?string $pluralModelLabel = 'Struktur Cabang';
 
     public function form(Schema $schema): Schema
     {
@@ -57,15 +62,15 @@ class StructuresRelationManager extends RelationManager
                             ->relationship('division', 'name')
                             ->searchable()
                             ->preload(),
-                        TextInput::make('sort')
-                            ->label('Urutan')
-                            ->numeric()
-                            ->default(0)
-                            ->minValue(0)
-                            ->required(),
-                        TextInput::make('position')
+                        Hidden::make('sort')
+                            ->default(99)
+                            ->dehydrateStateUsing(fn (Get $get): int => BranchStructurePosition::sortFor($get('position'))),
+                        Select::make('position')
                             ->label('Posisi')
-                            ->maxLength(128)
+                            ->options(BranchStructurePosition::options())
+                            ->searchable()
+                            ->live()
+                            ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('sort', BranchStructurePosition::sortFor($state)))
                             ->required(),
                         FileUpload::make('image')
                             ->label('Foto')
@@ -73,8 +78,9 @@ class StructuresRelationManager extends RelationManager
                             ->disk('public')
                             ->directory('branch_structure')
                             ->visibility('public')
-                            ->preserveFilenames()
                             ->maxSize(2048)
+                            ->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1000 x 1000 px. Otomatis dikonversi ke WebP.')
+                            ->saveUploadedFileUsing(fn ($component, $file) => ImageUploadOptimizer::storeWebp($component, $file, maxWidth: 1000, quality: 85))
                             ->required(),
                         TextInput::make('no_wa')
                             ->label('Nomor WhatsApp')

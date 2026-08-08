@@ -25,7 +25,7 @@ class BranchStructuresTable
         return $table
             ->columns([
                 TextColumn::make('name')->label('Nama Pengurus')->searchable()->sortable(),
-                TextColumn::make('branch.name')->label('Branch')->searchable()->sortable(),
+                TextColumn::make('branch.name')->label('Cabang')->searchable()->sortable(),
                 TextColumn::make('division.name')->label('Divisi')->placeholder('-')->searchable()->sortable(),
                 TextColumn::make('sort')->label('Urutan')->numeric()->sortable(),
                 TextColumn::make('position')->label('Posisi')->searchable(),

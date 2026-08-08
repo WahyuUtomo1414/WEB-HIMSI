@@ -187,13 +187,13 @@
                     <!-- Row 6: Upload Files -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-5 rounded-2xl bg-white/5 border border-white/10">
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Upload e-KTM (Opsional, JPG/PNG/PDF)</label>
-                            <input type="file" name="ektm" accept="image/*,.pdf" 
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Upload e-KTM * (JPG/PNG/PDF, Max 2MB)</label>
+                            <input type="file" name="ektm" accept="image/*,.pdf" required
                                    class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950 hover:file:bg-amber-300 cursor-pointer">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-slate-300 mb-1">Upload CV (PDF, Max 5MB, Opsional)</label>
-                            <input type="file" name="cv" accept=".pdf" 
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Upload CV * (PDF, Max 5MB)</label>
+                            <input type="file" name="cv" accept=".pdf" required
                                    class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950 hover:file:bg-amber-300 cursor-pointer">
                         </div>
                     </div>

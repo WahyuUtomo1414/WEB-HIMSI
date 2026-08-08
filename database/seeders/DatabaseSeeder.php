@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([
+            UserSeeder::class,
             BranchSeeder::class,
             CountSeeder::class,
             DivisionSeeder::class,

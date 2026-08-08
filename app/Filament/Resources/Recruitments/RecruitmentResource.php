@@ -16,6 +16,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class RecruitmentResource extends Resource
@@ -24,13 +25,13 @@ class RecruitmentResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-plus';
 
-    protected static string|UnitEnum|null $navigationGroup = 'Recruitment';
+    protected static string|UnitEnum|null $navigationGroup = 'Rekrutmen';
 
-    protected static ?string $navigationLabel = 'Recruitment';
+    protected static ?string $navigationLabel = 'Rekrutmen';
 
-    protected static ?string $modelLabel = 'Recruitment';
+    protected static ?string $modelLabel = 'Rekrutmen';
 
-    protected static ?string $pluralModelLabel = 'Recruitment';
+    protected static ?string $pluralModelLabel = 'Rekrutmen';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -51,10 +52,27 @@ class RecruitmentResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
+        $query = parent::getEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+
+        return static::scopeQueryForBranchRole($query);
+    }
+
+    public static function scopeQueryForBranchRole(Builder $query): Builder
+    {
+        $user = Auth::user();
+
+        if (! $user) {
+            return $query->whereRaw('1 = 0');
+        }
+
+        if ($user->roles()->whereKey(3)->exists()) {
+            return $query->where('branch_id', $user->branch_id);
+        }
+
+        return $query;
     }
 
     public static function getRelations(): array

@@ -32,19 +32,52 @@
     <!-- Background Video (Full visibility & sharp contrast with Forced Muted Autoplay) -->
     <div class="absolute inset-0 -z-20 pointer-events-none">
         <video x-ref="heroVideo"
-               x-init="$nextTick(() => { if ($refs.heroVideo) { $refs.heroVideo.muted = true; $refs.heroVideo.play().catch(() => {}); } })"
+               id="heroVideoEl"
                class="h-full w-full object-cover opacity-90 scale-105 pointer-events-none" 
                autoplay 
-               muted 
+               muted="muted" 
                loop 
                playsinline
                webkit-playsinline
-               preload="metadata"
+               preload="auto"
                tabindex="-1"
-               controlslist="nodownload nofullscreen noremoteplayback">
-            <source src="{{ asset('video/web_himsi.mp4') }}" type="video/mp4">
+               controlslist="nodownload nofullscreen noremoteplayback"
+               x-init="$nextTick(() => { 
+                   const v = $refs.heroVideo;
+                   if (v) { 
+                       v.muted = true; 
+                       v.defaultMuted = true; 
+                       const p = v.play();
+                       if (p !== undefined) {
+                           p.catch(() => {
+                               v.muted = true;
+                               v.play();
+                           });
+                       }
+                   } 
+               })"
+               onloadeddata="this.muted=true; this.play().catch(() => {});"
+               oncanplay="this.muted=true; this.play().catch(() => {});">
+            <source src="{{ asset('video/web_himsi5.mp4') }}" type="video/mp4">
         </video>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const playHeroVideo = function() {
+                const v = document.getElementById('heroVideoEl');
+                if (v && v.paused) {
+                    v.muted = true;
+                    v.defaultMuted = true;
+                    v.play().catch(function() {});
+                }
+            };
+            playHeroVideo();
+            ['click', 'touchstart', 'scroll', 'mousemove'].forEach(function(evt) {
+                window.addEventListener(evt, playHeroVideo, { once: true });
+            });
+        });
+    </script>
     
     <!-- Subtle Side & Top Vignette Gradients for Legibility without Darkening Video -->
     <div class="absolute inset-0 -z-10 bg-gradient-to-r from-[#000c46]/85 via-[#000c46]/50 to-transparent"></div>

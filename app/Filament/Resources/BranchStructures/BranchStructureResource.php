@@ -26,11 +26,11 @@ class BranchStructureResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Organisasi';
 
-    protected static ?string $navigationLabel = 'Struktur Branch';
+    protected static ?string $navigationLabel = 'Struktur Cabang';
 
-    protected static ?string $modelLabel = 'Struktur Branch';
+    protected static ?string $modelLabel = 'Struktur Cabang';
 
-    protected static ?string $pluralModelLabel = 'Struktur Branch';
+    protected static ?string $pluralModelLabel = 'Struktur Cabang';
 
     protected static ?string $recordTitleAttribute = 'name';
 

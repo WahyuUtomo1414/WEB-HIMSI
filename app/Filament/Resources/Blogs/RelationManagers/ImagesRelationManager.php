@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Blogs\RelationManagers;
 
+use App\Support\ImageUploadOptimizer;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -52,8 +53,9 @@ class ImagesRelationManager extends RelationManager
                             ->disk('public')
                             ->directory('blog/image')
                             ->visibility('public')
-                            ->preserveFilenames()
                             ->maxSize(2048)
+                            ->helperText('Format gambar. Maksimal 2 MB. Rekomendasi 1600 x 900 px. Otomatis dikonversi ke WebP.')
+                            ->saveUploadedFileUsing(fn ($component, $file) => ImageUploadOptimizer::storeWebp($component, $file, maxWidth: 1600, quality: 85))
                             ->required(),
                         TextInput::make('description')
                             ->label('Deskripsi')
