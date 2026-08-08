@@ -161,11 +161,11 @@
                 <ul class="space-y-3 text-xs text-slate-300 font-medium">
                     <li class="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
                         <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">WhatsApp Panitia</span>
-                        <span class="text-sm font-bold text-emerald-400">0812-3456-7890</span>
+                        <span class="text-sm font-bold text-emerald-400">0895-4061-89600</span>
                     </li>
                     <li class="p-3 rounded-xl bg-white/5 border border-white/10 space-y-1">
                         <span class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Email Official</span>
-                        <a href="mailto:oprec@himsi.org" class="text-sm font-bold text-blue-400 hover:underline">oprec@himsi.org</a>
+                        <a href="mailto:himsi@bsi.ac.id" class="text-sm font-bold text-blue-400 hover:underline">himsi@bsi.ac.id</a>
                     </li>
                 </ul>
             </div>

@@ -142,7 +142,7 @@
             <!-- Quick Stat Cards -->
             <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-8 border-t border-white/10">
                 <div class="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:scale-105 transition-transform">
-                    <span class="block text-2xl sm:text-3xl font-black text-amber-400">6+</span>
+                    <span class="block text-2xl sm:text-3xl font-black text-amber-400">4</span>
                     <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Divisi Pilihan</span>
                 </div>
                 <div class="p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md hover:scale-105 transition-transform">
