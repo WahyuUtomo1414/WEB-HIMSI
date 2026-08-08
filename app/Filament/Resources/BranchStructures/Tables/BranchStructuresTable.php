@@ -52,7 +52,15 @@ class BranchStructuresTable
             ->filters([
                 TernaryFilter::make('active')->label('Status Aktif'),
                 TrashedFilter::make()->label('Data Terhapus'),
-                SelectFilter::make('branch_id')->label('Branch')->relationship('branch', 'name')->searchable()->preload(),
+                SelectFilter::make('branch_id')
+                    ->label('Branch')
+                    ->relationship('branch', 'name', function ($query) {
+                        if (auth()->check() && ! auth()->user()->hasRole('super_admin') && auth()->user()->branch_id) {
+                            $query->where('id', auth()->user()->branch_id);
+                        }
+                    })
+                    ->searchable()
+                    ->preload(),
                 SelectFilter::make('division_id')->label('Divisi')->relationship('division', 'name')->searchable()->preload(),
             ])
             ->defaultSort('sort')
