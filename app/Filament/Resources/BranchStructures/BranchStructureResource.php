@@ -51,10 +51,16 @@ class BranchStructureResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()
+        $query = parent::getEloquentQuery()
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+
+        if (auth()->check() && ! auth()->user()->hasRole('super_admin') && auth()->user()->branch_id) {
+            $query->where('branch_id', auth()->user()->branch_id);
+        }
+
+        return $query;
     }
 
     public static function getRelations(): array
