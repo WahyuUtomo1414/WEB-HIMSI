@@ -113,12 +113,18 @@
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">Nama Lengkap *</label>
                             <input type="text" name="name" value="{{ old('name') }}" required placeholder="Contoh: Budi Pratama" 
-                                   class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                                   class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border @error('name') border-red-500 @else border-white/15 @enderror text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                            @error('name')
+                                <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                            @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">NIM (Nomor Induk Mahasiswa) *</label>
                             <input type="text" name="nim" value="{{ old('nim') }}" required placeholder="Contoh: 12234567" 
-                                   class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                                   class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border @error('nim') border-red-500 @else border-white/15 @enderror text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                            @error('nim')
+                                <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
@@ -126,17 +132,20 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">Semester Saat Ini *</label>
-                            <select name="semester" required class="w-full px-4 py-3.5 rounded-2xl bg-[#030712] border border-white/15 text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                            <select name="semester" required class="w-full px-4 py-3.5 rounded-2xl bg-[#030712] border @error('semester') border-red-500 @else border-white/15 @enderror text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
                                 <option value="">-- Pilih Semester --</option>
                                 <option value="Semester 1" {{ old('semester') == 'Semester 1' ? 'selected' : '' }}>Semester 1</option>
                                 <option value="Semester 2" {{ old('semester') == 'Semester 2' ? 'selected' : '' }}>Semester 2</option>
                                 <option value="Semester 3" {{ old('semester') == 'Semester 3' ? 'selected' : '' }}>Semester 3</option>
                                 <option value="Semester 4" {{ old('semester') == 'Semester 4' ? 'selected' : '' }}>Semester 4</option>
                             </select>
+                            @error('semester')
+                                <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                            @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">Cabang DPC Pilihan *</label>
-                            <select name="branch_id" required class="w-full px-4 py-3.5 rounded-2xl bg-[#030712] border border-white/15 text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                            <select name="branch_id" required class="w-full px-4 py-3.5 rounded-2xl bg-[#030712] border @error('branch_id') border-red-500 @else border-white/15 @enderror text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
                                 <option value="">-- Pilih Cabang (DPC) --</option>
                                 @foreach ($branches as $branch)
                                     <option value="{{ $branch->id }}" {{ old('branch_id') == $branch->id ? 'selected' : '' }}>
@@ -144,6 +153,9 @@
                                     </option>
                                 @endforeach
                             </select>
+                            @error('branch_id')
+                                <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
@@ -152,13 +164,20 @@
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">Email UBSI / Email Pribadi *</label>
                             <input type="email" name="email" value="{{ old('email') }}" required placeholder="nama@gmail.com" 
-                                   class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
-                            <span class="text-[10px] text-slate-400 mt-1 block">Email konfirmasi akan dikirimkan langsung ke alamat ini.</span>
+                                   class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border @error('email') border-red-500 @else border-white/15 @enderror text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                            @error('email')
+                                <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                            @else
+                                <span class="text-[10px] text-slate-400 mt-1 block">Email konfirmasi akan dikirimkan langsung ke alamat ini.</span>
+                            @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">No. WhatsApp Aktif *</label>
                             <input type="tel" name="no_wa" value="{{ old('no_wa') }}" required placeholder="Contoh: 08123456789" 
-                                   class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                                   class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border @error('no_wa') border-red-500 @else border-white/15 @enderror text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                            @error('no_wa')
+                                <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
@@ -167,13 +186,20 @@
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">Username Instagram *</label>
                             <input type="text" name="instagram" value="{{ old('instagram') }}" required placeholder="@username" 
-                                   class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                                   class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border @error('instagram') border-red-500 @else border-white/15 @enderror text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                            @error('instagram')
+                                <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                            @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">Upload Bukti Follow Instagram DPC *</label>
                             <input type="file" name="follow_dpc" accept="image/*" required 
-                                   class="w-full px-3.5 py-2.5 rounded-2xl bg-white/5 border border-white/15 text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950 hover:file:bg-amber-300 cursor-pointer">
-                            <span class="text-[10px] text-slate-400 mt-1 block">Upload screenshot (JPG/PNG) bukti telah follow Instagram DPC.</span>
+                                   class="w-full px-3.5 py-2.5 rounded-2xl bg-white/5 border @error('follow_dpc') border-red-500 @else border-white/15 @enderror text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950 hover:file:bg-amber-300 cursor-pointer">
+                            @error('follow_dpc')
+                                <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                            @else
+                                <span class="text-[10px] text-slate-400 mt-1 block">Upload screenshot (JPG/PNG) bukti telah follow Instagram DPC.</span>
+                            @enderror
                         </div>
                     </div>
 
@@ -181,7 +207,10 @@
                     <div>
                         <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">Motivasi & Alasan Ingin Bergabung *</label>
                         <textarea name="description" required rows="4" placeholder="Ceritakan motivasi, pengalaman, dan apa yang ingin Anda kontribusikan di HIMSI UBSI..." 
-                                  class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">{{ old('description') }}</textarea>
+                                  class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border @error('description') border-red-500 @else border-white/15 @enderror text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">{{ old('description') }}</textarea>
+                        @error('description')
+                            <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                        @enderror
                     </div>
 
                     <!-- Row 6: Upload Files -->
@@ -189,12 +218,18 @@
                         <div>
                             <label class="block text-xs font-bold text-slate-300 mb-1">Upload e-KTM * (JPG/PNG/PDF, Max 2MB)</label>
                             <input type="file" name="ektm" accept="image/*,.pdf" required
-                                   class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950 hover:file:bg-amber-300 cursor-pointer">
+                                   class="w-full px-3 py-2 rounded-xl bg-white/5 border @error('ektm') border-red-500 @else border-white/15 @enderror text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950 hover:file:bg-amber-300 cursor-pointer">
+                            @error('ektm')
+                                <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                            @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-300 mb-1">Upload CV * (PDF, Max 5MB)</label>
                             <input type="file" name="cv" accept=".pdf" required
-                                   class="w-full px-3 py-2 rounded-xl bg-white/5 border border-white/15 text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950 hover:file:bg-amber-300 cursor-pointer">
+                                   class="w-full px-3 py-2 rounded-xl bg-white/5 border @error('cv') border-red-500 @else border-white/15 @enderror text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950 hover:file:bg-amber-300 cursor-pointer">
+                            @error('cv')
+                                <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 

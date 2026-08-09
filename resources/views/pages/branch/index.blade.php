@@ -1,4 +1,4 @@
-<x-layouts.public title="Cabang & DPC - HIMSI UBSI">
+<x-layouts.public title="Kepengurusan HIMSI - HIMSI UBSI">
 
     {{-- 1. Hero Section --}}
     <x-branch.hero 

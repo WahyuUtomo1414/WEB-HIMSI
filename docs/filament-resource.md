@@ -259,7 +259,7 @@ Pengecualian:
 | `Blog` | `Blog` | `Blog` | `Blog` | `Konten` | `heroicon-o-newspaper` |
 | `Category` | `Kategori Blog` | `Kategori Blog` | `Kategori Blog` | `Master Data` | `heroicon-o-tag` |
 | `Branch` | `Branch` | `Branch` | `Branch` | `Organisasi` | `heroicon-o-building-office-2` |
-| `BranchStructure` | `Struktur Branch` | `Struktur Branch` | `Struktur Branch` | `Organisasi` | `heroicon-o-user-group` |
+| `BranchStructure` | `Struktur Cabang` | `Struktur Cabang` | `Struktur Cabang` | `Organisasi` | `heroicon-o-user-group` |
 | `Division` | `Divisi` | `Divisi` | `Divisi` | `Organisasi` | `heroicon-o-squares-2x2` |
 | `Greeting` | `Sambutan` | `Sambutan` | `Sambutan` | `Profil` | `heroicon-o-chat-bubble-left-right` |
 | `Organization` | `Organisasi` | `Organisasi` | `Organisasi` | `Profil` | `heroicon-o-home-modern` |
@@ -486,7 +486,14 @@ Catatan:
 - `branch_id` memakai select relasi ke `Branch`.
 - `status_id` memakai select relasi ke `Status`.
 - `ektm` dan `cv` memakai `FileUpload`.
-- `cv` opsional.
+- `ektm` dan `cv` wajib diisi pada form publik.
+- `follow_dpc` berupa gambar dan otomatis dikonversi ke WebP.
+- `ektm` menerima gambar atau PDF. Gambar dikonversi ke WebP, PDF tetap disimpan sebagai PDF.
+- `cv` hanya menerima PDF.
+- `no_wa` di table, infolist, dan export ditampilkan sebagai link WhatsApp `wa.me` dengan format nomor Indonesia `62`.
+- Verifikasi recruitment dilakukan via bulk action dan mengubah `status_id` menjadi `2`, lalu mengirim email verifikasi.
+- Export recruitment memakai action table dan berjalan langsung tanpa queue.
+- Role id `3` hanya melihat data sesuai `branch_id`; role lain melihat semua data.
 - `description` memakai textarea.
 
 ### 14.7 Blog
@@ -542,7 +549,7 @@ Field:
 Catatan:
 
 - `thumbnail` memakai `FileUpload`.
-- `description` memakai textarea.
+- `description` memakai rich editor.
 - `sosial_media` memakai field fixed per platform dengan state path JSON seperti `sosial_media.instagram`, `sosial_media.website`, `sosial_media.youtube`, `sosial_media.linkedin`, `sosial_media.tiktok`, `sosial_media.facebook`, dan `sosial_media.wa`.
 - Link kosong tidak perlu tampil di FE.
 - `is_dpp` dan `active` memakai toggle.
@@ -562,7 +569,7 @@ Field:
 Catatan:
 
 - `logo` dan `image` memakai `FileUpload`.
-- `description` memakai textarea.
+- `description` memakai rich editor.
 - `job_description` memakai repeater karena bertipe JSON.
 
 ### 14.11 BranchStructure
@@ -572,8 +579,8 @@ Field:
 - `branch_id`
 - `name`
 - `division_id`
-- `sort`
 - `position`
+- `sort`
 - `image`
 - `no_wa`
 - `active`
@@ -582,8 +589,25 @@ Catatan:
 
 - `branch_id` memakai select relasi ke `Branch`.
 - `division_id` memakai select relasi ke `Division` dan opsional.
-- `sort` memakai numeric input untuk menentukan urutan tampil pada halaman detail cabang.
+- `position` memakai dropdown dari daftar posisi tetap.
+- `sort` tidak tampil sebagai input. Nilainya otomatis diisi dari `position` melalui helper `BranchStructurePosition` dan event `saving` pada model.
 - `image` memakai `FileUpload`.
+
+Daftar posisi struktur cabang:
+
+| Urutan | Posisi |
+| --- | --- |
+| 1 | Ketua |
+| 2 | Wakil Ketua |
+| 3 | Sekertaris 1 |
+| 4 | Sekertaris 2 |
+| 5 | Bendahara |
+| 6 | Koor Div Pendidikan |
+| 7 | Koor Div RSDM |
+| 8 | Koor Div Litbang |
+| 9 | Koor Div Kominfo |
+| 10 | Koor Div Sosmas |
+| 11 | Koor Div PSDM |
 
 ### 14.12 Greeting
 
@@ -632,16 +656,18 @@ Catatan:
 
 Field:
 
-- `sort`
 - `year`
 - `list`
+- `sort`
 - `active`
 
 Catatan:
 
-- `sort` memakai numeric input.
+- `sort` tidak tampil sebagai input form.
+- Saat create, `sort` otomatis memakai nilai terbesar di database + 1.
+- Urutan milestone diubah dari table dengan fitur drag reorder pada kolom `sort`.
 - `year` memakai date picker.
-- `list` memakai repeater karena bertipe JSON.
+- `list` memakai repeater dengan satu field `value`, tanpa input urutan di dalam repeater.
 
 ## 15. Table Per Resource
 
@@ -800,6 +826,10 @@ Kolom:
 - `active`
 - `createdBy`
 - `updatedBy`
+
+Catatan:
+
+- Table memakai `defaultSort('sort')` dan `reorderable('sort')`.
 
 ## 16. Infolist Per Resource
 

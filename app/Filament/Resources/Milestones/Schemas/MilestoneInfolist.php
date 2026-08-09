@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Milestones\Schemas;
 
+use App\Support\MilestoneList;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
@@ -17,7 +18,14 @@ class MilestoneInfolist
                     ->schema([
                         TextEntry::make('sort')->label('Urutan')->numeric(),
                         TextEntry::make('year')->label('Tahun/Tanggal')->date(),
-                        TextEntry::make('list')->label('Daftar Milestone')->formatStateUsing(fn ($state): string => json_encode($state, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES))->columnSpanFull(),
+                        TextEntry::make('list')
+                            ->label('Daftar Milestone')
+                            ->formatStateUsing(fn ($state): array => collect(MilestoneList::normalize($state))
+                                ->pluck('value')
+                                ->all())
+                            ->bulleted()
+                            ->listWithLineBreaks()
+                            ->columnSpanFull(),
                         IconEntry::make('active')->label('Aktif')->boolean(),
                     ])
                     ->columns(2)

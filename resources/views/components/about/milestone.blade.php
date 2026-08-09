@@ -29,11 +29,11 @@
                                     </div>
 
                                     <!-- Bullet List Items -->
-                                    <ul class="space-y-2.5 text-sm sm:text-base text-[#454652] leading-relaxed">
+                                    <ul class="space-y-3 text-sm sm:text-base text-[#454652]">
                                         @foreach ($milestone['list'] as $item)
-                                            <li class="flex items-start gap-2">
-                                                <span class="text-[#0453cd] font-bold shrink-0 mt-0.5">&gt;</span>
-                                                <span>{{ is_array($item) ? ($item['value'] ?? implode(', ', $item)) : $item }}</span>
+                                            <li class="flex items-start gap-2.5 text-left">
+                                                <span class="text-[#0453cd] font-black shrink-0 select-none text-base leading-relaxed">&gt;</span>
+                                                <span class="flex-1 min-w-0 font-medium leading-relaxed">{{ is_array($item) ? ($item['value'] ?? implode(', ', $item)) : $item }}</span>
                                             </li>
                                         @endforeach
                                     </ul>

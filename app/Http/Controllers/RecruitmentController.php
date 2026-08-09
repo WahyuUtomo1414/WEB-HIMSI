@@ -26,12 +26,12 @@ class RecruitmentController extends Controller
         $branches = Branch::all();
 
         $badgeColors = [
-            ['badge' => 'Tech & Research', 'color' => 'blue', 'glow' => 'rgba(59, 130, 246, 0.45)'],
-            ['badge' => 'Creative & Media', 'color' => 'amber', 'glow' => 'rgba(245, 158, 11, 0.45)'],
-            ['badge' => 'Human Resource', 'color' => 'emerald', 'glow' => 'rgba(16, 185, 129, 0.45)'],
+            ['badge' => 'Teknologi & Riset', 'color' => 'blue', 'glow' => 'rgba(59, 130, 246, 0.45)'],
+            ['badge' => 'Kreatif & Media', 'color' => 'amber', 'glow' => 'rgba(245, 158, 11, 0.45)'],
+            ['badge' => 'Sumber Daya Manusia', 'color' => 'emerald', 'glow' => 'rgba(16, 185, 129, 0.45)'],
             ['badge' => 'Riset & Inovasi', 'color' => 'purple', 'glow' => 'rgba(168, 85, 247, 0.45)'],
             ['badge' => 'Manajemen Strategis', 'color' => 'red', 'glow' => 'rgba(239, 68, 68, 0.45)'],
-            ['badge' => 'Networking & PR', 'color' => 'indigo', 'glow' => 'rgba(99, 102, 241, 0.45)'],
+            ['badge' => 'Humas & Kemitraan', 'color' => 'indigo', 'glow' => 'rgba(99, 102, 241, 0.45)'],
         ];
 
         if ($dbDivisions->count() > 0) {
@@ -59,7 +59,7 @@ class RecruitmentController extends Controller
                 [
                     'id' => 1,
                     'name' => 'Divisi Pendidikan',
-                    'badge' => 'Tech & Research',
+                    'badge' => 'Teknologi & Riset',
                     'color' => 'blue',
                     'glow' => 'rgba(59, 130, 246, 0.45)',
                     'description' => 'Mengembangkan kualitas keilmuan IT, menyelenggarakan workshop, bootcamps, pelatihan coding, dan riset akademik.',
@@ -72,7 +72,7 @@ class RecruitmentController extends Controller
                 [
                     'id' => 2,
                     'name' => 'Divisi Kominfo',
-                    'badge' => 'Creative & Media',
+                    'badge' => 'Kreatif & Media',
                     'color' => 'amber',
                     'glow' => 'rgba(245, 158, 11, 0.45)',
                     'description' => 'Mengelola komunikasi internal maupun eksternal organisasi, branding media sosial, website, dan publikasi informasi.',
@@ -85,7 +85,7 @@ class RecruitmentController extends Controller
                 [
                     'id' => 3,
                     'name' => 'Divisi RSDM',
-                    'badge' => 'Human Resource',
+                    'badge' => 'Sumber Daya Manusia',
                     'color' => 'emerald',
                     'glow' => 'rgba(16, 185, 129, 0.45)',
                     'description' => 'Berfokus pada pengelolaan, pembinaan, dan pengembangan soft skill & hard skill seluruh anggota organisasi.',
@@ -191,6 +191,24 @@ class RecruitmentController extends Controller
             'follow_dpc' => 'required|file|image|mimes:jpg,jpeg,png,webp|max:3072',
             'ektm' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
             'cv' => 'required|file|mimes:pdf|max:5024',
+        ], [
+            'name.required' => 'Nama lengkap wajib diisi.',
+            'nim.required' => 'NIM wajib diisi.',
+            'nim.unique' => 'NIM ini sudah terdaftar sebelumnya.',
+            'semester.required' => 'Semester wajib dipilih.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'no_wa.required' => 'Nomor WhatsApp wajib diisi.',
+            'no_wa.unique' => 'Nomor WhatsApp ini sudah terdaftar sebelumnya.',
+            'branch_id.required' => 'Cabang DPC wajib dipilih.',
+            'branch_id.exists' => 'Cabang DPC pilihan tidak valid.',
+            'instagram.required' => 'Username Instagram wajib diisi.',
+            'description.required' => 'Motivasi & alasan wajib diisi.',
+            'follow_dpc.required' => 'Bukti follow Instagram DPC wajib diunggah.',
+            'follow_dpc.image' => 'File bukti follow harus berupa gambar.',
+            'ektm.required' => 'Foto / PDF e-KTM wajib diunggah.',
+            'cv.required' => 'File CV (PDF) wajib diunggah.',
+            'cv.mimes' => 'File CV harus berformat PDF.',
         ]);
 
         // Handle file uploads
@@ -236,13 +254,13 @@ class RecruitmentController extends Controller
             Log::error('Recruitment email failed to send: '.$e->getMessage());
         }
 
-        // Auto Redirect to Branch WhatsApp Group
-        $branch = Branch::find($validated['branch_id']);
-        $waGroup = ($branch && filled($branch->grup_wa))
-            ? $branch->grup_wa
-            : 'https://chat.whatsapp.com/DD7fue3sDAf6Zv6bRoQQs5';
+        // Redirect to DPP Branch Page
+        $dppBranch = Branch::where('is_dpp', true)->first() ?? Branch::find($validated['branch_id']);
+        if ($dppBranch) {
+            return redirect()->route('branch.show', $dppBranch->id)->with('success', 'Pendaftaran Anda berhasil dikirim! Silakan ikuti petunjuk selanjutnya.');
+        }
 
-        return redirect()->away($waGroup);
+        return redirect()->route('branch.index')->with('success', 'Pendaftaran Anda berhasil dikirim!');
     }
 
     private function storeEktmFile($file): string

@@ -51,7 +51,7 @@ class BranchController extends Controller
 
             return [
                 'hero' => [
-                    'title' => 'Cabang & DPC HIMSI',
+                    'title' => 'Kepengurusan HIMSI',
                     'subtitle' => 'Daftar Wilayah Kepengurusan Himpunan Mahasiswa Sistem Informasi',
                 ],
                 'branches' => $branches->map(fn ($b) => [

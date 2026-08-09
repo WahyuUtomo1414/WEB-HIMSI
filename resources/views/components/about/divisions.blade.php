@@ -33,8 +33,8 @@
                             <h3 class="text-xl font-bold text-[#000c46] group-hover:text-[#0453cd] transition-colors">
                                 {{ $division['name'] }}
                             </h3>
-                            <p class="text-sm text-[#454652] leading-relaxed">
-                                {{ $division['description'] }}
+                            <p class="text-sm text-[#454652] leading-relaxed line-clamp-3">
+                                {{ \Illuminate\Support\Str::limit(strip_tags($division['description']), 150) }}
                             </p>
                         </div>
                     </div>

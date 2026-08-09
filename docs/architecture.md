@@ -189,6 +189,9 @@ Halaman publik yang akan dibuat pada tahap awal:
 | Detail Blog | `/blog/{blog:slug}` | `BlogController` | `show` | detail blog, gambar tambahan, blog terkait |
 | Kontak | `/kontak` | `ContactController` | `index` | alamat, email, nomor telepon, sosial media, form pesan |
 | Kirim Kontak | `/kontak` | `ContactController` | `store` | simpan pesan pengunjung |
+| Rekrutmen | `/rekrutmen` | `RecruitmentController` | `index` | informasi open recruitment, divisi, cabang, timeline, FAQ |
+| Form Rekrutmen | `/rekrutmen/daftar` | `RecruitmentController` | `create` | form pendaftaran calon pengurus |
+| Kirim Rekrutmen | `/rekrutmen` | `RecruitmentController` | `store` | validasi dan simpan data pendaftar, kirim email, redirect grup WhatsApp |
 
 Catatan:
 
@@ -196,7 +199,7 @@ Catatan:
 - Detail cabang boleh memakai id terlebih dahulu. Jika nanti ingin URL lebih rapi, tambahkan kolom `slug` pada `branch`.
 - Divisi tampil sebagai section di Home dan Tentang Kami, serta memiliki halaman detail `/divisi/{division}` berbasis model `Division`.
 - FAQ tidak dibuat sebagai halaman sendiri pada tahap awal. Data FAQ tampil sebagai section di Home.
-- Recruitment belum dibuat pada tahap awal, baik list maupun form.
+- Recruitment sudah memiliki halaman informasi dan form publik.
 - Kontak dibuat sebagai halaman publik. Data informasi kontak dibaca dari `organization`, sedangkan form pesan disimpan ke tabel `contact`.
 
 ## 7. Mapping Data Database ke FE
@@ -216,8 +219,8 @@ Catatan:
 | `blog_image` | `BlogImage` | gambar tambahan blog | detail blog |
 | `faq` | `Faq` | pertanyaan umum | section FAQ di home |
 | `contact` | `Contact` | baca pesan masuk | form pesan halaman kontak |
-| `status` | `Status` | status recruitment | belum dipakai di FE tahap awal |
-| `recruitment` | `Recruitment` | data pendaftar | belum dipakai di FE tahap awal |
+| `status` | `Status` | status recruitment | status awal dan verifikasi pendaftar |
+| `recruitment` | `Recruitment` | data pendaftar | form rekrutmen publik |
 
 Filter data publik:
 

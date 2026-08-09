@@ -60,7 +60,7 @@
                     <li>
                         <a href="{{ route('branch.index') }}"
                             class="{{ request()->routeIs('branch.*') ? 'text-amber-400 font-bold' : 'hover:text-amber-400' }} hover:translate-x-1 inline-flex items-center gap-1.5 transition-all">
-                            <span>&rsaquo;</span> Cabang & DPP
+                            <span>&rsaquo;</span> Kepengurusan
                         </a>
                     </li>
                     <li>
@@ -149,11 +149,19 @@
 
         </div>
 
-        {{-- Bottom Copyright --}}
-        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300">
-            <p>&copy; {{ date('Y') }} {{ $footerOrganization?->kode_org ?? 'HIMSI UBSI' }}. All rights reserved.
-            </p>
-            <p class="text-slate-200 font-medium">
+        {{-- Bottom Copyright & Developer Credit --}}
+        <div class="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-300">
+            <!-- Left Side: Developer Credit (Top) + Copyright (Bottom) -->
+            <div class="space-y-1">
+                <div class="flex items-center gap-1.5 text-slate-300 font-medium">
+                    <span>Dikembangkan oleh</span>
+                    <span class="text-amber-400 font-bold">Divisi Pendidikan</span>
+                </div>
+                <p>&copy; {{ date('Y') }} {{ $footerOrganization?->kode_org ?? 'HIMSI UBSI' }}. All rights reserved.</p>
+            </div>
+
+            <!-- Right Side: Full Organization Name -->
+            <p class="text-slate-200 font-medium sm:text-right">
                 {{ $footerOrganization?->name ?? 'Himpunan Mahasiswa Sistem Informasi - Universitas Bina Sarana Informatika' }}
             </p>
         </div>

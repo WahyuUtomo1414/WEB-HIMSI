@@ -24,7 +24,7 @@ composer require intervention/image:^2
 
 Catatan:
 
-- Project saat ini belum memiliki `intervention/image`.
+- Project memakai `intervention/image:^2`.
 - Intervention Image versi 2 memakai API `Intervention\Image\ImageManagerStatic`.
 - Server perlu punya extension image yang aktif. Environment lokal saat ini sudah memiliki `gd` dan `imagick`.
 - Driver yang direkomendasikan untuk awal: `gd`, karena umumnya tersedia di shared hosting. Jika server produksi stabil dengan Imagick, driver bisa diganti ke `imagick`.
@@ -34,7 +34,8 @@ Catatan:
 Aturan umum:
 
 - hanya field Filament yang memakai `->image()` yang dikonversi,
-- jangan convert field yang masih menerima PDF, misalnya `ektm` jika tetap boleh `pdf`,
+- jangan convert PDF,
+- field hybrid seperti `ektm` boleh memakai converter kondisional: gambar dikonversi ke WebP, PDF tetap disimpan sebagai PDF,
 - hasil akhir disimpan sebagai `.webp`,
 - file asli dihapus hanya setelah WebP berhasil disimpan,
 - path hasil harus tetap berada di directory upload asal,
@@ -62,14 +63,14 @@ Field yang aman untuk WebP karena memang image-only:
 | Greeting | `image` | `greeting` | resize maksimal 1200px |
 | Recruitment | `follow_dpc` | `recruitment/follow_dpc` | resize maksimal 1600px |
 
-Field yang tidak boleh langsung dikonversi:
+Field dokumen atau hybrid:
 
 | Resource | Field | Alasan |
 | --- | --- | --- |
 | Recruitment | `cv` | PDF/file dokumen |
-| Recruitment | `ektm` | saat ini bisa berisi gambar atau PDF dari flow publik |
+| Recruitment | `ektm` | hybrid: gambar dikonversi ke WebP, PDF tetap disimpan tanpa konversi |
 
-Jika `ektm` ingin ikut WebP, validasi upload publik dan Filament harus diubah menjadi image-only.
+`ektm` dan `cv` wajib diisi pada form publik. Kewajiban ini ada di validasi aplikasi, walaupun kolom `cv` database tetap nullable untuk kompatibilitas data lama.
 
 ## 5. Service Yang Disarankan
 
@@ -215,13 +216,13 @@ Mitigasi:
 
 ## 11. Checklist Implementasi
 
-- Tambah dependency `intervention/image:^2`.
-- Buat service `ImageUploadOptimizer`.
+- Tambah dependency `intervention/image:^2`. Selesai.
+- Buat service `ImageUploadOptimizer`. Selesai.
 - Tambah unit/helper test untuk JPG, PNG, WebP, dan file invalid.
-- Pasang ke `Blog.thumbnail` sebagai pilot.
+- Pasang ke `Blog.thumbnail` sebagai pilot. Selesai.
 - Verifikasi upload di Filament.
 - Verifikasi file tersimpan `.webp`.
 - Verifikasi path database benar.
 - Verifikasi frontend publik menampilkan gambar.
-- Terapkan ke field image-only lain.
+- Terapkan ke field image-only lain. Selesai untuk field image-only utama.
 - Rencanakan command migrasi gambar lama.

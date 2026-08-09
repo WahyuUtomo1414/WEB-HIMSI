@@ -81,7 +81,7 @@
                                             {{ $division['name'] }}
                                         </h3>
                                         <p class="text-sm text-[#454652] leading-relaxed line-clamp-3">
-                                            {{ $division['description'] }}
+                                            {{ \Illuminate\Support\Str::limit(strip_tags($division['description']), 150) }}
                                         </p>
                                     </div>
                                 </div>

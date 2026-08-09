@@ -22,12 +22,13 @@ Tahap awal implementasi tetap fokus pada 5 halaman publik:
 3. Cabang
 4. Blog / Artikel
 5. Kontak
+6. Rekrutmen
 
 Catatan:
 
 - Divisi tidak dibuat sebagai halaman sendiri. Divisi hanya menjadi section atau data pendukung.
 - FAQ tidak dibuat sebagai halaman sendiri. FAQ hanya menjadi section di Home.
-- Recruitment belum dibuat pada tahap awal, baik list maupun form.
+- Recruitment sudah dibuat sebagai halaman informasi dan form publik.
 - Kontak dibuat sebagai halaman informasi resmi dan form pesan publik. Pesan tersimpan ke tabel `contact`.
 
 ## 2. Prinsip Umum
@@ -486,6 +487,7 @@ Data detail:
 Catatan:
 
 - Struktur cabang diurutkan berdasarkan `sort`, lalu `id`.
+- Nilai `sort` struktur cabang diisi otomatis dari `position` berdasarkan daftar posisi tetap, bukan input manual.
 
 - `branch.sosial_media` memakai format key-value fixed, misalnya `instagram`, `website`, `youtube`, `linkedin`, `tiktok`, `facebook`, dan `wa`.
 - FE hanya menampilkan social link yang value-nya terisi.
@@ -628,14 +630,13 @@ $validated = $request->validate([
 
 Resource yang bisa diintegrasikan setelah tahap awal:
 
-- recruitment publik,
 - detail divisi jika nanti memang dibutuhkan,
 - halaman FAQ jika jumlah FAQ sudah banyak,
 - pencarian global.
 
 Catatan:
 
-- Recruitment sudah memiliki tabel, tetapi belum masuk scope FE awal.
+- Recruitment sudah memiliki halaman informasi dan form publik.
 - Form kontak sudah memakai tabel `contact`.
 - Detail divisi tidak dibuat karena divisi saat ini cukup sebagai section.
 
@@ -675,14 +676,17 @@ Urutan yang disarankan:
 5. Buat `BranchController`.
 6. Buat `BlogController`.
 7. Buat `ContactController`.
-8. Tambahkan route publik GET dan POST kontak.
-9. Buat Blade Home.
-10. Buat Blade Tentang Kami.
-11. Buat Blade Cabang index dan detail.
-12. Buat Blade Blog index dan detail.
-13. Buat Blade Kontak.
-14. Sambungkan data ke section Home.
-15. Rapikan pagination, search, filter, dan empty state.
+8. Buat `RecruitmentController`.
+9. Tambahkan route publik GET dan POST kontak.
+10. Tambahkan route publik GET dan POST recruitment.
+11. Buat Blade Home.
+12. Buat Blade Tentang Kami.
+13. Buat Blade Cabang index dan detail.
+14. Buat Blade Blog index dan detail.
+15. Buat Blade Kontak.
+16. Buat Blade Recruitment dan form Recruitment.
+17. Sambungkan data ke section Home.
+18. Rapikan pagination, search, filter, dan empty state.
 
 ## 15. Batasan Tahap Awal
 
@@ -690,8 +694,6 @@ Belum perlu:
 
 - halaman divisi,
 - halaman FAQ,
-- halaman recruitment,
-- form recruitment,
 - login publik,
 - komentar blog,
 - pencarian full text,

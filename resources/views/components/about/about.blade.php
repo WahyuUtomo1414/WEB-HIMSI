@@ -8,9 +8,9 @@
             title="{{ $organization['name'] }}" 
             align="left" />
         
-        <p class="text-base sm:text-lg text-[#454652] leading-relaxed">
-            {{ $organization['description'] }}
-        </p>
+        <div class="prose max-w-none text-base sm:text-lg text-[#454652] leading-relaxed prose-p:mb-4 last:prose-p:mb-0">
+            {!! $organization['description'] !!}
+        </div>
 
         <!-- Stacked Email & Sekretariat Cards for Maximum Readability -->
         <div class="space-y-4 pt-2">

@@ -41,7 +41,7 @@
                 $navLinks = [
                     ['name' => 'Beranda', 'url' => route('home')],
                     ['name' => 'Tentang Kami', 'url' => route('about.index')],
-                    ['name' => 'Cabang', 'url' => route('branch.index')],
+                    ['name' => 'Kepengurusan', 'url' => route('branch.index')],
                     ['name' => 'Blog', 'url' => route('blog.index')],
                     ['name' => 'Kontak', 'url' => route('contact.index')],
                 ];
@@ -108,7 +108,7 @@
                             $navLinks = [
                                 ['name' => 'Beranda', 'url' => route('home')],
                                 ['name' => 'Tentang Kami', 'url' => route('about.index')],
-                                ['name' => 'Cabang', 'url' => route('branch.index')],
+                                ['name' => 'Kepengurusan', 'url' => route('branch.index')],
                                 ['name' => 'Blog', 'url' => route('blog.index')],
                                 ['name' => 'Kontak', 'url' => route('contact.index')],
                             ];

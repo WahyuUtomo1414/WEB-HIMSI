@@ -12,7 +12,7 @@
             title="Tujuan Pembentukan HIMSI" 
             align="left" />
     </div>
-    <p class="text-base sm:text-lg text-[#454652] leading-relaxed pt-2 max-w-4xl">
-        {{ $organization['purpose'] }}
-    </p>
+    <div class="prose max-w-4xl text-base sm:text-lg text-[#454652] leading-relaxed pt-2 prose-p:mb-4 last:prose-p:mb-0">
+        {!! $organization['purpose'] !!}
+    </div>
 </section>

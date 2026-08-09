@@ -7,9 +7,9 @@
             title="Tentang {{ $branch['name'] }}" 
             align="left" />
         
-        <p class="text-base sm:text-lg text-[#454652] leading-relaxed">
-            {{ $branch['description'] }}
-        </p>
+        <div class="prose max-w-none text-base sm:text-lg text-[#454652] leading-relaxed prose-p:mb-4 last:prose-p:mb-0">
+            {!! $branch['description'] !!}
+        </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2 items-stretch">
             <!-- Sektor Card -->

@@ -38,11 +38,14 @@ class RecruitmentNotificationMail extends Mailable
      */
     public function content(): Content
     {
+        $dppBranch = \App\Models\Branch::where('is_dpp', true)->first();
+
         return new Content(
             view: 'emails.recruitment_confirmation',
             with: [
                 'recruitment' => $this->recruitment,
                 'branch' => $this->recruitment->branch,
+                'dppBranch' => $dppBranch,
             ],
         );
     }
