@@ -81,7 +81,7 @@
                                             {{ $division['name'] }}
                                         </h3>
                                         <p class="text-sm text-[#454652] leading-relaxed line-clamp-3">
-                                            {{ $division['description'] }}
+                                            {{ strip_tags($division['description']) }}
                                         </p>
                                     </div>
                                 </div>

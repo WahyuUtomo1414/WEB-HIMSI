@@ -8,9 +8,9 @@
                 badge="Deskripsi Peran"
                 title="Tentang {{ $division['name'] }}" 
                 align="left" />
-            <p class="text-base sm:text-lg text-[#454652] leading-relaxed">
-                {{ $division['description'] }}
-            </p>
+            <div class="prose max-w-none text-base sm:text-lg text-[#454652] leading-relaxed prose-p:mb-4 last:prose-p:mb-0">
+                {!! $division['description'] !!}
+            </div>
         </div>
 
         <!-- Thumbnail Divisi (Kanan) -->
