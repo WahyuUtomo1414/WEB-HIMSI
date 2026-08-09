@@ -24,7 +24,7 @@ class OrganizationInfolist
                         TextEntry::make('email')->label('Email'),
                         TextEntry::make('no_tlpn')->label('Nomor Telepon'),
                         TextEntry::make('vision')->label('Visi')->columnSpanFull(),
-                        TextEntry::make('description')->label('Deskripsi')->columnSpanFull(),
+                        TextEntry::make('description')->label('Deskripsi')->html()->columnSpanFull(),
                         RepeatableEntry::make('mision')
                             ->label('Misi')
                             ->schema([
@@ -34,7 +34,7 @@ class OrganizationInfolist
                             ])
                             ->contained(false)
                             ->columnSpanFull(),
-                        TextEntry::make('purpose')->label('Tujuan')->columnSpanFull(),
+                        TextEntry::make('purpose')->label('Tujuan')->html()->columnSpanFull(),
                         TextEntry::make('address')->label('Alamat')->columnSpanFull(),
                         Section::make('Sosial Media')
                             ->schema([

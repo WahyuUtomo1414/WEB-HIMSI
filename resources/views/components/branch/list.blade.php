@@ -86,7 +86,7 @@
                             </p>
                             @if (isset($branch['description']))
                                 <p class="text-sm text-[#454652] line-clamp-3 leading-relaxed">
-                                    {{ strip_tags($branch['description']) }}
+                                    {{ \Illuminate\Support\Str::limit(strip_tags($branch['description']), 150) }}
                                 </p>
                             @endif
                         </div>
