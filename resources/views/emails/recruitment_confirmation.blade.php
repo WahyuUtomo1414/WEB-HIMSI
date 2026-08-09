@@ -202,7 +202,7 @@
 
             <!-- WhatsApp Group CTA -->
             @php
-                $waGroupUrl = $branch && filled($branch->grup_wa) ? $branch->grup_wa : 'https://chat.whatsapp.com/DD7fue3sDAf6Zv6bRoQQs5';
+                $waGroupUrl = $branch && filled($branch->grup_wa) ? $branch->grup_wa : 'https://chat.whatsapp.com/JZhi2akI93bIVRFxcSJCAO?s=cl&p=a&ilr=1';
             @endphp
 
             <div class="cta-container">
