@@ -47,6 +47,8 @@ class MilestonesTable
                 TernaryFilter::make('active')->label('Status Aktif'),
                 TrashedFilter::make()->label('Data Terhapus'),
             ])
+            ->defaultSort('sort')
+            ->reorderable('sort')
             ->recordActions([
                 EditAction::make(),
                 DeleteAction::make(),

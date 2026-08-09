@@ -656,16 +656,18 @@ Catatan:
 
 Field:
 
-- `sort`
 - `year`
 - `list`
+- `sort`
 - `active`
 
 Catatan:
 
-- `sort` memakai numeric input.
+- `sort` tidak tampil sebagai input form.
+- Saat create, `sort` otomatis memakai nilai terbesar di database + 1.
+- Urutan milestone diubah dari table dengan fitur drag reorder pada kolom `sort`.
 - `year` memakai date picker.
-- `list` memakai repeater karena bertipe JSON.
+- `list` memakai repeater dengan satu field `value`, tanpa input urutan di dalam repeater.
 
 ## 15. Table Per Resource
 
@@ -824,6 +826,10 @@ Kolom:
 - `active`
 - `createdBy`
 - `updatedBy`
+
+Catatan:
+
+- Table memakai `defaultSort('sort')` dan `reorderable('sort')`.
 
 ## 16. Infolist Per Resource
 

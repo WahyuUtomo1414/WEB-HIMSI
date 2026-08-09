@@ -677,9 +677,9 @@ Kolom:
 | Kolom | Tipe | Null | Keterangan |
 | --- | --- | --- | --- |
 | id | bigint unsigned | no | primary key |
-| sort | integer | no | urutan tampil milestone |
+| sort | integer | no | urutan tampil milestone. Nilai otomatis saat create dan bisa diubah via drag reorder di table Filament |
 | year | date | no | tahun atau tanggal milestone |
-| list | json | no | daftar poin milestone |
+| list | json | no | daftar poin milestone dalam format array item `value` |
 | active | boolean | no | status data aktif |
 | created_by | bigint unsigned | no | user pembuat data |
 | updated_by | bigint unsigned | yes | user terakhir yang mengubah data |
@@ -699,6 +699,12 @@ Schema::create('milestone', function (Blueprint $table) {
     $this->base($table);
 });
 ```
+
+Catatan:
+
+- Form Filament tidak menampilkan input `sort`.
+- Jika milestone baru dibuat tanpa `sort`, model otomatis mengisi `max(sort) + 1`.
+- Isi `list` memakai repeater tanpa field urutan per item.
 
 ## 5. Relasi Antar Tabel
 
