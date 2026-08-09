@@ -125,7 +125,7 @@
                 <div
                     class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-black uppercase tracking-widest">
                     <span class="h-2 w-2 rounded-full bg-amber-400 animate-ping"></span>
-                    <span>BE PART OF HIMSI 2026</span>
+                    <span>BERGABUNGLAH BERSAMA HIMSI 2026</span>
                 </div>
                 <h3 class="text-2xl sm:text-4xl font-black text-white">
                     SIAP JADI PENERUS BERIKUTNYA?
@@ -188,7 +188,7 @@
                         <a href="{{ route('home') }}"
                             class="hover:text-amber-300 transition-all flex items-center gap-1 group">
                             <span class="group-hover:-translate-x-1 transition-transform">←</span>
-                            <span>Main Web HIMSI</span>
+                            <span>Web Utama HIMSI</span>
                         </a>
                     </li>
                     <li>
@@ -207,7 +207,7 @@
                     <li>
                         <a href="#timeline" class="hover:text-amber-300 transition-all flex items-center gap-1 group">
                             <span class="group-hover:translate-x-1 transition-transform">›</span>
-                            <span>Milestone Timeline</span>
+                            <span>Tahapan Rekrutmen</span>
                         </a>
                     </li>
                     <li>
@@ -244,7 +244,7 @@
             <div class="space-y-4">
                 <h4 class="text-sm font-black uppercase tracking-widest text-amber-400 flex items-center gap-2">
                     <span>✶</span>
-                    <span>Social Media</span>
+                    <span>Media Sosial</span>
                 </h4>
                 <p class="text-xs text-slate-400">Ikuti pembaharuan informasi melalui kanal resmi kami:</p>
                 <div class="flex flex-wrap items-center gap-3">

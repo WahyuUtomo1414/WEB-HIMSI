@@ -26,12 +26,12 @@ class RecruitmentController extends Controller
         $branches = Branch::all();
 
         $badgeColors = [
-            ['badge' => 'Tech & Research', 'color' => 'blue', 'glow' => 'rgba(59, 130, 246, 0.45)'],
-            ['badge' => 'Creative & Media', 'color' => 'amber', 'glow' => 'rgba(245, 158, 11, 0.45)'],
-            ['badge' => 'Human Resource', 'color' => 'emerald', 'glow' => 'rgba(16, 185, 129, 0.45)'],
+            ['badge' => 'Teknologi & Riset', 'color' => 'blue', 'glow' => 'rgba(59, 130, 246, 0.45)'],
+            ['badge' => 'Kreatif & Media', 'color' => 'amber', 'glow' => 'rgba(245, 158, 11, 0.45)'],
+            ['badge' => 'Sumber Daya Manusia', 'color' => 'emerald', 'glow' => 'rgba(16, 185, 129, 0.45)'],
             ['badge' => 'Riset & Inovasi', 'color' => 'purple', 'glow' => 'rgba(168, 85, 247, 0.45)'],
             ['badge' => 'Manajemen Strategis', 'color' => 'red', 'glow' => 'rgba(239, 68, 68, 0.45)'],
-            ['badge' => 'Networking & PR', 'color' => 'indigo', 'glow' => 'rgba(99, 102, 241, 0.45)'],
+            ['badge' => 'Humas & Kemitraan', 'color' => 'indigo', 'glow' => 'rgba(99, 102, 241, 0.45)'],
         ];
 
         if ($dbDivisions->count() > 0) {
@@ -59,7 +59,7 @@ class RecruitmentController extends Controller
                 [
                     'id' => 1,
                     'name' => 'Divisi Pendidikan',
-                    'badge' => 'Tech & Research',
+                    'badge' => 'Teknologi & Riset',
                     'color' => 'blue',
                     'glow' => 'rgba(59, 130, 246, 0.45)',
                     'description' => 'Mengembangkan kualitas keilmuan IT, menyelenggarakan workshop, bootcamps, pelatihan coding, dan riset akademik.',
@@ -72,7 +72,7 @@ class RecruitmentController extends Controller
                 [
                     'id' => 2,
                     'name' => 'Divisi Kominfo',
-                    'badge' => 'Creative & Media',
+                    'badge' => 'Kreatif & Media',
                     'color' => 'amber',
                     'glow' => 'rgba(245, 158, 11, 0.45)',
                     'description' => 'Mengelola komunikasi internal maupun eksternal organisasi, branding media sosial, website, dan publikasi informasi.',
@@ -85,7 +85,7 @@ class RecruitmentController extends Controller
                 [
                     'id' => 3,
                     'name' => 'Divisi RSDM',
-                    'badge' => 'Human Resource',
+                    'badge' => 'Sumber Daya Manusia',
                     'color' => 'emerald',
                     'glow' => 'rgba(16, 185, 129, 0.45)',
                     'description' => 'Berfokus pada pengelolaan, pembinaan, dan pengembangan soft skill & hard skill seluruh anggota organisasi.',

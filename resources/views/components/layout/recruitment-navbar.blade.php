@@ -18,17 +18,17 @@
         <ul class="hidden md:flex items-center gap-6 text-xs font-extrabold uppercase tracking-wider text-slate-300">
             <li>
                 <a href="{{ route('home') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1">
-                    <span>← Main Web</span>
+                    <span>← Web Utama</span>
                 </a>
             </li>
             <li>
-                <a href="#about-recruitment" class="hover:text-amber-400 transition-colors">About</a>
+                <a href="#about-recruitment" class="hover:text-amber-400 transition-colors">Tentang</a>
             </li>
             <li>
                 <a href="#divisions" class="hover:text-amber-400 transition-colors">Divisi</a>
             </li>
             <li>
-                <a href="#timeline" class="hover:text-amber-400 transition-colors">Timeline</a>
+                <a href="#timeline" class="hover:text-amber-400 transition-colors">Jadwal</a>
             </li>
             <li>
                 <a href="#faq" class="hover:text-amber-400 transition-colors">FAQ</a>
