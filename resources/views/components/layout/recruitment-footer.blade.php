@@ -281,9 +281,21 @@
         <!-- Animated Top Gradient Border Divider -->
         <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-amber-400 via-blue-500 to-transparent"></div>
 
-        <!-- Clean Copyright Section -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium">
-            <p>© 2026 HIMSI UBSI. All rights reserved.</p>
+        <!-- Clean Copyright Section & Developer Credit -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-slate-400 font-medium">
+            <!-- Left Side: Developer Credit (Top) + Copyright (Bottom) -->
+            <div class="space-y-1">
+                <div class="flex items-center gap-1.5 text-slate-300 font-medium">
+                    <span>Dikembangkan oleh</span>
+                    <span class="text-amber-400 font-bold">Divisi Pendidikan</span>
+                </div>
+                <p>© 2026 HIMSI UBSI. All rights reserved.</p>
+            </div>
+
+            <!-- Right Side: Full Organization Name -->
+            <p class="text-slate-300 font-medium sm:text-right">
+                Himpunan Mahasiswa Sistem Informasi - Universitas Bina Sarana Informatika
+            </p>
         </div>
     </div>
 </footer>

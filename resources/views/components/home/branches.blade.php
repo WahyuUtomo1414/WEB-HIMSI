@@ -44,7 +44,7 @@
 
     <!-- Section Header with Left-Right Navigation Controls -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <x-common.section-header badge="Wilayah" title="Cabang & DPC HIMSI"
+        <x-common.section-header badge="Wilayah" title="DPP & DPC HIMSI"
             subtitle="Jaringan kepengurusan HIMSI di berbagai sektor dan wilayah kampus UBSI" />
 
         @if (count($branches) > 0)

@@ -549,7 +549,7 @@ Field:
 Catatan:
 
 - `thumbnail` memakai `FileUpload`.
-- `description` memakai textarea.
+- `description` memakai rich editor.
 - `sosial_media` memakai field fixed per platform dengan state path JSON seperti `sosial_media.instagram`, `sosial_media.website`, `sosial_media.youtube`, `sosial_media.linkedin`, `sosial_media.tiktok`, `sosial_media.facebook`, dan `sosial_media.wa`.
 - Link kosong tidak perlu tampil di FE.
 - `is_dpp` dan `active` memakai toggle.
@@ -569,7 +569,7 @@ Field:
 Catatan:
 
 - `logo` dan `image` memakai `FileUpload`.
-- `description` memakai textarea.
+- `description` memakai rich editor.
 - `job_description` memakai repeater karena bertipe JSON.
 
 ### 14.11 BranchStructure
