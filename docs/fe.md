@@ -51,10 +51,22 @@
 - **Form Kontak Section**: Form pesan publik dengan field nama, email, subjek, dan pesan.
 - **CTA Section**: Arahkan pengunjung ke email, WhatsApp, atau sosial media resmi.
 
+### 8. Halaman Rekrutmen (`/rekrutmen`)
+- **Hero Section**: Banner informasi open recruitment.
+- **Divisi Section**: Daftar divisi dari model `Division`.
+- **Timeline dan FAQ Section**: Informasi tahapan dan pertanyaan umum rekrutmen.
+- **Form CTA Section**: Arahkan calon pendaftar ke `/rekrutmen/daftar`.
+
+### 9. Form Rekrutmen (`/rekrutmen/daftar`)
+- **Form Data Diri**: Nama, NIM, semester, cabang, email, WhatsApp, Instagram, dan motivasi.
+- **Upload Berkas**: Bukti follow DPC, e-KTM, dan CV.
+- **Validasi**: NIM dan nomor WhatsApp unik. e-KTM dan CV wajib diisi.
+- **Submit Flow**: Data disimpan ke `Recruitment`, email notifikasi dikirim, lalu user diarahkan ke grup WhatsApp cabang.
+
 Catatan:
 - Halaman Divisi tidak dibuat sebagai route sendiri pada tahap awal. Divisi hanya tampil sebagai section di Home, Tentang Kami, dan detail Cabang.
 - FAQ tidak dibuat sebagai route sendiri pada tahap awal. FAQ hanya tampil sebagai section di Home.
-- Recruitment belum dibuat pada tahap awal, baik list maupun form.
+- Recruitment sudah dibuat sebagai halaman informasi dan form publik.
 - Form kontak menyimpan pesan pengunjung ke tabel `contact`.
 
 ---
@@ -66,6 +78,7 @@ Catatan:
 - `BranchController` -> `GET /cabang`, `GET /cabang/{branch}`
 - `BlogController` -> `GET /blog`, `GET /blog/{blog:slug}`
 - `ContactController` -> `GET /kontak`, `POST /kontak`
+- `RecruitmentController` -> `GET /rekrutmen`, `GET /rekrutmen/daftar`, `POST /rekrutmen`
 
 ## 3. Prinsip Data Flow
 - Controller mengambil data dari Model (`active = true`, soft delete excluded, eager loading).

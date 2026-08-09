@@ -255,7 +255,7 @@ Kolom:
 | description | text | no | deskripsi atau motivasi pendaftar |
 | branch_id | bigint unsigned | no | foreign key ke `branch.id` |
 | follow_dpc | varchar(128) | no | bukti/status mengikuti DPC |
-| cv | varchar(128) | yes | path/file CV |
+| cv | varchar(128) | yes | path/file CV. Secara validasi form publik wajib diisi, tetapi kolom database masih nullable untuk kompatibilitas data lama |
 | status_id | bigint unsigned | no | foreign key ke `status.id` |
 | active | boolean | no | status data aktif |
 | created_by | bigint unsigned | no | user pembuat data |
@@ -285,6 +285,14 @@ Schema::create('recruitment', function (Blueprint $table) {
     $this->base($table);
 });
 ```
+
+Catatan validasi form publik:
+
+- `nim` wajib unik pada tabel `recruitment`.
+- `no_wa` wajib unik pada tabel `recruitment`.
+- `follow_dpc` wajib berupa gambar dan disimpan sebagai WebP.
+- `ektm` wajib diisi, menerima JPG, JPEG, PNG, atau PDF. Jika berupa gambar akan disimpan sebagai WebP; jika PDF disimpan sebagai file PDF.
+- `cv` wajib diisi dan hanya menerima PDF.
 
 ### 4.6 category
 
@@ -506,8 +514,8 @@ Kolom:
 | branch_id | bigint unsigned | no | foreign key ke `branch.id` |
 | name | varchar(128) | no | nama pengurus |
 | division_id | bigint unsigned | yes | foreign key ke `division.id`, opsional |
-| sort | integer unsigned | no | urutan tampil struktur pengurus |
-| position | varchar(128) | no | jabatan pengurus |
+| sort | integer unsigned | no | urutan tampil struktur pengurus. Nilai diisi otomatis dari `position` |
+| position | varchar(128) | no | jabatan pengurus dari daftar posisi tetap |
 | image | varchar(255) | no | path foto pengurus |
 | no_wa | varchar(18) | no | nomor WhatsApp pengurus |
 | active | boolean | no | status data aktif |
@@ -533,6 +541,22 @@ Schema::create('branch_structure', function (Blueprint $table) {
     $this->base($table);
 });
 ```
+
+Daftar posisi struktur cabang dan urutan otomatis:
+
+| Urutan | Posisi |
+| --- | --- |
+| 1 | Ketua |
+| 2 | Wakil Ketua |
+| 3 | Sekertaris 1 |
+| 4 | Sekertaris 2 |
+| 5 | Bendahara |
+| 6 | Koor Div Pendidikan |
+| 7 | Koor Div RSDM |
+| 8 | Koor Div Litbang |
+| 9 | Koor Div Kominfo |
+| 10 | Koor Div Sosmas |
+| 11 | Koor Div PSDM |
 
 ### 4.12 greeting
 
@@ -777,7 +801,9 @@ Template dasar model:
 ```php
 namespace App\Models;
 
+use App\Support\BranchStructurePosition;
 use App\Traits\AuditedBySoftDelete;
+use App\Traits\FlushesPublicCache;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -952,11 +978,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BranchStructure extends Model
 {
-    use AuditedBySoftDelete, HasFactory, SoftDeletes;
+    use AuditedBySoftDelete, FlushesPublicCache, HasFactory, SoftDeletes;
 
     protected $table = 'branch_structure';
 
     protected $guarded = ['id'];
+
+    protected static function booted(): void
+    {
+        static::saving(function (BranchStructure $branchStructure): void {
+            $branchStructure->sort = BranchStructurePosition::sortFor($branchStructure->position);
+        });
+    }
 
     protected function casts(): array
     {
