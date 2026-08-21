@@ -94,6 +94,16 @@
             <!-- Main Form Card Container -->
             <div class="relative rounded-3xl bg-[#070e24]/95 border-2 border-amber-400/50 shadow-[0_0_60px_rgba(245,158,11,0.3)] p-6 sm:p-12 backdrop-blur-2xl text-white space-y-8">
                 
+                @if(session('success'))
+                    <div class="p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-200 text-xs sm:text-sm flex items-start gap-3">
+                        <span class="text-xl leading-none mt-0.5">🎉</span>
+                        <div>
+                            <p class="font-extrabold text-emerald-400 mb-0.5">Pendaftaran Berhasil!</p>
+                            <p>{{ session('success') }}</p>
+                        </div>
+                    </div>
+                @endif
+
                 @if ($errors->any())
                     <div class="p-4 rounded-2xl bg-red-500/20 border border-red-500/50 text-red-200 text-xs sm:text-sm space-y-1">
                         <p class="font-extrabold text-red-400">⚠️ Mohon periksa kembali inputan Anda:</p>
