@@ -138,6 +138,7 @@
                                 <option value="Semester 2" {{ old('semester') == 'Semester 2' ? 'selected' : '' }}>Semester 2</option>
                                 <option value="Semester 3" {{ old('semester') == 'Semester 3' ? 'selected' : '' }}>Semester 3</option>
                                 <option value="Semester 4" {{ old('semester') == 'Semester 4' ? 'selected' : '' }}>Semester 4</option>
+                                <option value="Semester 5" {{ old('semester') == 'Semester 5' ? 'selected' : '' }}>Semester 5</option>
                             </select>
                             @error('semester')
                                 <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
