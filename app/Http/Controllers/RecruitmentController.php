@@ -254,13 +254,8 @@ class RecruitmentController extends Controller
             Log::error('Recruitment email failed to send: '.$e->getMessage());
         }
 
-        // Redirect to DPP Branch Page
-        $dppBranch = Branch::where('is_dpp', true)->first() ?? Branch::find($validated['branch_id']);
-        if ($dppBranch) {
-            return redirect()->route('branch.show', $dppBranch->id)->with('success', 'Pendaftaran Anda berhasil dikirim! Silakan ikuti petunjuk selanjutnya.');
-        }
-
-        return redirect()->route('branch.index')->with('success', 'Pendaftaran Anda berhasil dikirim!');
+        // Redirect back to recruitment form with success message
+        return redirect()->route('recruitment.create')->with('success', 'Pendaftaran Anda berhasil dikirim! Silakahkan cek email Anda untuk informasi lebih lanjut.');
     }
 
     private function storeEktmFile($file): string
