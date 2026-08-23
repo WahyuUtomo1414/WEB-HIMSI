@@ -32,6 +32,7 @@ class RecruitmentsTable
                 TextColumn::make('name')->label('Nama')->searchable()->sortable(),
                 TextColumn::make('email')->label('Email')->searchable(),
                 TextColumn::make('branch.name')->label('Cabang')->searchable()->sortable(),
+                TextColumn::make('division.name')->label('Divisi')->searchable()->sortable()->placeholder('-'),
                 TextColumn::make('status.name')->label('Status')->badge()->searchable()->sortable(),
                 TextColumn::make('createdBy.name')
                     ->label('Dibuat Oleh')
@@ -62,6 +63,7 @@ class RecruitmentsTable
                     ->options(fn () => self::branchFilterOptions())
                     ->searchable()
                     ->preload(),
+                SelectFilter::make('division_id')->label('Divisi')->relationship('division', 'name')->searchable()->preload(),
                 SelectFilter::make('status_id')->label('Status')->relationship('status', 'name')->searchable()->preload(),
             ])
             ->headerActions([

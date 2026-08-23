@@ -34,6 +34,7 @@ class RecruitmentInfolist
                 Section::make('Cabang dan Status')
                     ->schema([
                         TextEntry::make('branch.name')->label('Cabang')->badge()->placeholder('-'),
+                        TextEntry::make('division.name')->label('Divisi')->badge()->placeholder('-'),
                         TextEntry::make('status.name')->label('Status')->badge(),
                     ])
                     ->columns(2)

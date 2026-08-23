@@ -29,4 +29,9 @@ class Division extends Model
     {
         return $this->hasMany(BranchStructure::class, 'division_id');
     }
+
+    public function recruitments(): HasMany
+    {
+        return $this->hasMany(Recruitment::class, 'division_id');
+    }
 }
