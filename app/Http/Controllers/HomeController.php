@@ -86,6 +86,7 @@ class HomeController extends Controller
                     'description' => $d->description,
                     'logo_url' => public_image_url($d->logo),
                     'image_url' => public_image_url($d->image),
+                    'job_description' => is_array($d->job_description) ? $d->job_description : [],
                     'is_dpp' => (bool) $d->is_dpp,
                 ])->toArray(),
                 'branches' => $branches->map(fn ($b) => [
