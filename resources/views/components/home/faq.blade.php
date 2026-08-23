@@ -1,13 +1,14 @@
 @props(['faqs'])
 
 @if (count($faqs) > 0)
-    <section class="space-y-10">
-        <x-common.section-header 
-            badge="Tanya Jawab"
-            title="Pertanyaan Sering Diajukan (FAQ)" 
-            subtitle="Jawaban atas pertanyaan umum seputar kegiatan dan keorganisasian HIMSI UBSI" />
+    <section class="w-full bg-white py-12 sm:py-16 lg:py-20 border-b border-[#c5c5d4]/40">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
+            <x-common.section-header 
+                badge="Tanya Jawab"
+                title="Pertanyaan Sering Diajukan (FAQ)" 
+                subtitle="Jawaban atas pertanyaan umum seputar kegiatan dan keorganisasian HIMSI UBSI" />
 
-        <div class="max-w-3xl mx-auto space-y-4">
+            <div class="max-w-3xl mx-auto space-y-4">
             @foreach ($faqs as $index => $faq)
                 <details class="card-nexus rounded-2xl p-5 group [&_summary::-webkit-details-marker]:hidden">
                     <summary class="flex cursor-pointer items-center justify-between gap-1.5 text-[#000c46] font-bold text-base">
@@ -23,6 +24,7 @@
                     </p>
                 </details>
             @endforeach
+            </div>
         </div>
     </section>
 @endif

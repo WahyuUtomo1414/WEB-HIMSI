@@ -1,6 +1,6 @@
 @props(['branches'])
 
-<section class="space-y-8 relative" x-data="{
+<section class="w-full bg-[#f0f4ff]/70 py-12 sm:py-16 lg:py-20 border-b border-[#c5c5d4]/40 relative" x-data="{
     timer: null,
     intervalMs: 2500,
     step: 420,
@@ -41,6 +41,7 @@
         this.startAutoScroll();
     }
 }" @mouseenter="stopAutoScroll()" @mouseleave="startAutoScroll()">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
 
     <!-- Section Header with Left-Right Navigation Controls -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -139,4 +140,5 @@
     @else
         <x-common.empty-state title="Belum Ada Cabang" message="Data cabang HIMSI akan segera diperbarui." />
     @endif
+    </div>
 </section>

@@ -74,7 +74,7 @@
     $row2Loop = array_merge($row2, $row2);
 @endphp
 
-<section class="space-y-8 relative py-8 sm:py-12 overflow-hidden">
+<section class="w-full bg-[#f0f4ff]/70 py-12 sm:py-16 lg:py-20 border-b border-[#c5c5d4]/40 space-y-8 relative overflow-hidden">
     
     <!-- Custom CSS Marquee Styling (Hashmicro Style) -->
     <style>

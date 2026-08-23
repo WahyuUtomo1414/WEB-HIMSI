@@ -1,8 +1,9 @@
 @props(['counts'])
 
 @if (count($counts) > 0)
-    <section class="py-2 sm:py-3">
-        <div class="rounded-3xl bg-white p-8 md:p-12 border border-[#c5c5d4]/60 shadow-[0_4px_20px_rgba(0,27,121,0.05)]">
+    <section class="w-full py-10 sm:py-14 bg-white border-b border-[#c5c5d4]/40">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="rounded-3xl bg-[#f0f4ff]/50 p-8 md:p-12 border border-[#c5c5d4]/60 shadow-[0_4px_20px_rgba(0,27,121,0.05)]">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x-0 md:divide-x divide-slate-100">
                 @foreach ($counts as $count)
                     <div class="space-y-2 p-2"

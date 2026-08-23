@@ -1,6 +1,6 @@
 @props(['blogs'])
 
-<section class="w-full bg-[#eef4ff] py-10 sm:py-14 lg:py-16 border-y border-[#c5c5d4]/40">
+<section class="w-full bg-white py-12 sm:py-16 lg:py-20 border-b border-[#c5c5d4]/40">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10">
         
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6">

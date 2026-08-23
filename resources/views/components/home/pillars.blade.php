@@ -1,4 +1,4 @@
-<section class="w-full py-12 sm:py-16 lg:py-20 bg-[#f0f4ff]/60 border-y border-[#c5c5d4]/40">
+<section class="w-full py-12 sm:py-16 lg:py-20 bg-[#f0f4ff]/70 border-b border-[#c5c5d4]/40">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         <!-- Section Header -->

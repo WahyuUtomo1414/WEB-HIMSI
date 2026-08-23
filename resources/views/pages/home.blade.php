@@ -3,48 +3,38 @@
     {{-- Splash Screen Loading Video (Hanya di Halaman Home) --}}
     <x-common.splash-screen />
 
-    {{-- 1. Hero Section --}}
+    {{-- 1. Hero Section (Dark Sinematik) --}}
     <x-home.hero :hero="$hero" />
 
-    {{-- 2. Pillars of Excellence (Pilar Keunggulan HIMSI) --}}
+    {{-- 2. Pillars of Excellence (BG: Soft Tint #f0f4ff) --}}
     <x-home.pillars />
 
-    <div class="space-y-8 sm:space-y-12 lg:space-y-16 py-8 sm:py-12 lg:py-14">
+    {{-- 3. Count Section (BG: Pure White #ffffff) --}}
+    <x-home.count :counts="$counts" />
 
-        {{-- 3. Count Section --}}
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <x-home.count :counts="$counts" />
-        </div>
+    {{-- 4. Greeting Section (BG: Soft Tint #f0f4ff) --}}
+    <x-home.greeting :greeting="$greeting" />
 
-        {{-- 4. Greeting Section (Sambutan) --}}
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <x-home.greeting :greeting="$greeting" />
-        </div>
+    {{-- 5. Interactive Division Spotlight Section (BG: Pure White #ffffff) --}}
+    <x-home.division-spotlight :divisions="$divisions" />
 
-        {{-- 5. Interactive Division Spotlight Section (Full Width Showcase) --}}
-        <x-home.division-spotlight :divisions="$divisions" />
+    {{-- 6. List Cabang Section (BG: Soft Tint #f0f4ff) --}}
+    <x-home.branches :branches="$branches" />
 
-        {{-- 6. List Cabang Section --}}
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <x-home.branches :branches="$branches" />
-        </div>
+    {{-- 7. List Blog/Artikel Section (BG: Pure White #ffffff) --}}
+    <x-home.blogs :blogs="$blogs" />
 
-        {{-- 7. List Blog/Artikel Section (Full Width Section) --}}
-        <x-home.blogs :blogs="$blogs" />
+    {{-- 8. Dokumentasi & Galeri Kegiatan (BG: Soft Tint #f0f4ff) --}}
+    <x-home.activities-gallery :activities="$activities_gallery" />
 
-        {{-- 8. Dokumentasi & Galeri Kegiatan (Category: Kegiatan & BlogImage) --}}
-        <x-home.activities-gallery :activities="$activities_gallery" />
+    {{-- 9. FAQ Section (BG: Pure White #ffffff) --}}
+    <x-home.faq :faqs="$faqs" />
 
-        {{-- 9. FAQ Section --}}
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <x-home.faq :faqs="$faqs" />
-        </div>
-
-        {{-- 10. CTA Section --}}
+    {{-- 10. CTA Section (BG: Pure White with Dark Accent Card) --}}
+    <section class="w-full bg-white py-12 sm:py-16 lg:py-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-common.cta-section />
         </div>
-
-    </div>
+    </section>
 
 </x-layouts.public>
