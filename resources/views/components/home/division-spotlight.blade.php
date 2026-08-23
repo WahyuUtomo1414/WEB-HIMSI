@@ -148,12 +148,12 @@
                             </div>
 
                             <!-- Right Visual Image Showcase -->
-                            <div class="lg:col-span-5 relative flex items-center">
+                            <div class="lg:col-span-5 relative">
                                 <div
-                                    class="relative w-full h-full min-h-[300px] lg:min-h-[400px] overflow-hidden rounded-2xl border-2 border-white shadow-xl bg-gradient-to-br from-[#000c46] to-[#001b79]">
+                                    class="relative w-full overflow-hidden rounded-2xl border-2 border-white shadow-xl aspect-[4/3] bg-[#000c46]">
                                     @if (isset($division['image_url']) && $division['image_url'] !== '/images/placeholder.jpg')
                                         <img src="{{ $division['image_url'] }}" alt="{{ $division['name'] }}"
-                                            class="h-full w-full object-cover opacity-90 transition-transform duration-500 hover:scale-105">
+                                            class="h-full w-full object-cover opacity-95 transition-transform duration-500 hover:scale-105">
                                     @else
                                         <!-- Fallback Artistic Graphic -->
                                         <div
@@ -174,7 +174,7 @@
 
                                     <!-- Bottom Gradient Overlay -->
                                     <div
-                                        class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#000c46] via-[#000c46]/60 to-transparent p-5 text-white flex items-center justify-between">
+                                        class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#000c46]/90 via-[#000c46]/40 to-transparent p-4 text-white flex items-center justify-between">
                                         <span class="text-xs font-bold text-white/90 uppercase tracking-wider">HIMSI UBSI Profile</span>
                                     </div>
                                 </div>
