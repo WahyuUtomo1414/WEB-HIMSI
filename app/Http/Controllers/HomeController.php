@@ -61,6 +61,50 @@ class HomeController extends Controller
                 ->limit(6)
                 ->get();
 
+            $activityBlogs = Blog::query()
+                ->with(['images', 'category', 'branch'])
+                ->where('active', true)
+                ->whereHas('category', function ($q) {
+                    $q->where('active', true)
+                      ->where('name', 'like', '%Kegiatan%');
+                })
+                ->latest()
+                ->limit(12)
+                ->get();
+
+            $activitiesGallery = collect();
+            foreach ($activityBlogs as $blog) {
+                if ($blog->images && $blog->images->count() > 0) {
+                    foreach ($blog->images as $img) {
+                        if ($img->active) {
+                            $activitiesGallery->push([
+                                'id' => $img->id,
+                                'image_url' => public_image_url($img->image),
+                                'title' => $blog->title,
+                                'slug' => $blog->slug,
+                                'description' => $img->description ?: $blog->quotes ?: $blog->title,
+                                'branch_name' => $blog->branch?->name ?? 'HIMSI UBSI',
+                                'category_name' => $blog->category?->name ?? 'Kegiatan',
+                                'formatted_date' => $blog->created_at?->format('d M Y') ?? date('d M Y'),
+                                'detail_url' => route('blog.show', $blog->slug),
+                            ]);
+                        }
+                    }
+                } else {
+                    $activitiesGallery->push([
+                        'id' => 'b_' . $blog->id,
+                        'image_url' => public_image_url($blog->thumbnail),
+                        'title' => $blog->title,
+                        'slug' => $blog->slug,
+                        'description' => $blog->quotes ?: $blog->title,
+                        'branch_name' => $blog->branch?->name ?? 'HIMSI UBSI',
+                        'category_name' => $blog->category?->name ?? 'Kegiatan',
+                        'formatted_date' => $blog->created_at?->format('d M Y') ?? date('d M Y'),
+                        'detail_url' => route('blog.show', $blog->slug),
+                    ]);
+                }
+            }
+
             return [
                 'hero' => [
                     'name' => $organization?->name ?? 'HIMSI UBSI',
@@ -108,6 +152,7 @@ class HomeController extends Controller
                     'thumbnail_url' => public_image_url($b->thumbnail),
                     'formatted_date' => $b->created_at?->format('d M Y') ?? date('d M Y'),
                 ])->toArray(),
+                'activities_gallery' => $activitiesGallery->take(8)->values()->toArray(),
                 'faqs' => $faqs->map(fn ($f) => [
                     'id' => $f->id,
                     'question' => $f->question,

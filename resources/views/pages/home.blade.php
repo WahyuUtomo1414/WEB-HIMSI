@@ -32,12 +32,15 @@
         {{-- 7. List Blog/Artikel Section (Full Width Section) --}}
         <x-home.blogs :blogs="$blogs" />
 
-        {{-- 8. FAQ Section --}}
+        {{-- 8. Dokumentasi & Galeri Kegiatan (Category: Kegiatan & BlogImage) --}}
+        <x-home.activities-gallery :activities="$activities_gallery" />
+
+        {{-- 9. FAQ Section --}}
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-home.faq :faqs="$faqs" />
         </div>
 
-        {{-- 9. CTA Section --}}
+        {{-- 10. CTA Section --}}
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-common.cta-section />
         </div>

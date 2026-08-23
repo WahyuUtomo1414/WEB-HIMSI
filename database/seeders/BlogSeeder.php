@@ -164,5 +164,111 @@ class BlogSeeder extends Seeder
                 ],
             );
         }
+
+        // Category Kegiatan for Activity Gallery Showcase
+        $kegiatanCategory = Category::firstOrCreate(
+            ['name' => 'Kegiatan'],
+            [
+                'description' => 'Kategori untuk publikasi agenda, dokumentasi acara, dan aktivitas organisasi HIMSI.',
+                'active' => true,
+            ]
+        );
+
+        $activityBlogs = [
+            [
+                'title' => 'Workshop & Seminar Nasional Web Development HIMSI 2025',
+                'thumbnail' => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80',
+                'quotes' => 'Membangun talenta digital masa depan melalui keahlian rekayasa web modern.',
+                'body' => ['Pelaksanaan Workshop dan Seminar Nasional Web Development yang diselenggarakan oleh HIMSI UBSI dengan antusiasme tinggi dari para peserta.'],
+                'images' => [
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&q=80',
+                        'description' => 'Sesi utama Seminar Nasional Web Development HIMSI UBSI.',
+                    ],
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=1200&q=80',
+                        'description' => 'Pelatihan hands-on coding aplikasi web bersama mentor industri.',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Latihan Keterampilan Manajemen Mahasiswa (LKMM) HIMSI',
+                'thumbnail' => 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80',
+                'quotes' => 'Membentuk karakter kepemimpinan dan manajemen organisasi mahasiswa yang berintegritas.',
+                'body' => ['Kegiatan LKMM HIMSI untuk membentuk jiwa kepemimpinan pengurus baru dalam menjalankan roda organisasi.'],
+                'images' => [
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&q=80',
+                        'description' => 'Diskusi kelompok dan pemecahan studi kasus manajemen organisasi.',
+                    ],
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&q=80',
+                        'description' => 'Sesi presentasi hasil proyek kepemimpinan peserta LKMM.',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'HIMSI Tech Week 2025: Hackathon & Software Expo',
+                'thumbnail' => 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80',
+                'quotes' => 'Ajang kompetisi inovasi perangkat lunak terbesar mahasiswa Sistem Informasi.',
+                'body' => ['Pameran dan kompetisi pengembangan software inovatif dalam rangkaian HIMSI Tech Week.'],
+                'images' => [
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80',
+                        'description' => 'Pameran karya produk digital mahasiswa Sistem Informasi UBSI.',
+                    ],
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&q=80',
+                        'description' => 'Momen penganugerahan pemenang Hackathon HIMSI Tech Week.',
+                    ],
+                ],
+            ],
+            [
+                'title' => 'Kunjungan Industri IT & Studi Banding HIMSI UBSI',
+                'thumbnail' => 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80',
+                'quotes' => 'Mendekatkan mahasiswa dengan iklim kerja dan teknologi terkini di dunia industri.',
+                'body' => ['Kunjungan lapangan HIMSI UBSI ke perusahaan teknologi terkemuka untuk memahami budaya kerja IT.'],
+                'images' => [
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80',
+                        'description' => 'Sesi sharing teknologi bersama tim Software Engineer industri.',
+                    ],
+                    [
+                        'image' => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&q=80',
+                        'description' => 'Foto bersama rombongan HIMSI UBSI di lokasi kunjungan industri.',
+                    ],
+                ],
+            ],
+        ];
+
+        foreach ($activityBlogs as $actBlog) {
+            $createdBlog = Blog::updateOrCreate(
+                ['slug' => Str::slug($actBlog['title'])],
+                [
+                    'branch_id' => $branch->id,
+                    'title' => $actBlog['title'],
+                    'thumbnail' => $actBlog['thumbnail'],
+                    'quotes' => $actBlog['quotes'],
+                    'body' => collect($actBlog['body'])->map(fn (string $paragraph): string => "<p>{$paragraph}</p>")->implode("\n"),
+                    'category_id' => $kegiatanCategory->id,
+                    'active' => true,
+                ],
+            );
+
+            if (!empty($actBlog['images'])) {
+                foreach ($actBlog['images'] as $imgData) {
+                    \App\Models\BlogImage::updateOrCreate(
+                        [
+                            'blog_id' => $createdBlog->id,
+                            'image' => $imgData['image'],
+                        ],
+                        [
+                            'description' => $imgData['description'],
+                            'active' => true,
+                        ]
+                    );
+                }
+            }
+        }
     }
 }

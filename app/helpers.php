@@ -9,7 +9,11 @@ if (! function_exists('public_image_url')) {
             return $fallback;
         }
 
-        if (str($path)->startsWith(['http://', 'https://', '/images/', 'images/'])) {
+        if (str($path)->startsWith(['http://', 'https://'])) {
+            return $path;
+        }
+
+        if (str($path)->startsWith(['/images/', 'images/'])) {
             return str($path)->startsWith('/') ? $path : '/' . $path;
         }
 
