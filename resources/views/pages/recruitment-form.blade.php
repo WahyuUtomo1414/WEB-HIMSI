@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -24,6 +25,93 @@
         .anim-3d-bounce { animation: float3dBounce 5s ease-in-out infinite; }
         .star-fast { animation: starTwinkleFast 2s ease-in-out infinite; }
         .star-medium { animation: starTwinkleFast 3.5s ease-in-out infinite; }
+        .recruitment-select-wrap .select2-container {
+            width: 100% !important;
+        }
+        .recruitment-select-wrap .select2-container--default .select2-selection--single {
+            min-height: 56px;
+            display: flex;
+            align-items: center;
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035));
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 16px 38px rgba(0, 0, 0, 0.14);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+        .recruitment-select-wrap .select2-container--default.select2-container--focus .select2-selection--single,
+        .recruitment-select-wrap .select2-container--default.select2-container--open .select2-selection--single {
+            border-color: #f59e0b;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.16), 0 18px 42px rgba(245, 158, 11, 0.08);
+        }
+        .recruitment-select-wrap.select-has-error .select2-container--default .select2-selection--single {
+            border-color: #ef4444;
+        }
+        .recruitment-select-wrap .select2-container--default .select2-selection--single .select2-selection__rendered {
+            color: #ffffff;
+            padding-left: 1rem;
+            padding-right: 3rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            line-height: 56px;
+        }
+        .recruitment-select-wrap .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: #64748b;
+            font-weight: 700;
+        }
+        .recruitment-select-wrap .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 56px;
+            right: 1rem;
+        }
+        .recruitment-select-wrap .select2-container--default .select2-selection--single .select2-selection__arrow b {
+            border-color: #f59e0b transparent transparent transparent;
+            border-width: 6px 5px 0 5px;
+        }
+        .select2-dropdown.recruitment-select-dropdown {
+            z-index: 99999;
+            overflow: hidden;
+            border: 1px solid rgba(245, 158, 11, 0.36);
+            border-radius: 1rem;
+            background: #070e24;
+            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.55), 0 0 32px rgba(245, 158, 11, 0.12);
+        }
+        .select2-dropdown.recruitment-select-dropdown .select2-search--dropdown {
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .select2-dropdown.recruitment-select-dropdown .select2-search__field {
+            min-height: 44px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 0.75rem;
+            background: rgba(3, 7, 18, 0.86);
+            color: #ffffff;
+            padding: 0.65rem 0.85rem;
+            font-size: 0.875rem;
+            outline: none;
+        }
+        .select2-dropdown.recruitment-select-dropdown .select2-search__field:focus {
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.14);
+        }
+        .select2-dropdown.recruitment-select-dropdown .select2-results__options {
+            max-height: 260px;
+            padding: 0.4rem;
+        }
+        .select2-dropdown.recruitment-select-dropdown .select2-results__option {
+            border-radius: 0.75rem;
+            color: #cbd5e1;
+            font-size: 0.875rem;
+            font-weight: 700;
+            padding: 0.75rem 0.85rem;
+        }
+        .select2-dropdown.recruitment-select-dropdown .select2-results__option--highlighted.select2-results__option--selectable {
+            background: linear-gradient(135deg, #f59e0b, #facc15);
+            color: #020617;
+        }
+        .select2-dropdown.recruitment-select-dropdown .select2-results__option--selected {
+            background: rgba(245, 158, 11, 0.18);
+            color: #fbbf24;
+        }
     </style>
 </head>
 <body class="bg-[#030712] text-white selection:bg-amber-400 selection:text-slate-950 overflow-x-hidden">
@@ -142,32 +230,56 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">Semester Saat Ini *</label>
-                            <select name="semester" required class="w-full px-4 py-3.5 rounded-2xl bg-[#030712] border @error('semester') border-red-500 @else border-white/15 @enderror text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
-                                <option value="">-- Pilih Semester --</option>
-                                <option value="Semester 1" {{ old('semester') == 'Semester 1' ? 'selected' : '' }}>Semester 1</option>
-                                <option value="Semester 2" {{ old('semester') == 'Semester 2' ? 'selected' : '' }}>Semester 2</option>
-                                <option value="Semester 3" {{ old('semester') == 'Semester 3' ? 'selected' : '' }}>Semester 3</option>
-                                <option value="Semester 4" {{ old('semester') == 'Semester 4' ? 'selected' : '' }}>Semester 4</option>
-                                <option value="Semester 5" {{ old('semester') == 'Semester 5' ? 'selected' : '' }}>Semester 5</option>
-                            </select>
+                            <div class="recruitment-select-wrap @error('semester') select-has-error @enderror">
+                                <select name="semester" required data-placeholder="-- Pilih Semester --" class="js-recruitment-select w-full px-4 py-3.5 rounded-2xl bg-[#030712] border @error('semester') border-red-500 @else border-white/15 @enderror text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                                    <option value="">-- Pilih Semester --</option>
+                                    <option value="Semester 1" {{ old('semester') == 'Semester 1' ? 'selected' : '' }}>Semester 1</option>
+                                    <option value="Semester 2" {{ old('semester') == 'Semester 2' ? 'selected' : '' }}>Semester 2</option>
+                                    <option value="Semester 3" {{ old('semester') == 'Semester 3' ? 'selected' : '' }}>Semester 3</option>
+                                    <option value="Semester 4" {{ old('semester') == 'Semester 4' ? 'selected' : '' }}>Semester 4</option>
+                                    <option value="Semester 5" {{ old('semester') == 'Semester 5' ? 'selected' : '' }}>Semester 5</option>
+                                </select>
+                            </div>
                             @error('semester')
                                 <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
                             @enderror
                         </div>
                         <div>
                             <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">Cabang DPC Pilihan *</label>
-                            <select name="branch_id" required class="w-full px-4 py-3.5 rounded-2xl bg-[#030712] border @error('branch_id') border-red-500 @else border-white/15 @enderror text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
-                                <option value="">-- Pilih Cabang (DPC) --</option>
-                                @foreach ($branches as $branch)
-                                    <option value="{{ $branch->id }}" {{ old('branch_id') == $branch->id ? 'selected' : '' }}>
-                                        {{ $branch->name }} ({{ $branch->location }})
-                                    </option>
-                                @endforeach
-                            </select>
+                            <div class="recruitment-select-wrap @error('branch_id') select-has-error @enderror">
+                                <select name="branch_id" required data-placeholder="-- Pilih Cabang (DPC) --" class="js-recruitment-select w-full px-4 py-3.5 rounded-2xl bg-[#030712] border @error('branch_id') border-red-500 @else border-white/15 @enderror text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                                    <option value="">-- Pilih Cabang (DPC) --</option>
+                                    @foreach ($branches as $branch)
+                                        <option value="{{ $branch->id }}" {{ old('branch_id') == $branch->id ? 'selected' : '' }}>
+                                            {{ $branch->name }} ({{ $branch->location }})
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             @error('branch_id')
                                 <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
+
+                    <!-- Row 3: Divisi Pilihan -->
+                    <div>
+                        <label class="block text-xs font-black uppercase tracking-wider text-amber-400 mb-2">Divisi Pilihan *</label>
+                        <div class="recruitment-select-wrap @error('division_id') select-has-error @enderror">
+                            <select name="division_id" required data-placeholder="-- Pilih Divisi --" class="js-recruitment-select w-full px-4 py-3.5 rounded-2xl bg-[#030712] border @error('division_id') border-red-500 @else border-white/15 @enderror text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
+                                <option value="">-- Pilih Divisi --</option>
+                                @foreach ($divisions as $division)
+                                    <option value="{{ $division->id }}" {{ old('division_id') == $division->id ? 'selected' : '' }}>
+                                        {{ $division->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('division_id')
+                            <span class="text-red-400 text-xs font-bold mt-1.5 block">⚠️ {{ $message }}</span>
+                        @else
+                            <span class="text-[10px] text-slate-400 mt-1 block">Pilih divisi yang paling sesuai dengan minat dan kontribusi Anda.</span>
+                        @enderror
                     </div>
 
                     <!-- Row 3: Email & No WA -->
@@ -267,6 +379,21 @@
         </div>
 
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            $('.js-recruitment-select').select2({
+                width: '100%',
+                minimumResultsForSearch: 0,
+                dropdownCssClass: 'recruitment-select-dropdown',
+                placeholder: function () {
+                    return $(this).data('placeholder');
+                },
+            });
+        });
+    </script>
 
     <!-- Custom Recruitment Cyber Footer -->
     <x-layout.recruitment-footer />

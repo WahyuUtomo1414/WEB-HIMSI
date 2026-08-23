@@ -12,6 +12,7 @@ use App\Support\ImageUploadOptimizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rule;
 
 class RecruitmentController extends Controller
 {
@@ -172,7 +173,11 @@ class RecruitmentController extends Controller
     {
         $organization = Organization::first();
         $branches = Branch::all();
-        $divisions = Division::all();
+        $divisions = Division::query()
+            ->where('active', true)
+            ->where('is_dpp', false)
+            ->orderBy('name')
+            ->get();
 
         return view('pages.recruitment-form', compact('organization', 'branches', 'divisions'));
     }
@@ -186,6 +191,10 @@ class RecruitmentController extends Controller
             'email' => 'required|email|max:128',
             'no_wa' => 'required|string|max:16|unique:recruitment,no_wa',
             'branch_id' => 'required|exists:branch,id',
+            'division_id' => [
+                'required',
+                Rule::exists('division', 'id')->where('active', true),
+            ],
             'instagram' => 'required|string|max:128',
             'description' => 'required|string',
             'follow_dpc' => 'required|file|image|mimes:jpg,jpeg,png,webp|max:3072',
@@ -202,6 +211,8 @@ class RecruitmentController extends Controller
             'no_wa.unique' => 'Nomor WhatsApp ini sudah terdaftar sebelumnya.',
             'branch_id.required' => 'Cabang DPC wajib dipilih.',
             'branch_id.exists' => 'Cabang DPC pilihan tidak valid.',
+            'division_id.required' => 'Divisi pilihan wajib dipilih.',
+            'division_id.exists' => 'Divisi pilihan tidak valid.',
             'instagram.required' => 'Username Instagram wajib diisi.',
             'description.required' => 'Motivasi & alasan wajib diisi.',
             'follow_dpc.required' => 'Bukti follow Instagram DPC wajib diunggah.',
@@ -242,6 +253,7 @@ class RecruitmentController extends Controller
             'no_wa' => $validated['no_wa'],
             'description' => $validated['description'],
             'branch_id' => $validated['branch_id'],
+            'division_id' => $validated['division_id'],
             'follow_dpc' => $followDpcPath,
             'cv' => $cvPath,
             'status_id' => $statusId,

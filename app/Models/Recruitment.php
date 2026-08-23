@@ -21,6 +21,11 @@ class Recruitment extends Model
         return $this->belongsTo(Branch::class, 'branch_id');
     }
 
+    public function division(): BelongsTo
+    {
+        return $this->belongsTo(Division::class, 'division_id');
+    }
+
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'status_id');

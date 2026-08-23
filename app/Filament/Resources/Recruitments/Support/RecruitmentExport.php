@@ -29,6 +29,7 @@ class RecruitmentExport
                 'Instagram',
                 'Nomor WhatsApp',
                 'Cabang',
+                'Divisi',
                 'Status',
                 'Deskripsi',
                 'Bukti Follow DPC',
@@ -39,7 +40,7 @@ class RecruitmentExport
             ]);
 
             $query
-                ->with(['branch', 'status', 'createdBy'])
+                ->with(['branch', 'division', 'status', 'createdBy'])
                 ->chunk(200, function ($recruitments) {
                     foreach ($recruitments as $recruitment) {
                         self::row([
@@ -50,6 +51,7 @@ class RecruitmentExport
                             $recruitment->instagram,
                             WhatsAppFormatter::url($recruitment->no_wa),
                             $recruitment->branch?->name,
+                            $recruitment->division?->name,
                             $recruitment->status?->name,
                             $recruitment->description,
                             $recruitment->follow_dpc,
