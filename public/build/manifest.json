@@ -28,7 +28,11 @@
     "src": "_instrument-sans-600-normal-B9e8oLYv.woff"
   },
   "resources/css/app.css": {
+<<<<<<< HEAD
     "file": "assets/app-DYyD6cIL.css",
+=======
+    "file": "assets/app-BBAN1rbs.css",
+>>>>>>> eaf448f (refactor: update division spotlight UI styling and rebuild asset manifest)
     "name": "app",
     "names": [
       "app.css"

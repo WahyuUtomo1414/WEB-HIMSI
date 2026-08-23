@@ -96,38 +96,38 @@
                                     </h4>
 
                                     @if (!empty($division['job_description']) && is_array($division['job_description']))
-                                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                        <div class="grid grid-cols-1 gap-3">
                                             @foreach ($division['job_description'] as $job)
-                                                <li
-                                                    class="flex items-start gap-2.5 text-sm text-[#454652] bg-white p-3 rounded-xl border border-[#c5c5d4]/40 shadow-2xs">
+                                                <div
+                                                    class="flex items-start gap-3 text-sm text-[#454652] bg-white p-3.5 rounded-xl border border-[#c5c5d4]/40 shadow-xs">
                                                     <svg class="h-5 w-5 text-[#f59e0b] shrink-0 mt-0.5" fill="none"
                                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                     </svg>
-                                                    <span class="font-medium">{{ $job }}</span>
-                                                </li>
+                                                    <span class="font-medium leading-relaxed">{{ $job }}</span>
+                                                </div>
                                             @endforeach
-                                        </ul>
+                                        </div>
                                     @else
-                                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                        <div class="grid grid-cols-1 gap-3">
                                             <div
-                                                class="flex items-start gap-2.5 text-sm text-[#454652] bg-white p-3 rounded-xl border border-[#c5c5d4]/40">
+                                                class="flex items-start gap-3 text-sm text-[#454652] bg-white p-3.5 rounded-xl border border-[#c5c5d4]/40">
                                                 <svg class="h-5 w-5 text-[#0453cd] shrink-0 mt-0.5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M5 13l4 4L19 7" />
                                                 </svg>
-                                                <span>Perencanaan & Eksekusi Program Kerja Divisi</span>
+                                                <span class="font-medium leading-relaxed">Perencanaan & Eksekusi Program Kerja Divisi</span>
                                             </div>
                                             <div
-                                                class="flex items-start gap-2.5 text-sm text-[#454652] bg-white p-3 rounded-xl border border-[#c5c5d4]/40">
+                                                class="flex items-start gap-3 text-sm text-[#454652] bg-white p-3.5 rounded-xl border border-[#c5c5d4]/40">
                                                 <svg class="h-5 w-5 text-[#0453cd] shrink-0 mt-0.5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M5 13l4 4L19 7" />
                                                 </svg>
-                                                <span>Pengembangan Inovasi & Kapasitas Anggota</span>
+                                                <span class="font-medium leading-relaxed">Pengembangan Inovasi & Kapasitas Anggota</span>
                                             </div>
                                         </div>
                                     @endif
@@ -136,9 +136,9 @@
                                 <!-- Action CTA -->
                                 <div class="pt-4 flex items-center gap-4">
                                     <a href="{{ route('division.show', $division['id']) }}"
-                                        class="inline-flex items-center justify-center rounded-xl bg-[#001b79] px-6 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#000c46] hover:shadow-lg shadow-md">
-                                        <span>Detail Divisi {{ $division['name'] }}</span>
-                                        <svg class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                        class="inline-flex items-center justify-center rounded-xl bg-[#001b79] px-6 py-3.5 text-sm font-bold text-white transition-all hover:bg-[#000c46] hover:shadow-lg shadow-md group">
+                                        <span>Lihat Profil {{ $division['name'] }}</span>
+                                        <svg class="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor" stroke-width="2.5">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -148,9 +148,9 @@
                             </div>
 
                             <!-- Right Visual Image Showcase -->
-                            <div class="lg:col-span-5 relative">
+                            <div class="lg:col-span-5 relative flex items-center">
                                 <div
-                                    class="relative overflow-hidden rounded-2xl border-2 border-white shadow-xl aspect-[4/3] bg-gradient-to-br from-[#000c46] to-[#001b79]">
+                                    class="relative w-full h-full min-h-[300px] lg:min-h-[400px] overflow-hidden rounded-2xl border-2 border-white shadow-xl bg-gradient-to-br from-[#000c46] to-[#001b79]">
                                     @if (isset($division['image_url']) && $division['image_url'] !== '/images/placeholder.jpg')
                                         <img src="{{ $division['image_url'] }}" alt="{{ $division['name'] }}"
                                             class="h-full w-full object-cover opacity-90 transition-transform duration-500 hover:scale-105">
@@ -175,8 +175,7 @@
                                     <!-- Bottom Gradient Overlay -->
                                     <div
                                         class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#000c46] via-[#000c46]/60 to-transparent p-5 text-white flex items-center justify-between">
-                                        <span class="text-xs font-bold text-white/90 uppercase tracking-wider">Academic
-                                            & Tech</span>
+                                        <span class="text-xs font-bold text-white/90 uppercase tracking-wider">HIMSI UBSI Profile</span>
                                     </div>
                                 </div>
                             </div>
