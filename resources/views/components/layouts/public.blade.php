@@ -55,7 +55,7 @@
 
     <x-layout.footer />
 
-    <!-- Global Floating Animated WhatsApp Button (Bottom Right) -->
+    <!-- Global Floating Action Group (Bottom Right) -->
     @php
         $waUrl = 'https://wa.me/6281234567890';
         if (isset($globalOrganization?->sosial_media) && is_array($globalOrganization->sosial_media)) {
@@ -68,7 +68,64 @@
         }
     @endphp
 
-    <div class="fixed bottom-6 right-6 z-[9999]">
+    <div x-data="{ 
+            showScrollTop: false, 
+            scrollProgress: 0,
+            updateProgress() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                this.showScrollTop = scrollTop > 200;
+                this.scrollProgress = scrollHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100)) : 0;
+            }
+         }" 
+         x-init="updateProgress()"
+         @scroll.window="updateProgress()"
+         class="fixed bottom-6 right-6 z-[9999] flex flex-col items-end gap-5">
+        
+        <!-- Scroll to Top Button with Circular Progress Ring Animation (Size h-16 w-16, matches WA) -->
+        <button @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+                x-show="showScrollTop"
+                x-transition:enter="transition ease-out duration-300 transform"
+                x-transition:enter-start="opacity-0 translate-y-4 scale-75"
+                x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                x-transition:leave="transition ease-in duration-200 transform"
+                x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                x-transition:leave-end="opacity-0 translate-y-4 scale-75"
+                x-cloak
+                type="button"
+                aria-label="Kembali ke atas"
+                title="Kembali ke atas"
+                class="group relative flex h-16 w-16 items-center justify-center rounded-full bg-[#001b79] text-white shadow-[0_4px_24px_rgba(0,27,121,0.4)] transition-all duration-300 hover:bg-[#000c46] hover:scale-110 hover:shadow-[0_8px_30px_rgba(0,27,121,0.6)]">
+            
+            <!-- SVG Circular Scroll Progress Ring surrounding the arrow -->
+            <svg class="absolute inset-0 h-full w-full -rotate-90 transform p-1" viewBox="0 0 64 64">
+                <!-- Background Ring -->
+                <circle cx="32" cy="32" r="28" 
+                        stroke="currentColor" stroke-width="3.5" 
+                        class="text-white/20" fill="none" />
+                <!-- Animated Progress Ring (HIMSI Amber Accent) -->
+                <circle cx="32" cy="32" r="28" 
+                        stroke="currentColor" stroke-width="3.5" 
+                        stroke-linecap="round"
+                        class="text-[#f59e0b] transition-all duration-150 ease-out" 
+                        fill="none" 
+                        stroke-dasharray="175.93"
+                        :stroke-dashoffset="175.93 - (175.93 * scrollProgress / 100)" />
+            </svg>
+
+            <!-- Upward Arrow Icon in Center -->
+            <svg class="h-7 w-7 relative z-10 text-white transition-transform duration-300 group-hover:-translate-y-1" 
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+            </svg>
+            
+            <!-- Tooltip Hover -->
+            <span class="absolute right-20 whitespace-nowrap rounded-lg bg-[#000c46] px-3 py-1.5 text-xs font-semibold text-white shadow-md opacity-0 pointer-events-none transition-all duration-300 group-hover:opacity-100 group-hover:pointer-events-auto">
+                Kembali ke Atas
+            </span>
+        </button>
+
+        <!-- Original WhatsApp Floating Button (h-16 w-16) -->
         <a href="{{ $waUrl }}" target="_blank" rel="noopener" 
            title="Hubungi Kami via WhatsApp"
            class="relative h-16 w-16 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center shadow-[0_4px_24px_rgba(37,211,102,0.5)] hover:scale-110 transition-all duration-300 group">
