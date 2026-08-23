@@ -62,11 +62,15 @@ class HomeController extends Controller
                 ->get();
 
             $activityBlogs = Blog::query()
-                ->with(['images', 'category', 'branch'])
+                ->with([
+                    'images' => fn ($query) => $query->where('active', true),
+                    'category',
+                    'branch',
+                ])
                 ->where('active', true)
                 ->whereHas('category', function ($q) {
                     $q->where('active', true)
-                      ->where('name', 'like', '%Kegiatan%');
+                        ->where('name', 'Kegiatan');
                 })
                 ->latest()
                 ->limit(12)
@@ -74,31 +78,15 @@ class HomeController extends Controller
 
             $activitiesGallery = collect();
             foreach ($activityBlogs as $blog) {
-                if ($blog->images && $blog->images->count() > 0) {
-                    foreach ($blog->images as $img) {
-                        if ($img->active) {
-                            $activitiesGallery->push([
-                                'id' => $img->id,
-                                'image_url' => public_image_url($img->image),
-                                'title' => $blog->title,
-                                'slug' => $blog->slug,
-                                'description' => $img->description ?: $blog->quotes ?: $blog->title,
-                                'branch_name' => $blog->branch?->name ?? 'HIMSI UBSI',
-                                'category_name' => $blog->category?->name ?? 'Kegiatan',
-                                'formatted_date' => $blog->created_at?->format('d M Y') ?? date('d M Y'),
-                                'detail_url' => route('blog.show', $blog->slug),
-                            ]);
-                        }
-                    }
-                } else {
+                foreach ($blog->images as $img) {
                     $activitiesGallery->push([
-                        'id' => 'b_' . $blog->id,
-                        'image_url' => public_image_url($blog->thumbnail),
+                        'id' => $img->id,
+                        'image_url' => public_image_url($img->image),
                         'title' => $blog->title,
                         'slug' => $blog->slug,
-                        'description' => $blog->quotes ?: $blog->title,
+                        'description' => $img->description ?: $blog->quotes ?: $blog->title,
                         'branch_name' => $blog->branch?->name ?? 'HIMSI UBSI',
-                        'category_name' => $blog->category?->name ?? 'Kegiatan',
+                        'category_name' => $blog->category->name,
                         'formatted_date' => $blog->created_at?->format('d M Y') ?? date('d M Y'),
                         'detail_url' => route('blog.show', $blog->slug),
                     ]);
