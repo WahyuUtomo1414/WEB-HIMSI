@@ -25,6 +25,18 @@ class BranchStructurePosition
             ->all();
     }
 
+    public static function optionsFor(bool $isDpp): array
+    {
+        $excluded = $isDpp
+            ? ['Koor Div RSDM', 'Koor Div Litbang']
+            : ['Koor Div Sosmas', 'Koor Div PSDM'];
+
+        return collect(array_keys(self::SORT_BY_POSITION))
+            ->reject(fn (string $position): bool => in_array($position, $excluded))
+            ->mapWithKeys(fn (string $position): array => [$position => $position])
+            ->all();
+    }
+
     public static function sortFor(?string $position): int
     {
         return self::SORT_BY_POSITION[$position ?? ''] ?? 99;

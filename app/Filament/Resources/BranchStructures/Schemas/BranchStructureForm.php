@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\BranchStructures\Schemas;
 
+use App\Models\Branch;
 use App\Support\BranchStructurePosition;
 use App\Support\ImageUploadOptimizer;
 use Filament\Forms\Components\FileUpload;
@@ -21,7 +22,14 @@ class BranchStructureForm
         return $schema->components([
             Section::make('Informasi Utama')
                 ->schema([
-                    Select::make('branch_id')->label('Cabang')->relationship('branch', 'name')->searchable()->preload()->required(),
+                    Select::make('branch_id')
+                        ->label('Cabang')
+                        ->relationship('branch', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->required()
+                        ->live()
+                        ->afterStateUpdated(fn (Set $set) => $set('position', null)),
                     TextInput::make('name')->label('Nama Pengurus')->maxLength(128)->required(),
                     Select::make('division_id')->label('Divisi')->relationship('division', 'name')->searchable()->preload(),
                     Hidden::make('sort')
@@ -29,7 +37,20 @@ class BranchStructureForm
                         ->dehydrateStateUsing(fn (Get $get): int => BranchStructurePosition::sortFor($get('position'))),
                     Select::make('position')
                         ->label('Posisi')
-                        ->options(BranchStructurePosition::options())
+                        ->options(function (Get $get): array {
+                            $branchId = $get('branch_id');
+                            if (! $branchId) {
+                                return [];
+                            }
+                            $branch = Branch::find($branchId);
+                            if (! $branch) {
+                                return [];
+                            }
+
+                            return BranchStructurePosition::optionsFor($branch->is_dpp);
+                        })
+                        ->disabled(fn (Get $get): bool => ! $get('branch_id'))
+                        ->placeholder(fn (Get $get): string => $get('branch_id') ? 'Pilih salah satu opsi' : 'Pilih cabang terlebih dahulu')
                         ->searchable()
                         ->live()
                         ->afterStateUpdated(fn (Set $set, ?string $state): mixed => $set('sort', BranchStructurePosition::sortFor($state)))
