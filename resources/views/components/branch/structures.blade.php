@@ -105,7 +105,7 @@
         <x-common.section-header 
             badge="Pengurus"
             title="Struktur Kepengurusan Cabang" 
-            subtitle="Daftar pengurus aktif yang memimpin jalannya organisasi di {{ $branch['name'] }}" />
+            :subtitle="'Daftar pengurus aktif yang memimpin jalannya organisasi di ' . $branch['name']" />
 
         @php
             $item1 = $structures[0] ?? null;

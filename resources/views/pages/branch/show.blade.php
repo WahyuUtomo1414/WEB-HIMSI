@@ -1,4 +1,4 @@
-<x-layouts.public title="{{ $branch['name'] }} - HIMSI UBSI">
+<x-layouts.public :title="$branch['name'] . ' - HIMSI UBSI'">
 
     {{-- 1. Hero Section --}}
     <x-branch.hero 
@@ -25,7 +25,7 @@
         {{-- 5. CTA Section --}}
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-common.cta-section 
-                title="Tertarik Bergabung Dengan {{ $branch['name'] }}?" 
+                :title="'Tertarik Bergabung Dengan ' . $branch['name'] . '?'" 
                 subtitle="Hubungi pengurus atau bergabunglah dalam grup WhatsApp resmi cabang kami." />
         </div>
 

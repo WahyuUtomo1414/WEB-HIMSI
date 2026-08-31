@@ -24,7 +24,7 @@
         @endif
 
         <h1 class="text-4xl font-extrabold text-white tracking-tight sm:text-5xl lg:text-6xl">
-            {{ $title }}
+            {!! $title !!}
         </h1>
 
         @if ($subtitle)

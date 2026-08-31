@@ -4,7 +4,7 @@
     <div class="lg:col-span-7 space-y-6">
         <x-common.section-header 
             badge="Profil Cabang"
-            title="Tentang {{ $branch['name'] }}" 
+            :title="'Tentang ' . $branch['name']" 
             align="left" />
         
         <div class="prose max-w-none text-base sm:text-lg text-[#454652] leading-relaxed prose-p:mb-4 last:prose-p:mb-0">
