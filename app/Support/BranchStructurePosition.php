@@ -10,12 +10,13 @@ class BranchStructurePosition
         'Sekertaris 1' => 3,
         'Sekertaris 2' => 4,
         'Bendahara' => 5,
-        'Koor Div Pendidikan' => 6,
-        'Koor Div RSDM' => 7,
-        'Koor Div Litbang' => 8,
-        'Koor Div Kominfo' => 9,
-        'Koor Div Sosmas' => 10,
-        'Koor Div PSDM' => 11,
+        'Bendahara 2' => 6,
+        'Koor Div Pendidikan' => 7,
+        'Koor Div RSDM' => 8,
+        'Koor Div Litbang' => 9,
+        'Koor Div Kominfo' => 10,
+        'Koor Div Sosmas' => 11,
+        'Koor Div PSDM' => 12,
     ];
 
     public static function options(): array

@@ -12,7 +12,7 @@
         </span>
     @endif
     <h2 class="text-3xl font-extrabold text-[#000c46] tracking-tight sm:text-4xl">
-        {{ $title }}
+        {!! $title !!}
     </h2>
     @if ($subtitle)
         <p class="text-base text-[#454652] sm:text-lg leading-relaxed">
