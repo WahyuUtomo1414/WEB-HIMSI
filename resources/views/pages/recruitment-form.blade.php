@@ -349,7 +349,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-300 mb-1">Upload CV * (PDF, Max 5MB)</label>
-                            <span class="block text-[10px] text-slate-400 mb-1.5">Tamplate CV <a href="https://canva.link/1qt5siv1cz7y2dl" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold hover:text-amber-300 underline underline-offset-2 transition-colors">📄 Download Template CV di sini →</a></span>
+                            <span class="block text-[10px] text-slate-400 mb-1.5">Tamplate CV <a href="https://canva.link/ibnkfi9udxilm2j" target="_blank" rel="noopener noreferrer" class="text-amber-400 font-bold hover:text-amber-300 underline underline-offset-2 transition-colors">📄 Download Template CV di sini →</a></span>
                             <input type="file" name="cv" accept=".pdf" required
                                    class="w-full px-3 py-2 rounded-xl bg-white/5 border @error('cv') border-red-500 @else border-white/15 @enderror text-xs text-slate-300 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-400 file:text-slate-950 hover:file:bg-amber-300 cursor-pointer">
                             @error('cv')
