@@ -12,11 +12,17 @@ class BranchStructurePosition
         'Bendahara' => 5,
         'Bendahara 2' => 6,
         'Koor Div Pendidikan' => 7,
-        'Koor Div RSDM' => 8,
-        'Koor Div Litbang' => 9,
-        'Koor Div Kominfo' => 10,
-        'Koor Div Sosmas' => 11,
-        'Koor Div PSDM' => 12,
+        'Staff Pendidikan' => 8,
+        'Koor Div RSDM' => 9,
+        'Staff RSDM' => 10,
+        'Koor Div Litbang' => 11,
+        'Staff Litbang' => 12,
+        'Koor Div Kominfo' => 13,
+        'Staff Kominfo' => 14,
+        'Koor Div Sosmas' => 15,
+        'Staff Sosmas' => 16,
+        'Koor Div PSDM' => 17,
+        'Staff PSDM' => 18,
     ];
 
     public static function options(): array
@@ -29,8 +35,8 @@ class BranchStructurePosition
     public static function optionsFor(bool $isDpp): array
     {
         $excluded = $isDpp
-            ? ['Koor Div RSDM', 'Koor Div Litbang']
-            : ['Koor Div Sosmas', 'Koor Div PSDM'];
+            ? ['Koor Div RSDM', 'Staff RSDM', 'Koor Div Litbang', 'Staff Litbang']
+            : ['Koor Div Sosmas', 'Staff Sosmas', 'Koor Div PSDM', 'Staff PSDM'];
 
         return collect(array_keys(self::SORT_BY_POSITION))
             ->reject(fn (string $position): bool => in_array($position, $excluded))
