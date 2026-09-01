@@ -29,9 +29,37 @@ class BranchStructureForm
                         ->preload()
                         ->required()
                         ->live()
-                        ->afterStateUpdated(fn (Set $set) => $set('position', null)),
+                        ->afterStateUpdated(function (Set $set): void {
+                            $set('position', null);
+                            $set('division_id', null);
+                        }),
                     TextInput::make('name')->label('Nama Pengurus')->maxLength(128)->required(),
-                    Select::make('division_id')->label('Divisi')->relationship('division', 'name')->searchable()->preload(),
+                    Select::make('division_id')
+                        ->label('Divisi')
+                        ->relationship(
+                            name: 'division',
+                            titleAttribute: 'name',
+                            modifyQueryUsing: function ($query, Get $get) {
+                                $branchId = $get('branch_id');
+                                if (! $branchId) {
+                                    return $query->whereRaw('1 = 0');
+                                }
+                                $branch = Branch::find($branchId);
+                                if (! $branch) {
+                                    return $query->whereRaw('1 = 0');
+                                }
+
+                                $excluded = $branch->is_dpp
+                                    ? ['Divisi RSDM', 'Divisi Litbang']
+                                    : ['Divisi PSDM', 'Divisi Sosmas'];
+
+                                return $query->whereNotIn('name', $excluded);
+                            }
+                        )
+                        ->disabled(fn (Get $get): bool => ! $get('branch_id'))
+                        ->placeholder(fn (Get $get): string => $get('branch_id') ? 'Pilih salah satu opsi' : 'Pilih cabang terlebih dahulu')
+                        ->searchable()
+                        ->preload(),
                     Hidden::make('sort')
                         ->default(99)
                         ->dehydrateStateUsing(fn (Get $get): int => BranchStructurePosition::sortFor($get('position'))),
