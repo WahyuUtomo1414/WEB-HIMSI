@@ -14,62 +14,62 @@ class BlogImagePolicy
     
     public function viewAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ViewAny:BlogImage');
+        return $authUser->can('ViewAny:Blog');
     }
 
     public function view(AuthUser $authUser, BlogImage $blogImage): bool
     {
-        return $authUser->can('View:BlogImage');
+        return $authUser->can('View:Blog');
     }
 
     public function create(AuthUser $authUser): bool
     {
-        return $authUser->can('Create:BlogImage');
+        return $authUser->can('Create:Blog');
     }
 
     public function update(AuthUser $authUser, BlogImage $blogImage): bool
     {
-        return $authUser->can('Update:BlogImage');
+        return $authUser->can('Update:Blog');
     }
 
     public function delete(AuthUser $authUser, BlogImage $blogImage): bool
     {
-        return $authUser->can('Delete:BlogImage');
+        return $authUser->can('Delete:Blog');
     }
 
     public function deleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('DeleteAny:BlogImage');
+        return $authUser->can('DeleteAny:Blog');
     }
 
     public function restore(AuthUser $authUser, BlogImage $blogImage): bool
     {
-        return $authUser->can('Restore:BlogImage');
+        return $authUser->can('Restore:Blog');
     }
 
     public function forceDelete(AuthUser $authUser, BlogImage $blogImage): bool
     {
-        return $authUser->can('ForceDelete:BlogImage');
+        return $authUser->can('ForceDelete:Blog');
     }
 
     public function forceDeleteAny(AuthUser $authUser): bool
     {
-        return $authUser->can('ForceDeleteAny:BlogImage');
+        return $authUser->can('ForceDeleteAny:Blog');
     }
 
     public function restoreAny(AuthUser $authUser): bool
     {
-        return $authUser->can('RestoreAny:BlogImage');
+        return $authUser->can('RestoreAny:Blog');
     }
 
     public function replicate(AuthUser $authUser, BlogImage $blogImage): bool
     {
-        return $authUser->can('Replicate:BlogImage');
+        return $authUser->can('Replicate:Blog');
     }
 
     public function reorder(AuthUser $authUser): bool
     {
-        return $authUser->can('Reorder:BlogImage');
+        return $authUser->can('Reorder:Blog');
     }
 
 }
