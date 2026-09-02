@@ -21,7 +21,7 @@ class RecruitmentController extends Controller
         $organization = Organization::first();
 
         // Fetch real divisions from Division Model
-        $dbDivisions = Division::all();
+        $dbDivisions = Division::where('is_dpp', false)->get();
 
         // Fetch real branches from Branch Model
         $branches = Branch::all();
@@ -172,7 +172,7 @@ class RecruitmentController extends Controller
     public function create()
     {
         $organization = Organization::first();
-        $branches = Branch::all();
+        $branches = Branch::where('is_dpp', false)->where('active', true)->orderBy('name')->get();
         $divisions = Division::query()
             ->where('active', true)
             ->where('is_dpp', false)
