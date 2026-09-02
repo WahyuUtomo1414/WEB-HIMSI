@@ -28,7 +28,7 @@ class PublicCacheInvalidator
             $model instanceof Branch => self::bump(['home', 'branch', 'blog']),
             $model instanceof BranchStructure => self::bump(['branch']),
             $model instanceof Blog => self::bump(['home', 'blog', 'branch']),
-            $model instanceof BlogImage => self::bump(['blog']),
+            $model instanceof BlogImage => self::bump(['home', 'blog']),
             default => null,
         };
     }
