@@ -1,28 +1,14 @@
-@php
-    $isPaginatorObj = is_object($paginator) && method_exists($paginator, 'firstItem');
-    $firstItem = $isPaginatorObj ? $paginator->firstItem() : ($paginator['firstItem'] ?? 0);
-    $lastItem = $isPaginatorObj ? $paginator->lastItem() : ($paginator['lastItem'] ?? 0);
-    $total = $isPaginatorObj ? $paginator->total() : ($paginator['total'] ?? 0);
-    $onFirstPage = $isPaginatorObj ? $paginator->onFirstPage() : ($paginator['onFirstPage'] ?? true);
-    $hasMorePages = $isPaginatorObj ? $paginator->hasMorePages() : ($paginator['hasMorePages'] ?? false);
-    $previousPageUrl = $isPaginatorObj ? $paginator->previousPageUrl() : ($paginator['previousPageUrl'] ?? '#');
-    $nextPageUrl = $isPaginatorObj ? $paginator->nextPageUrl() : ($paginator['nextPageUrl'] ?? '#');
-    $currentPage = $isPaginatorObj ? $paginator->currentPage() : ($paginator['currentPage'] ?? 1);
-    $lastPage = $isPaginatorObj ? $paginator->lastPage() : ($paginator['lastPage'] ?? 1);
-    $pageUrls = $isPaginatorObj ? $paginator->getUrlRange(1, $lastPage) : ($paginator['pageUrls'] ?? [1 => '#']);
-@endphp
+@props(['blogs' => [], 'paginator' => []])
 
 @if (count($blogs) > 0)
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         @foreach ($blogs as $blog)
             <article class="group rounded-3xl bg-white border border-[#c5c5d4]/60 shadow-[0_4px_20px_rgba(0,27,121,0.04)] hover:shadow-[0_12px_32px_rgba(0,27,121,0.12)] hover:border-[#0453cd]/40 transition-all duration-300 overflow-hidden flex flex-col justify-between">
                 <div>
-                    <!-- Thumbnail Container (Full Bleed) -->
                     <div class="h-52 sm:h-56 w-full overflow-hidden relative bg-[#f0f4ff]/70">
                         <x-common.image :src="$blog['thumbnail_url']" :alt="$blog['title']" class="h-full w-full object-cover group-hover:scale-105 transition-all duration-500" />
                     </div>
 
-                    <!-- Article Details -->
                     <div class="p-6 space-y-3">
                         <div class="flex items-center justify-between gap-2">
                             <span class="rounded-full bg-[#001b79]/10 px-3 py-1 text-xs font-bold text-[#001b79] border border-[#001b79]/15 uppercase tracking-wider">
@@ -46,7 +32,6 @@
                     </div>
                 </div>
 
-                <!-- Footer Link & Branch -->
                 <div class="p-6 pt-0 flex items-center justify-between border-t border-slate-100 mt-4 pt-4">
                     <a href="{{ route('blog.show', $blog['slug']) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#0453cd] group-hover:text-[#001b79] transition-colors">
                         <span>Baca Selengkapnya</span>
@@ -66,24 +51,26 @@
     <div class="pt-10 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#c5c5d4]/60">
         <p class="text-xs font-semibold text-[#454652]">
             Menampilkan
-            <span class="font-bold text-[#000c46]">{{ $firstItem }}</span>
+            <span class="font-bold text-[#000c46]">{{ $paginator['firstItem'] }}</span>
             sampai
-            <span class="font-bold text-[#000c46]">{{ $lastItem }}</span>
+            <span class="font-bold text-[#000c46]">{{ $paginator['lastItem'] }}</span>
             dari
-            <span class="font-bold text-[#000c46]">{{ $total }}</span>
+            <span class="font-bold text-[#000c46]">{{ $paginator['total'] }}</span>
             artikel
         </p>
 
-        <nav class="inline-flex items-center gap-2">
-            @if ($onFirstPage)
-                <span class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-slate-100 text-xs font-bold text-slate-400 shadow-xs cursor-not-allowed">
+        <nav class="inline-flex items-center gap-1.5">
+
+            {{-- Tombol Sebelumnya --}}
+            @if ($paginator['onFirstPage'])
+                <span class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-slate-100 text-xs font-bold text-slate-400 cursor-not-allowed">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
                     </svg>
                     <span>Sebelumnya</span>
                 </span>
             @else
-                <a href="{{ $previousPageUrl }}" class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-white text-xs font-bold text-[#000c46] hover:bg-[#001b79] hover:text-white hover:border-[#001b79] transition-all shadow-xs group">
+                <a href="{{ $paginator['previousPageUrl'] }}" class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-white text-xs font-bold text-[#000c46] hover:bg-[#001b79] hover:text-white hover:border-[#001b79] transition-all shadow-xs group">
                     <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/>
                     </svg>
@@ -91,33 +78,40 @@
                 </a>
             @endif
 
-            @foreach ($pageUrls as $page => $url)
-                @if ($page === $currentPage)
+            {{-- Nomor Halaman --}}
+            @foreach ($paginator['pages'] as $item)
+                @if ($item['type'] === 'ellipsis')
+                    <span class="h-9 w-9 flex items-center justify-center text-sm font-bold text-[#454652]">
+                        &hellip;
+                    </span>
+                @elseif ($item['active'])
                     <span class="h-9 w-9 rounded-xl bg-[#001b79] text-white font-bold text-xs flex items-center justify-center shadow-xs">
-                        {{ $page }}
+                        {{ $item['number'] }}
                     </span>
                 @else
-                    <a href="{{ $url }}" class="h-9 w-9 rounded-xl bg-white border border-[#c5c5d4]/60 text-[#000c46] hover:bg-[#f0f4ff] hover:border-[#0453cd] font-bold text-xs flex items-center justify-center transition-all shadow-xs">
-                        {{ $page }}
+                    <a href="{{ $item['url'] }}" class="h-9 w-9 rounded-xl bg-white border border-[#c5c5d4]/60 text-[#000c46] hover:bg-[#f0f4ff] hover:border-[#0453cd] font-bold text-xs flex items-center justify-center transition-all shadow-xs">
+                        {{ $item['number'] }}
                     </a>
                 @endif
             @endforeach
 
-            @if ($hasMorePages)
-                <a href="{{ $nextPageUrl }}" class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-white text-xs font-bold text-[#000c46] hover:bg-[#001b79] hover:text-white hover:border-[#001b79] transition-all shadow-xs group">
+            {{-- Tombol Selanjutnya --}}
+            @if ($paginator['hasMorePages'])
+                <a href="{{ $paginator['nextPageUrl'] }}" class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-white text-xs font-bold text-[#000c46] hover:bg-[#001b79] hover:text-white hover:border-[#001b79] transition-all shadow-xs group">
                     <span>Selanjutnya</span>
                     <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
                     </svg>
                 </a>
             @else
-                <span class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-slate-100 text-xs font-bold text-slate-400 shadow-xs cursor-not-allowed">
+                <span class="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl border border-[#c5c5d4]/60 bg-slate-100 text-xs font-bold text-slate-400 cursor-not-allowed">
                     <span>Selanjutnya</span>
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
                     </svg>
                 </span>
             @endif
+
         </nav>
     </div>
 @else

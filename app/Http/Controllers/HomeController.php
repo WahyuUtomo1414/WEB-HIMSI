@@ -93,6 +93,15 @@ class HomeController extends Controller
                 }
             }
 
+            $rawItems = $activitiesGallery->take(8)->values()->all();
+            $allItems = $rawItems;
+            while (count($allItems) < 10) {
+                $allItems = array_merge($allItems, $rawItems);
+            }
+            $half = (int) ceil(count($allItems) / 2);
+            $row1 = array_slice($allItems, 0, $half);
+            $row2 = array_slice($allItems, $half);
+
             return [
                 'hero' => [
                     'name' => $organization?->name ?? 'HIMSI UBSI',
@@ -140,7 +149,8 @@ class HomeController extends Controller
                     'thumbnail_url' => public_image_url($b->thumbnail),
                     'formatted_date' => $b->created_at?->format('d M Y') ?? date('d M Y'),
                 ])->toArray(),
-                'activities_gallery' => $activitiesGallery->take(8)->values()->toArray(),
+                'activities_row1_loop' => array_merge($row1, $row1),
+                'activities_row2_loop' => array_merge($row2, $row2),
                 'faqs' => $faqs->map(fn ($f) => [
                     'id' => $f->id,
                     'question' => $f->question,

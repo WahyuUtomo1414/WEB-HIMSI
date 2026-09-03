@@ -28,6 +28,11 @@
             <x-about.divisions :divisions="$divisions" />
         </div>
 
+        {{-- 7. CTA Section --}}
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <x-about.cta :organization="$organization" />
+        </div>
+
     </div>
 
 </x-layouts.public>

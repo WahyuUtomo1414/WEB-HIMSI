@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\Category;
 use App\Support\PublicCache\PublicCacheKey;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
@@ -14,7 +15,7 @@ class BlogController extends Controller
     public function index(Request $request): View
     {
         $data = Cache::remember(PublicCacheKey::blogIndex($request), now()->addMinutes(15), function () use ($request): array {
-            $search = $request->query('search', '');
+            $search     = $request->query('search', '');
             $categoryId = $request->query('category', '');
 
             $query = Blog::query()
@@ -24,11 +25,11 @@ class BlogController extends Controller
                 ->whereHas('branch', fn ($q) => $q->where('active', true));
 
             if (! empty($search)) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('title', 'like', "%{$search}%")
-                        ->orWhere('body', 'like', "%{$search}%")
-                        ->orWhere('quotes', 'like', "%{$search}%");
-                });
+                $query->where(fn ($q) => $q
+                    ->where('title', 'like', "%{$search}%")
+                    ->orWhere('body', 'like', "%{$search}%")
+                    ->orWhere('quotes', 'like', "%{$search}%")
+                );
             }
 
             if (! empty($categoryId)) {
@@ -37,43 +38,15 @@ class BlogController extends Controller
 
             $paginator = $query->latest()->paginate(6)->withQueryString();
 
-            $blogsMapped = collect($paginator->items())->map(fn ($b) => [
-                'id' => $b->id,
-                'title' => $b->title,
-                'slug' => $b->slug,
-                'quotes' => $b->quotes,
-                'body' => $b->body,
-                'category_name' => $b->category?->name ?? 'Umum',
-                'branch_name' => $b->branch?->name ?? '-',
-                'thumbnail_url' => public_image_url($b->thumbnail),
-                'formatted_date' => $b->created_at?->format('d M Y') ?? date('d M Y'),
-            ])->toArray();
-
-            $categories = Category::query()
-                ->where('active', true)
-                ->get(['id', 'name'])
-                ->toArray();
-
             return [
                 'hero' => [
-                    'title' => 'Blog & Artikel HIMSI',
+                    'title'    => 'Blog & Artikel HIMSI',
                     'subtitle' => 'Kumpulan Berita, Informasi Kegiatan, dan Artikel Edukatif Terkini',
                 ],
-                'blogs' => $blogsMapped,
-                'paginator' => [
-                    'currentPage' => $paginator->currentPage(),
-                    'lastPage' => $paginator->lastPage(),
-                    'firstItem' => $paginator->firstItem() ?? 0,
-                    'lastItem' => $paginator->lastItem() ?? 0,
-                    'total' => $paginator->total(),
-                    'hasMorePages' => $paginator->hasMorePages(),
-                    'onFirstPage' => $paginator->onFirstPage(),
-                    'previousPageUrl' => $paginator->previousPageUrl(),
-                    'nextPageUrl' => $paginator->nextPageUrl(),
-                    'pageUrls' => $paginator->getUrlRange(1, $paginator->lastPage()),
-                ],
-                'categories' => $categories,
-                'currentSearch' => $search,
+                'blogs'           => collect($paginator->items())->map(fn ($b) => $this->mapBlog($b))->toArray(),
+                'paginator'       => $this->buildPaginator($paginator),
+                'categories'      => Category::query()->where('active', true)->get(['id', 'name'])->toArray(),
+                'currentSearch'   => $search,
                 'currentCategory' => $categoryId,
             ];
         });
@@ -105,34 +78,78 @@ class BlogController extends Controller
 
             return [
                 'blog' => [
-                    'id' => $blog->id,
-                    'title' => $blog->title,
-                    'slug' => $blog->slug,
+                    ...$this->mapBlog($blog),
+                    'body'   => $blog->body,
                     'quotes' => $blog->quotes,
-                    'body' => $blog->body,
-                    'category_name' => $blog->category?->name ?? 'Umum',
-                    'branch_name' => $blog->branch?->name ?? '-',
-                    'thumbnail_url' => public_image_url($blog->thumbnail),
-                    'formatted_date' => $blog->created_at?->format('d M Y') ?? date('d M Y'),
                     'images' => $blog->images->map(fn ($img) => [
-                        'id' => $img->id,
-                        'image_url' => public_image_url($img->image),
+                        'id'          => $img->id,
+                        'image_url'   => public_image_url($img->image),
                         'description' => $img->description,
                     ])->toArray(),
                 ],
-                'relatedBlogs' => $relatedBlogs->map(fn ($b) => [
-                    'id' => $b->id,
-                    'title' => $b->title,
-                    'slug' => $b->slug,
-                    'quotes' => $b->quotes,
-                    'category_name' => $b->category?->name ?? 'Umum',
-                    'branch_name' => $b->branch?->name ?? '-',
-                    'thumbnail_url' => public_image_url($b->thumbnail),
-                    'formatted_date' => $b->created_at?->format('d M Y') ?? date('d M Y'),
-                ])->toArray(),
+                'relatedBlogs' => $relatedBlogs->map(fn ($b) => $this->mapBlog($b))->toArray(),
             ];
         });
 
         return view('pages.blog.show', $data);
+    }
+
+    private function mapBlog(Blog $b): array
+    {
+        return [
+            'id'             => $b->id,
+            'title'          => $b->title,
+            'slug'           => $b->slug,
+            'quotes'         => $b->quotes,
+            'body'           => $b->body,
+            'category_name'  => $b->category?->name ?? 'Umum',
+            'branch_name'    => $b->branch?->name ?? '-',
+            'thumbnail_url'  => public_image_url($b->thumbnail),
+            'formatted_date' => $b->created_at?->format('d M Y') ?? date('d M Y'),
+        ];
+    }
+
+    private function buildPaginator(LengthAwarePaginator $paginator): array
+    {
+        $currentPage = $paginator->currentPage();
+        $lastPage    = $paginator->lastPage();
+        $allUrls     = $paginator->getUrlRange(1, $lastPage);
+
+        $visible = collect([1]);
+        for ($i = max(2, $currentPage - 1); $i <= min($lastPage - 1, $currentPage + 1); $i++) {
+            $visible->push($i);
+        }
+        if ($lastPage > 1) {
+            $visible->push($lastPage);
+        }
+        $visible = $visible->unique()->sort()->values();
+
+        $pages = [];
+        $prev  = null;
+        foreach ($visible as $p) {
+            if ($prev !== null && $p - $prev > 1) {
+                $pages[] = ['type' => 'ellipsis'];
+            }
+            $pages[] = [
+                'type'   => 'page',
+                'number' => $p,
+                'url'    => $allUrls[$p] ?? '#',
+                'active' => $p === $currentPage,
+            ];
+            $prev = $p;
+        }
+
+        return [
+            'currentPage'     => $currentPage,
+            'lastPage'        => $lastPage,
+            'firstItem'       => $paginator->firstItem() ?? 0,
+            'lastItem'        => $paginator->lastItem() ?? 0,
+            'total'           => $paginator->total(),
+            'hasMorePages'    => $paginator->hasMorePages(),
+            'onFirstPage'     => $paginator->onFirstPage(),
+            'previousPageUrl' => $paginator->previousPageUrl(),
+            'nextPageUrl'     => $paginator->nextPageUrl(),
+            'pages'           => $pages,
+        ];
     }
 }
