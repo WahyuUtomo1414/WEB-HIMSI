@@ -89,12 +89,12 @@ class BranchController extends Controller
                 ->where('id', $id)
                 ->firstOrFail();
 
-            $blogs = Blog::query()
+            $activities = Blog::query()
                 ->with('category')
                 ->where('active', true)
-                ->whereHas('category', fn ($q) => $q->where('active', true))
+                ->whereHas('category', fn ($q) => $q->where('active', true)->where('name', 'Kegiatan'))
                 ->where('branch_id', $branch->id)
-                ->latest()
+                ->oldest()
                 ->limit(3)
                 ->get();
 
@@ -119,13 +119,13 @@ class BranchController extends Controller
                     'division_name' => $s->division?->name ?? 'Pengurus Harian',
                     'image_url' => public_image_url($s->image),
                 ])->toArray(),
-                'blogs' => $blogs->map(fn ($b) => [
+                'activities' => $activities->map(fn ($b) => [
                     'id' => $b->id,
                     'title' => $b->title,
                     'slug' => $b->slug,
                     'quotes' => $b->quotes,
                     'body' => $b->body,
-                    'category_name' => $b->category?->name ?? 'Umum',
+                    'category_name' => $b->category?->name ?? 'Kegiatan',
                     'branch_name' => $branch->name,
                     'thumbnail_url' => public_image_url($b->thumbnail),
                     'formatted_date' => $b->created_at?->format('d M Y') ?? date('d M Y'),

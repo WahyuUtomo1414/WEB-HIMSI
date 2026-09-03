@@ -22,10 +22,15 @@
         {{-- 4. Struktur Organisasi Section (Full Width Section) --}}
         <x-branch.structures :branch="$branch" :structures="$structures" />
 
-        {{-- 5. CTA Section --}}
+        {{-- 5. Kegiatan Section --}}
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <x-common.cta-section 
-                :title="'Tertarik Bergabung Dengan ' . $branch['name'] . '?'" 
+            <x-branch.activities :activities="$activities" :branch="$branch" />
+        </div>
+
+        {{-- 6. CTA Section --}}
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <x-common.cta-section
+                :title="'Tertarik Bergabung Dengan ' . $branch['name'] . '?'"
                 subtitle="Hubungi pengurus atau bergabunglah dalam grup WhatsApp resmi cabang kami." />
         </div>
 
