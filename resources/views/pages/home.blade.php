@@ -25,7 +25,7 @@
     <x-home.blogs :blogs="$blogs" />
 
     {{-- 8. Dokumentasi & Galeri Kegiatan (BG: Soft Tint #f0f4ff) --}}
-    <x-home.activities-gallery :activities="$activities_gallery" />
+    <x-home.activities-gallery :row1-loop="$activities_row1_loop" :row2-loop="$activities_row2_loop" />
 
     {{-- 9. FAQ Section (BG: Pure White #ffffff) --}}
     <x-home.faq :faqs="$faqs" />
