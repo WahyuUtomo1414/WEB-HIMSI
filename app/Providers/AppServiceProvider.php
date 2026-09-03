@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Division;
 use App\Models\Organization;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,18 +29,24 @@ class AppServiceProvider extends ServiceProvider
             static $loaded = false;
 
             if (! $loaded) {
-                $organization = Organization::query()
-                    ->where('active', true)
-                    ->latest()
-                    ->first();
-
-                $divisions = Division::query()
-                    ->where('active', true)
-                    ->orderBy('name')
-                    ->limit(6)
-                    ->get();
-
                 $loaded = true;
+
+                try {
+                    $organization = Cache::remember('global:organization', now()->addHour(), fn () => Organization::query()
+                        ->where('active', true)
+                        ->latest()
+                        ->first()
+                    );
+
+                    $divisions = Cache::remember('global:divisions', now()->addHour(), fn () => Division::query()
+                        ->where('active', true)
+                        ->orderBy('name')
+                        ->limit(6)
+                        ->get()
+                    );
+                } catch (\Throwable) {
+                    // DB tidak tersedia, view menerima null
+                }
             }
 
             $view->with('globalOrganization', $organization);
