@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Mail\RecruitmentNotificationMail;
 use App\Models\Branch;
 use App\Models\Division;
-use App\Models\Organization;
 use App\Models\Recruitment;
 use App\Models\Status;
 use App\Support\ImageUploadOptimizer;
@@ -18,13 +17,7 @@ class RecruitmentController extends Controller
 {
     public function index()
     {
-        $organization = Organization::first();
-
-        // Fetch real divisions from Division Model
         $dbDivisions = Division::where('is_dpp', false)->get();
-
-        // Fetch real branches from Branch Model
-        $branches = Branch::all();
 
         $badgeColors = [
             ['badge' => 'Teknologi & Riset', 'color' => 'blue', 'glow' => 'rgba(59, 130, 246, 0.45)'],
@@ -166,20 +159,34 @@ class RecruitmentController extends Controller
             ],
         ];
 
-        return view('pages.recruitment', compact('organization', 'divisions', 'timelines', 'faqs', 'branches'));
+        return view('pages.recruitment', compact('divisions', 'timelines', 'faqs'));
     }
 
     public function create()
     {
-        $organization = Organization::first();
-        $branches = Branch::where('is_dpp', false)->where('active', true)->orderBy('name')->get();
+        $branches = Branch::where('is_dpp', false)
+            ->where('active', true)
+            ->orderBy('name')
+            ->get()
+            ->map(fn ($b) => [
+                'id' => $b->id,
+                'name' => $b->name,
+                'location' => $b->location,
+            ])
+            ->all();
+
         $divisions = Division::query()
             ->where('active', true)
             ->where('is_dpp', false)
             ->orderBy('name')
-            ->get();
+            ->get()
+            ->map(fn ($d) => [
+                'id' => $d->id,
+                'name' => $d->name,
+            ])
+            ->all();
 
-        return view('pages.recruitment-form', compact('organization', 'branches', 'divisions'));
+        return view('pages.recruitment-form', compact('branches', 'divisions'));
     }
 
     public function store(Request $request)

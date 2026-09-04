@@ -250,8 +250,8 @@
                                 <select name="branch_id" required data-placeholder="-- Pilih Cabang (DPC) --" class="js-recruitment-select w-full px-4 py-3.5 rounded-2xl bg-[#030712] border @error('branch_id') border-red-500 @else border-white/15 @enderror text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
                                     <option value="">-- Pilih Cabang (DPC) --</option>
                                     @foreach ($branches as $branch)
-                                        <option value="{{ $branch->id }}" {{ old('branch_id') == $branch->id ? 'selected' : '' }}>
-                                            {{ $branch->name }} ({{ $branch->location }})
+                                        <option value="{{ $branch['id'] }}" {{ old('branch_id') == $branch['id'] ? 'selected' : '' }}>
+                                            {{ $branch['name'] }} ({{ $branch['location'] }})
                                         </option>
                                     @endforeach
                                 </select>
@@ -269,8 +269,8 @@
                             <select name="division_id" required data-placeholder="-- Pilih Divisi --" class="js-recruitment-select w-full px-4 py-3.5 rounded-2xl bg-[#030712] border @error('division_id') border-red-500 @else border-white/15 @enderror text-white focus:outline-none focus:border-amber-400 text-sm font-medium transition-all">
                                 <option value="">-- Pilih Divisi --</option>
                                 @foreach ($divisions as $division)
-                                    <option value="{{ $division->id }}" {{ old('division_id') == $division->id ? 'selected' : '' }}>
-                                        {{ $division->name }}
+                                    <option value="{{ $division['id'] }}" {{ old('division_id') == $division['id'] ? 'selected' : '' }}>
+                                        {{ $division['name'] }}
                                     </option>
                                 @endforeach
                             </select>
