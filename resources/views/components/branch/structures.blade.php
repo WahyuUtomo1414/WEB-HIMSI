@@ -150,7 +150,7 @@
                                 @endforeach
                             </div>
                         @else
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 w-full">
                                 @foreach ($sekben as $person)
                                     <x-branch._structure_card :person="$person" />
                                 @endforeach
