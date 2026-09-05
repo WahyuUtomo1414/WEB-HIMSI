@@ -316,6 +316,22 @@ php artisan shield:install --fresh  # BERBAHAYA: menghapus semua permission lama
 
 Setelah shield:generate selesai, buka panel Filament → Shield → assign permission group **AI Chat** ke role yang berhak (super_admin biasanya sudah otomatis dapat akses).
 
+### Seeder Default Config
+
+Jalankan seeder untuk membuat satu record `ai_config` default (aman dijalankan berkali-kali, pakai `updateOrCreate`):
+
+```bash
+php artisan db:seed --class=AiConfigSeeder
+```
+
+Atau kalau mau jalankan semua seeder (sudah termasuk `AiConfigSeeder`):
+
+```bash
+php artisan db:seed
+```
+
+Setelah itu config bisa langsung diedit dari panel Filament → AI Chat → Konfigurasi AI.
+
 ### Env Vars Baru
 
 Tambahkan ke `.env` server sebelum deploy:
