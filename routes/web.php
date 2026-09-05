@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AiChatController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\ContactController;
@@ -29,6 +30,10 @@ Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.sho
 
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
+
+Route::post('/ai/chat', [AiChatController::class, 'chat'])
+    ->middleware('throttle:20,1')
+    ->name('ai.chat');
 
 //trigger deploy
 //trigger deploy

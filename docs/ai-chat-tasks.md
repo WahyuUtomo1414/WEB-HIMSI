@@ -129,17 +129,17 @@ Konvensi: `AuditedBySoftDelete` + `HasFactory` + `SoftDeletes` untuk tabel admin
 
 ## 4. Services
 
-- [ ] `app/Services/AiGuardService.php`
+- [x] `app/Services/AiGuardService.php`
     - Method: `check(string $question, array $rules): ?string`
     - Cek panjang, banned_words (case-insensitive), banned_topics
     - Return `null` jika lolos, return `block_message` jika trigger
 
-- [ ] `app/Services/AiEmbeddingService.php`
+- [x] `app/Services/AiEmbeddingService.php`
     - Method: `embed(string $text): array`
     - Pakai `OPENAI_EMBEDDING_KEY` + `OPENAI_EMBEDDING_BASE_URI` (selalu OpenAI, bukan Groq)
     - Method: `cosineSimilarity(array $a, array $b): float`
 
-- [ ] `app/Services/AiKnowledgeService.php`
+- [x] `app/Services/AiKnowledgeService.php`
     - Method: `processSource(AiKnowledgeSource $source, bool $force = false): void`
         - Idempotency guard: cek status `processing` atau `ready` tanpa force
         - Set `status = processing`
@@ -155,14 +155,14 @@ Konvensi: `AuditedBySoftDelete` + `HasFactory` + `SoftDeletes` untuk tabel admin
         - Hitung cosine similarity tiap chunk
         - Return top N chunk diurutkan similarity tertinggi
 
-- [ ] `app/Services/AiEntityService.php`
+- [x] `app/Services/AiEntityService.php`
     - Method: `resolve(string $question): array`
     - Load semua nama branch dari cache (ttl 60 menit)
     - Cocokkan dengan `mb_stripos` atau `similar_text`
     - Jika ditemukan: query `Branch` + `Blog` (limit 3, active, latest)
     - Return array `['branch' => [...], 'blogs' => [...]]` atau `[]`
 
-- [ ] `app/Services/AiChatService.php` ← orchestrator utama
+- [x] `app/Services/AiChatService.php` ← orchestrator utama
     - Method: `chat(string $question, string $sessionId, array $history, string $ip): array`
     - Urutan: Guard → Entity → RAG → Prompt Assembly → LLM → Log → Return
     - Inject `AiGuardService`, `AiEmbeddingService`, `AiKnowledgeService`, `AiEntityService`
@@ -173,7 +173,7 @@ Konvensi: `AuditedBySoftDelete` + `HasFactory` + `SoftDeletes` untuk tabel admin
 
 ## 5. Artisan Command
 
-- [ ] `app/Console/Commands/ProcessKnowledgeSources.php`
+- [x] `app/Console/Commands/ProcessKnowledgeSources.php`
     - Command: `ai:process-sources`
     - Signature: `ai:process-sources {--id= : Process specific source by id} {--force : Force re-process even if status=ready}`
     - Tanpa `--id`: proses semua yang `status = pending` atau `failed`
@@ -184,13 +184,13 @@ Konvensi: `AuditedBySoftDelete` + `HasFactory` + `SoftDeletes` untuk tabel admin
 
 ## 6. Controller & Routes
 
-- [ ] `app/Http/Controllers/AiChatController.php`
+- [x] `app/Http/Controllers/AiChatController.php`
     - Method: `chat(Request $request): JsonResponse`
     - Validasi: `question` required string max 1000, `session_id` required uuid, `history` array
     - Panggil `AiChatService::chat()`
     - Return JSON
 
-- [ ] Tambahkan route di `routes/web.php`:
+- [x] Tambahkan route di `routes/web.php`:
     ```php
     Route::post('/ai/chat', [AiChatController::class, 'chat'])
         ->middleware('throttle:20,1')
