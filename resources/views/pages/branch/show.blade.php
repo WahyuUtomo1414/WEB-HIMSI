@@ -1,10 +1,10 @@
 <x-layouts.public :title="$branch['name'] . ' - HIMSI UBSI'">
 
     {{-- 1. Hero Section --}}
-    <x-branch.hero 
-        :title="$branch['name']" 
-        :backLink="route('branch.index')" 
-        :badge="'Sektor: ' . $branch['sektor']" 
+    <x-branch.hero
+        :title="$branch['name']"
+        :backLink="route('branch.index')"
+        :badge="'Sektor: ' . $branch['sektor']"
         :location="$branch['location']" />
 
     <div class="space-y-24 md:space-y-32 py-16 md:py-24">
