@@ -10,11 +10,11 @@ Status: `[ ]` belum · `[x]` selesai · `[-]` skip/tidak perlu
 
 ## 1. Install Package
 
-- [ ] `composer require openai-php/laravel`
-- [ ] `composer require smalot/pdfparser`
-- [ ] `composer require phpoffice/phpspreadsheet`
-- [ ] Publish config OpenAI: `php artisan vendor:publish --provider="OpenAI\Laravel\ServiceProvider"`
-- [ ] Tambahkan env di `.env` dan `.env.example`:
+- [x] `composer require openai-php/laravel`
+- [x] `composer require smalot/pdfparser`
+- [x] `composer require phpoffice/phpspreadsheet`
+- [x] Publish config OpenAI: `php artisan vendor:publish --provider="OpenAI\Laravel\ServiceProvider"`
+- [x] Tambahkan env di `.env` dan `.env.example`:
     ```
     OPENAI_API_KEY=
     OPENAI_BASE_URI=api.groq.com/openai/v1
@@ -32,7 +32,7 @@ Konvensi: pakai `BaseModelSoftDeleteDefault` + `$this->base($table)` untuk tabel
 
 Urutan buat:
 
-- [ ] `create_ai_config_table`
+- [x] `create_ai_config_table`
 
     ```php
     Schema::create('ai_config', function (Blueprint $table) {
@@ -48,7 +48,7 @@ Urutan buat:
     });
     ```
 
-- [ ] `create_ai_knowledge_source_table`
+- [x] `create_ai_knowledge_source_table`
 
     ```php
     Schema::create('ai_knowledge_source', function (Blueprint $table) {
@@ -65,7 +65,7 @@ Urutan buat:
     });
     ```
 
-- [ ] `create_ai_knowledge_chunk_table`
+- [x] `create_ai_knowledge_chunk_table`
 
     ```php
     Schema::create('ai_knowledge_chunk', function (Blueprint $table) {
@@ -78,7 +78,7 @@ Urutan buat:
     });
     ```
 
-- [ ] `create_ai_chat_log_table`
+- [x] `create_ai_chat_log_table`
 
     ```php
     Schema::create('ai_chat_log', function (Blueprint $table) {
@@ -94,7 +94,7 @@ Urutan buat:
     });
     ```
 
-- [ ] Jalankan `php artisan migrate`
+- [x] Jalankan `php artisan migrate`
 
 ---
 
@@ -102,24 +102,24 @@ Urutan buat:
 
 Konvensi: `AuditedBySoftDelete` + `HasFactory` + `SoftDeletes` untuk tabel admin. `protected $table` eksplisit. `protected $guarded = ['id']`. Tidak pakai `$fillable`.
 
-- [ ] `app/Models/AiConfig.php`
+- [x] `app/Models/AiConfig.php`
     - Traits: `AuditedBySoftDelete`, `HasFactory`, `SoftDeletes`
     - `protected $table = 'ai_config'`
     - Cast: `rules → array`, `is_enabled → boolean`
 
-- [ ] `app/Models/AiKnowledgeSource.php`
+- [x] `app/Models/AiKnowledgeSource.php`
     - Traits: `AuditedBySoftDelete`, `HasFactory`, `SoftDeletes`
     - `protected $table = 'ai_knowledge_source'`
     - Cast: `processed_at → datetime`, `is_active → boolean`
     - Relasi: `hasMany(AiKnowledgeChunk::class, 'source_id')`
 
-- [ ] `app/Models/AiKnowledgeChunk.php`
+- [x] `app/Models/AiKnowledgeChunk.php`
     - Traits: `HasFactory`
     - `protected $table = 'ai_knowledge_chunk'`
     - Cast: `embedding → array`
     - Relasi: `belongsTo(AiKnowledgeSource::class, 'source_id')`
 
-- [ ] `app/Models/AiChatLog.php`
+- [x] `app/Models/AiChatLog.php`
     - Traits: `HasFactory`
     - `protected $table = 'ai_chat_log'`
     - `public $timestamps = false` (hanya `created_at`)
@@ -204,7 +204,7 @@ Konvensi: `AuditedBySoftDelete` + `HasFactory` + `SoftDeletes` untuk tabel admin
 Konvensi: modular (Schemas terpisah), label bahasa Indonesia, soft delete support, audit columns.
 Navigation group: `AI Chat` (group baru).
 
-- [ ] `AiConfigResource`
+- [x] `AiConfigResource`
     - Icon: `heroicon-o-cpu-chip`
     - Label: `Konfigurasi AI` / `Konfigurasi AI` / `Konfigurasi AI`
     - Single record (mirip `OrganizationResource`): index redirect ke view/edit record pertama
@@ -219,7 +219,7 @@ Navigation group: `AI Chat` (group baru).
             - `rules.block_message` (text)
         - Section `Status`: `is_enabled` (toggle), `active` (toggle)
 
-- [ ] `AiKnowledgeSourceResource`
+- [x] `AiKnowledgeSourceResource`
     - Icon: `heroicon-o-document-text`
     - Label: `Sumber Pengetahuan` / `Sumber Pengetahuan` / `Sumber Pengetahuan`
     - Pages: `List`, `Create`, `View`, `Edit`
@@ -237,7 +237,7 @@ Navigation group: `AI Chat` (group baru).
     - `afterCreate` hook: panggil `AiKnowledgeService::processSource($record)` → tampilkan Filament notification sukses/gagal
     - Filter: `status`, `source_type`, `is_active`
 
-- [ ] `AiChatLogResource`
+- [x] `AiChatLogResource`
     - Icon: `heroicon-o-chat-bubble-left-right`
     - Label: `Log Chat AI` / `Log Chat AI` / `Log Chat AI`
     - Pages: `List`, `View` saja (tidak bisa create/edit dari Filament)
@@ -287,3 +287,44 @@ Navigation group: `AI Chat` (group baru).
 7. Filament: `AiConfigResource` → `AiKnowledgeSourceResource` → `AiChatLogResource`
 8. Frontend widget
 9. View Composer/Helper untuk `is_enabled` check
+
+---
+
+## Catatan Deploy ke Server
+
+### Filament Shield — Generate Permission Resource Baru
+
+Setelah deploy, jalankan command ini di server untuk mendaftarkan permission 3 resource AI yang baru:
+
+```bash
+php artisan shield:generate --resource=AiConfigResource,AiKnowledgeSourceResource,AiChatLogResource --panel=admin
+```
+
+**Aman dijalankan** — hanya menambah permission baru, tidak menghapus permission atau assignment role yang sudah ada.
+
+Alternatif (generate ulang semua resource sekaligus, tetap aman):
+
+```bash
+php artisan shield:generate --all --panel=admin
+```
+
+**Jangan jalankan** perintah berikut karena akan reset semua permission dan role:
+
+```bash
+php artisan shield:install --fresh  # BERBAHAYA: menghapus semua permission lama
+```
+
+Setelah shield:generate selesai, buka panel Filament → Shield → assign permission group **AI Chat** ke role yang berhak (super_admin biasanya sudah otomatis dapat akses).
+
+### Env Vars Baru
+
+Tambahkan ke `.env` server sebelum deploy:
+
+```
+OPENAI_API_KEY=gsk_xxx          # Groq API key (untuk chat)
+OPENAI_BASE_URI=api.groq.com/openai/v1
+OPENAI_EMBEDDING_KEY=sk-xxx     # OpenAI API key (untuk embedding)
+OPENAI_EMBEDDING_BASE_URI=api.openai.com/v1
+AI_EMBEDDING_MODEL=text-embedding-3-small
+AI_CHAT_MODEL=llama-3.3-70b-versatile
+```
