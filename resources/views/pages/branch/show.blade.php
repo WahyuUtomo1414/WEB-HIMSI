@@ -1,10 +1,10 @@
 <x-layouts.public :title="$branch['name'] . ' - HIMSI UBSI'">
 
     {{-- 1. Hero Section --}}
-    <x-branch.hero 
-        :title="$branch['name']" 
-        :backLink="route('branch.index')" 
-        :badge="'Sektor: ' . $branch['sektor']" 
+    <x-branch.hero
+        :title="$branch['name']"
+        :backLink="route('branch.index')"
+        :badge="'Sektor: ' . $branch['sektor']"
         :location="$branch['location']" />
 
     <div class="space-y-24 md:space-y-32 py-16 md:py-24">
@@ -20,7 +20,12 @@
         </div>
 
         {{-- 4. Struktur Organisasi Section (Full Width Section) --}}
-        <x-branch.structures :branch="$branch" :structures="$structures" />
+        <x-branch.structures
+            :branch="$branch"
+            :ketua="$structures['ketua']"
+            :wakilKetua="$structures['wakil_ketua']"
+            :sekben="$structures['sekben']"
+            :koorChunks="$structures['koor_chunks']" />
 
         {{-- 5. Kegiatan Section --}}
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
