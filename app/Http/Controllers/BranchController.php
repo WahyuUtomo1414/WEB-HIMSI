@@ -123,7 +123,7 @@ class BranchController extends Controller
                         $pos = strtolower($s['position']);
                         if ($pos === 'wakil ketua' || preg_match('/^wakil\s+ketua/u', $pos)) return 'wakil_ketua';
                         if (str_contains($pos, 'ketua')) return 'ketua';
-                        if (str_contains($pos, 'sekretaris') || str_contains($pos, 'bendahara')) return 'sekben';
+                        if (str_contains($pos, 'sekretaris') || str_contains($pos, 'sekertaris') || str_contains($pos, 'bendahara')) return 'sekben';
                         return 'koor';
                     });
 
