@@ -110,15 +110,30 @@ class BranchController extends Controller
                     'is_dpp' => (bool) $branch->is_dpp,
                     'sosial_media' => is_array($branch->sosial_media) ? $branch->sosial_media : [],
                 ],
-                'structures' => $branch->structures->map(fn ($s) => [
-                    'id' => $s->id,
-                    'name' => $s->name,
-                    'position' => $s->position,
-                    'sort' => $s->sort,
-                    'no_wa' => $s->no_wa,
-                    'division_name' => $s->division?->name ?? 'Pengurus Harian',
-                    'image_url' => public_image_url($s->image),
-                ])->toArray(),
+                'structures' => (function () use ($branch): array {
+                    $grouped = $branch->structures->map(fn ($s) => [
+                        'id' => $s->id,
+                        'name' => $s->name,
+                        'position' => $s->position,
+                        'sort' => $s->sort,
+                        'no_wa' => $s->no_wa,
+                        'division_name' => $s->division?->name ?? 'Pengurus Harian',
+                        'image_url' => public_image_url($s->image),
+                    ])->groupBy(function ($s) {
+                        $pos = strtolower($s['position']);
+                        if (str_contains($pos, 'wakil')) return 'wakil_ketua';
+                        if (str_contains($pos, 'ketua')) return 'ketua';
+                        if (str_contains($pos, 'sekretaris') || str_contains($pos, 'bendahara')) return 'sekben';
+                        return 'koor';
+                    });
+
+                    return [
+                        'ketua'       => $grouped->get('ketua', collect())->first(),
+                        'wakil_ketua' => $grouped->get('wakil_ketua', collect())->first(),
+                        'sekben'      => $grouped->get('sekben', collect())->values()->all(),
+                        'koor_chunks' => $grouped->get('koor', collect())->chunk(4)->values()->all(),
+                    ];
+                })(),
                 'activities' => $activities->map(fn ($b) => [
                     'id' => $b->id,
                     'title' => $b->title,

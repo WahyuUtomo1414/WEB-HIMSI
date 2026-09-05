@@ -1,4 +1,4 @@
-@props(['branch', 'structures'])
+@props(['branch', 'ketua', 'wakilKetua', 'sekben', 'koorChunks'])
 
 <section x-data="{
              initCanvas() {
@@ -107,86 +107,71 @@
             title="Struktur Kepengurusan Cabang" 
             :subtitle="'Daftar pengurus aktif yang memimpin jalannya organisasi di ' . $branch['name']" />
 
-        @php
-            $item1 = $structures[0] ?? null;
-            $item2 = $structures[1] ?? null;
-            $row3  = array_slice($structures, 2, 3);
-            $row4  = array_slice($structures, 5, 4);
-            $row5  = array_slice($structures, 9, 4);
-            $remaining = array_slice($structures, 13);
-        @endphp
-
-        @if (count($structures) > 0)
+        @if ($ketua || $wakilKetua || count($sekben) > 0 || count($koorChunks) > 0)
             <div class="space-y-12 max-w-6xl mx-auto">
 
-                {{-- Row 1: Item 1 (Top Leader Centered) --}}
-                @if ($item1)
+                {{-- Row 1: Ketua (centered) --}}
+                @if ($ketua)
                     <div class="flex flex-col items-center">
                         <div class="w-full sm:w-[300px] md:w-[320px]">
-                            <x-branch._structure_card :person="$item1" />
+                            <x-branch._structure_card :person="$ketua" />
                         </div>
                     </div>
                 @endif
 
-                {{-- Row 2: Item 2 (Deputy/Secretary Centered) --}}
-                @if ($item2)
+                {{-- Row 2: Wakil Ketua (centered) --}}
+                @if ($wakilKetua)
                     <div class="flex flex-col items-center relative">
                         <div class="w-0.5 h-8 bg-[#001b79]/20 -mt-8 mb-4"></div>
                         <div class="w-full sm:w-[300px] md:w-[320px]">
-                            <x-branch._structure_card :person="$item2" />
+                            <x-branch._structure_card :person="$wakilKetua" />
                         </div>
                     </div>
                 @endif
 
-                {{-- Row 3: Items 3, 4, 5 (3 Columns) --}}
-                @if (count($row3) > 0)
+                {{-- Row 3: Sekretaris & Bendahara (1 baris, kolom menyesuaikan jumlah) --}}
+                @if (count($sekben) > 0)
                     <div class="flex flex-col items-center relative">
                         <div class="w-0.5 h-8 bg-[#001b79]/20 -mt-8 mb-4"></div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl w-full">
-                            @foreach ($row3 as $person)
-                                <div>
+                        @if (count($sekben) === 1)
+                            <div class="w-full sm:w-[300px] md:w-[320px]">
+                                <x-branch._structure_card :person="$sekben[0]" />
+                            </div>
+                        @elseif (count($sekben) === 2)
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-xl w-full">
+                                @foreach ($sekben as $person)
                                     <x-branch._structure_card :person="$person" />
-                                </div>
-                            @endforeach
-                        </div>
+                                @endforeach
+                            </div>
+                        @elseif (count($sekben) === 3)
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl w-full">
+                                @foreach ($sekben as $person)
+                                    <x-branch._structure_card :person="$person" />
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+                                @foreach ($sekben as $person)
+                                    <x-branch._structure_card :person="$person" />
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
                 @endif
 
-                {{-- Row 4: Items 6, 7, 8, 9 (4 Columns) --}}
-                @if (count($row4) > 0)
+                {{-- Row 4+: Koordinator (selalu paling bawah, 4 per baris) --}}
+                @foreach ($koorChunks as $chunkIndex => $chunk)
                     <div class="flex flex-col items-center relative">
-                        <div class="w-0.5 h-8 bg-[#001b79]/20 -mt-8 mb-4"></div>
+                        @if ($chunkIndex === 0)
+                            <div class="w-0.5 h-8 bg-[#001b79]/20 -mt-8 mb-4"></div>
+                        @endif
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-                            @foreach ($row4 as $person)
-                                <div>
-                                    <x-branch._structure_card :person="$person" />
-                                </div>
+                            @foreach ($chunk as $person)
+                                <x-branch._structure_card :person="$person" />
                             @endforeach
                         </div>
                     </div>
-                @endif
-
-                {{-- Row 5: Items 10, 11, 12, 13 (4 Columns) --}}
-                @if (count($row5) > 0)
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full pt-2">
-                        @foreach ($row5 as $person)
-                            <div>
-                                <x-branch._structure_card :person="$person" />
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
-
-                {{-- Remaining Items (> 13) --}}
-                @if (count($remaining) > 0)
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full pt-2">
-                        @foreach ($remaining as $person)
-                            <div>
-                                <x-branch._structure_card :person="$person" />
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
+                @endforeach
 
             </div>
         @else
