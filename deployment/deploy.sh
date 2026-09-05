@@ -16,7 +16,7 @@ trap restore_site EXIT
 
 echo "Deploying branch: $DEPLOY_BRANCH"
 git fetch origin "$DEPLOY_BRANCH"
-git pull origin "$DEPLOY_BRANCH"
+git reset --hard "origin/$DEPLOY_BRANCH"
 
 composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
 
@@ -30,9 +30,8 @@ php artisan route:cache
 php artisan view:cache
 php artisan event:cache || true
 php artisan queue:restart || true
+chmod -R ug+rw storage bootstrap/cache
 php artisan up
 site_is_down=0
-
-chmod -R ug+rw storage bootstrap/cache
 
 echo "Deployment complete."
