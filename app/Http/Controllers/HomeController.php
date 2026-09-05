@@ -94,10 +94,27 @@ class HomeController extends Controller
             }
 
             $rawItems = $activitiesGallery->take(8)->values()->all();
-            $allItems = $rawItems;
-            while (count($allItems) < 10) {
-                $allItems = array_merge($allItems, $rawItems);
+
+            if (empty($rawItems)) {
+                $dummy = [
+                    'id' => null,
+                    'image_url' => '',
+                    'title' => 'Dokumentasi Kegiatan',
+                    'slug' => null,
+                    'description' => 'Foto dokumentasi kegiatan HIMSI UBSI',
+                    'branch_name' => 'HIMSI UBSI',
+                    'category_name' => 'KEGIATAN',
+                    'formatted_date' => date('d M Y'),
+                    'detail_url' => '#',
+                ];
+                $allItems = array_fill(0, 10, $dummy);
+            } else {
+                $allItems = $rawItems;
+                while (count($allItems) < 10) {
+                    $allItems = array_merge($allItems, $rawItems);
+                }
             }
+
             $half = (int) ceil(count($allItems) / 2);
             $row1 = array_slice($allItems, 0, $half);
             $row2 = array_slice($allItems, $half);
