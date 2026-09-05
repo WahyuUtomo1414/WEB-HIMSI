@@ -121,7 +121,7 @@ class BranchController extends Controller
                         'image_url' => public_image_url($s->image),
                     ])->groupBy(function ($s) {
                         $pos = strtolower($s['position']);
-                        if (str_contains($pos, 'wakil')) return 'wakil_ketua';
+                        if ($pos === 'wakil ketua' || preg_match('/^wakil\s+ketua/u', $pos)) return 'wakil_ketua';
                         if (str_contains($pos, 'ketua')) return 'ketua';
                         if (str_contains($pos, 'sekretaris') || str_contains($pos, 'bendahara')) return 'sekben';
                         return 'koor';
@@ -131,7 +131,11 @@ class BranchController extends Controller
                         'ketua'       => $grouped->get('ketua', collect())->first(),
                         'wakil_ketua' => $grouped->get('wakil_ketua', collect())->first(),
                         'sekben'      => $grouped->get('sekben', collect())->values()->all(),
-                        'koor_chunks' => $grouped->get('koor', collect())->chunk(4)->values()->all(),
+                        'koor_chunks' => $grouped->get('koor', collect())
+                            ->chunk(4)
+                            ->map(fn ($chunk) => $chunk->values()->all())
+                            ->values()
+                            ->all(),
                     ];
                 })(),
                 'activities' => $activities->map(fn ($b) => [
