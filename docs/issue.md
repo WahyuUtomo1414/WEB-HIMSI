@@ -2,7 +2,7 @@
 
 ## Status
 
-🔴 **Open** — belum terselesaikan
+🟢 **Resolved** — root cause dikonfirmasi, fix sudah diterapkan
 
 ---
 
@@ -55,22 +55,24 @@ Jika `CACHE_DRIVER=redis` tapi Redis tidak tersedia, `Cache::remember()` di `Hom
 
 **Hasil:** `CACHE_STORE=file`, bukan Redis. Tidak relevan.
 
-### Hipotesis 4 — `Cache::remember()` closure timeout ⚠️ (belum dikonfirmasi — ini suspect utama)
+### Hipotesis 4 — Infinite loop di dalam `Cache::remember()` closure ✅ CONFIRMED — ROOT CAUSE
 
-`HomeController::index()` adalah **satu-satunya** controller yang memakai `Cache::remember()`. Closure-nya menjalankan 8+ query sekaligus. Jika satu query lambat atau hang, seluruh closure timeout → cache tidak pernah tersimpan → setiap request retry closure → 504 terus-menerus.
+**Hasil diagnosis manual di server production:**
 
-Query yang paling curiga (belum diukur):
+- Semua query diukur satu per satu via tinker → semuanya cepat: Organization 13ms, Blog latest 3ms, Activity blogs + whereHas 4ms, Branch 1ms. Query **bukan** penyebab, tidak perlu optimasi index.
+- Full render `HomeController::index()` dengan cache dikosongkan (`Cache::forget`) → **proses hang total tanpa error, tanpa timeout, harus Ctrl+C manual.** Ini konsisten dengan infinite loop CPU-bound (bukan network timeout).
+
+**Kode bermasalah:**
 
 ```php
-// Load 12 blog + semua images-nya (bisa banyak)
-$activityBlogs = Blog::query()
-    ->with(['images' => fn ($query) => $query->where('active', true), 'category', 'branch'])
-    ->where('active', true)
-    ->whereHas('category', fn ($q) => $q->where('active', true)->where('name', 'Kegiatan'))
-    ->latest()
-    ->limit(12)
-    ->get();
+$rawItems = $activitiesGallery->take(8)->values()->all();
+$allItems = $rawItems;
+while (count($allItems) < 10) {           // ← selalu true kalau $rawItems = []
+    $allItems = array_merge($allItems, $rawItems); // ← array_merge([], []) = []
+}
 ```
+
+Saat tidak ada blog kategori "Kegiatan" dengan images aktif → `$activitiesGallery` kosong → `$rawItems = []` → `count($allItems)` selalu 0 → kondisi `< 10` selalu `true` → **infinite loop CPU-bound** → PHP-FPM hang → nginx 504.
 
 ---
 
@@ -85,59 +87,47 @@ $activityBlogs = Blog::query()
 
 ---
 
-## Langkah Selanjutnya
+## Fix yang Diterapkan
 
-### 1. Ukur waktu tiap query (via tinker)
+### 1. `app/Http/Controllers/HomeController.php`
 
-```bash
-cd /home/u301495856/repositories/himsi/WEB-HIMSI && php artisan tinker
-```
-
-Jalankan satu per satu:
+Guard infinite loop: saat `$rawItems` kosong, isi dengan 10 dummy item (card akan tampil icon placeholder via fallback yang sudah ada di komponen).
 
 ```php
-// Query 1 — Organization
-$s = microtime(true); App\Models\Organization::where('active', true)->latest()->first(); echo round((microtime(true)-$s)*1000).'ms'.PHP_EOL;
+// SEBELUM — infinite loop kalau $rawItems kosong
+$rawItems = $activitiesGallery->take(8)->values()->all();
+$allItems = $rawItems;
+while (count($allItems) < 10) {
+    $allItems = array_merge($allItems, $rawItems);
+}
 
-// Query 2 — Blog latest
-$s = microtime(true); App\Models\Blog::with(['category','branch'])->where('active', true)->limit(3)->get(); echo round((microtime(true)-$s)*1000).'ms'.PHP_EOL;
+// SESUDAH
+$rawItems = $activitiesGallery->take(8)->values()->all();
 
-// Query 3 — Activity blogs (CURIGA)
-$s = microtime(true); App\Models\Blog::with(['images' => fn($q) => $q->where('active', true), 'category', 'branch'])->where('active', true)->whereHas('category', fn($q) => $q->where('active', true)->where('name', 'Kegiatan'))->limit(12)->get(); echo round((microtime(true)-$s)*1000).'ms'.PHP_EOL;
-
-// Query 4 — Branch
-$s = microtime(true); App\Models\Branch::where('active', true)->latest()->limit(10)->get(); echo round((microtime(true)-$s)*1000).'ms'.PHP_EOL;
+if (empty($rawItems)) {
+    $dummy = [
+        'id' => null, 'image_url' => '', 'title' => 'Dokumentasi Kegiatan',
+        'slug' => null, 'description' => 'Foto dokumentasi kegiatan HIMSI UBSI',
+        'branch_name' => 'HIMSI UBSI', 'category_name' => 'KEGIATAN',
+        'formatted_date' => date('d M Y'), 'detail_url' => '#',
+    ];
+    $allItems = array_fill(0, 10, $dummy);
+} else {
+    $allItems = $rawItems;
+    while (count($allItems) < 10) {
+        $allItems = array_merge($allItems, $rawItems);
+    }
+}
 ```
 
-### 2. Jika ada query lambat — tambah index di migration
+### 2. `resources/views/components/home/activities-gallery.blade.php`
 
-Kolom yang perlu index:
-
-- `blogs.active`
-- `blogs.created_at`
-- `blog_categories.active`, `blog_categories.name`
-- `blog_images.active`, `blog_images.blog_id`
-
-### 3. Jika semua query cepat — periksa view rendering
-
-Kemungkinan ada loop atau logic di `resources/views/pages/home.blade.php` yang lambat.
-
-### 4. Jika tetap timeout — pisah query activity gallery
-
-Pindahkan `activityBlogs` ke endpoint terpisah yang di-load via AJAX/lazy load, sehingga tidak memblok render halaman utama.
-
-### 5. Cek PHP max_execution_time di server
-
-```bash
-php -i | grep max_execution_time
-```
-
-Kalau nilainya kecil (misal 30 detik) dan query total melebihinya, akan selalu timeout.
+Tidak ada perubahan — section tetap selalu muncul. Saat data kosong, marquee menampilkan dummy card dengan icon placeholder (fallback sudah ada di `activities-gallery-card.blade.php`).
 
 ---
 
-## Root Cause Summary (sementara)
+## Root Cause Summary
 
-`HomeController::index()` menggunakan `Cache::remember()` dengan closure yang menjalankan banyak query berat. Saat cache kosong (pertama kali atau setelah clear), closure harus selesai dalam batas timeout PHP-FPM/nginx. Jika tidak selesai tepat waktu → 504 → cache tidak pernah tersimpan → setiap request mengulang proses yang sama.
+Infinite loop CPU-bound di `HomeController::index()` terjadi saat `$activitiesGallery` kosong (tidak ada blog kategori "Kegiatan" dengan images aktif). Loop `while (count($allItems) < 10)` tidak pernah terminate karena `array_merge([], [])` selalu menghasilkan array kosong. PHP-FPM hang total → nginx 504 tanpa error log karena exception tidak pernah dilempar.
 
-Halaman lain tidak terdampak karena tidak menggunakan `Cache::remember()`.
+Halaman lain tidak terdampak karena tidak memiliki loop serupa.
