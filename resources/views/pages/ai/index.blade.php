@@ -49,8 +49,8 @@
                 <div class="px-5 py-3.5 bg-gradient-to-r from-slate-50 to-white border-b border-slate-200 flex items-center justify-between shrink-0">
                     <div class="flex items-center gap-3">
                         <div class="relative shrink-0">
-                            <img src="{{ asset('images/ai-robot.jpg') }}" alt="Robot Asisten AI"
-                                 class="w-10 h-10 rounded-xl object-cover shadow-sm border border-slate-200">
+                            <img src="{{ asset('images/ai-robot.png') }}" alt="Robot Asisten AI"
+                                 class="w-10 h-10 rounded-xl object-contain bg-slate-50 p-0.5 shadow-sm border border-slate-200">
                             <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></span>
                         </div>
                         <div>
@@ -78,9 +78,9 @@
 
                     {{-- Empty State Welcome Banner (Saat baru buka) --}}
                     <div x-show="messages.length <= 1" class="py-6 text-center space-y-5">
-                        <div class="inline-flex items-center justify-center p-2.5 bg-white rounded-2xl shadow-md border border-blue-100/60 mx-auto">
-                            <img src="{{ asset('images/ai-robot.jpg') }}" alt="Robot HIMSI"
-                                 class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover">
+                        <div class="inline-flex items-center justify-center p-2 bg-gradient-to-b from-blue-50 to-white rounded-2xl shadow-md border border-blue-100/60 mx-auto">
+                            <img src="{{ asset('images/ai-robot.png') }}" alt="Robot HIMSI"
+                                 class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-contain">
                         </div>
                         <div class="space-y-1.5 max-w-md mx-auto">
                             <h2 class="text-lg sm:text-xl font-extrabold text-[#000c46]">Ada yang ingin Anda tanyakan?</h2>
@@ -142,11 +142,8 @@
 
                             {{-- Assistant Avatar --}}
                             <div x-show="msg.role === 'assistant'" class="shrink-0 pt-0.5">
-                                <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#001b79] to-[#0453cd] flex items-center justify-center text-white shadow-xs">
-                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/>
-                                    </svg>
-                                </div>
+                                <img src="{{ asset('images/ai-robot.png') }}" alt="AI"
+                                     class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-contain bg-white shadow-2xs border border-slate-200 p-0.5">
                             </div>
 
                             {{-- Message Bubble --}}
@@ -161,11 +158,8 @@
                     {{-- Loading Indicator --}}
                     <div x-show="loading" class="flex items-start gap-2.5 justify-start">
                         <div class="shrink-0 pt-0.5">
-                            <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-[#001b79] to-[#0453cd] flex items-center justify-center text-white shadow-xs animate-pulse">
-                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/>
-                                </svg>
-                            </div>
+                            <img src="{{ asset('images/ai-robot.png') }}" alt="AI"
+                                 class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-contain bg-white shadow-2xs border border-slate-200 p-0.5 animate-pulse">
                         </div>
                         <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-xs px-3.5 py-2.5 shadow-xs">
                             <div class="flex gap-1.5 items-center h-4">
@@ -204,25 +198,9 @@
                             </svg>
                         </button>
                     </form>
-                    <div class="mt-2.5 flex flex-wrap items-center justify-center gap-2 text-[11px] text-slate-500 font-medium select-none">
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-100 border border-slate-200/80 text-slate-700 shadow-2xs font-semibold">
-                            <span class="relative flex h-1.5 w-1.5">
-                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80"></span>
-                                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-                            </span>
-                            <svg class="w-3 h-3 text-[#0453cd]" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                            </svg>
-                            <span>HIMSI Neural AI Engine</span>
-                        </span>
-                        <span class="text-slate-300 hidden sm:inline">·</span>
-                        <span class="inline-flex items-center gap-1 text-slate-400 text-[10.5px]">
-                            <svg class="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                            </svg>
-                            <span>Disinkronkan dengan Basis Data & AD/ART Resmi HIMSI UBSI</span>
-                        </span>
-                    </div>
+                    <p class="text-[11px] text-center text-slate-400 mt-2 select-none tracking-wide">
+                        Powered by <span class="font-semibold text-slate-600">GPT-OSS</span> · &copy; {{ date('Y') }} HIMSI UBSI
+                    </p>
                 </div>
 
             </div>
@@ -246,6 +224,7 @@
                             try {
                                 localStorage.setItem('himsi_ai_modal_dismissed', 'true');
                                 sessionStorage.setItem('himsi_ai_modal_dismissed', 'true');
+                                document.cookie = 'himsi_ai_modal_dismissed=true; path=/; max-age=31536000; SameSite=Lax';
                             } catch (e) {}
 
                             let sid = sessionStorage.getItem('himsi_ai_sid');

@@ -3,8 +3,10 @@
     {{-- Splash Screen Loading Video (Hanya di Halaman Home) --}}
     <x-common.splash-screen />
 
-    {{-- AI Assistant Announcement Modal (Option 1) --}}
-    <x-home.ai-announcement-modal />
+    {{-- AI Assistant Announcement Modal (Hanya tampil 1x jika belum pernah dilihat/dismissed) --}}
+    @if(!request()->cookie('himsi_ai_modal_dismissed') && !session('himsi_ai_modal_dismissed'))
+        <x-home.ai-announcement-modal />
+    @endif
 
     {{-- 1. Hero Section (Dark Sinematik) --}}
     <x-home.hero :hero="$hero" />

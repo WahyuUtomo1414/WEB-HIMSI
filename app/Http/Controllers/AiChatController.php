@@ -17,11 +17,23 @@ class AiChatController extends Controller
             abort(404);
         }
 
+        // Mark modal as dismissed so visiting AI directly prevents home modal from showing
+        cookie()->queue(cookie('himsi_ai_modal_dismissed', 'true', 60 * 24 * 365, '/'));
+        session(['himsi_ai_modal_dismissed' => true]);
+
         $greeting = $config?->greeting_message ?: 'Halo! Ada yang bisa saya bantu seputar HIMSI UBSI?';
 
         return view('pages.ai.index', [
             'greeting' => $greeting,
         ]);
+    }
+
+    public function dismissModal(): JsonResponse
+    {
+        cookie()->queue(cookie('himsi_ai_modal_dismissed', 'true', 60 * 24 * 365, '/'));
+        session(['himsi_ai_modal_dismissed' => true]);
+
+        return response()->json(['status' => 'ok']);
     }
 
     public function chat(Request $request, AiChatService $service): JsonResponse

@@ -32,6 +32,7 @@ Route::get('/kontak', [ContactController::class, 'index'])->name('contact.index'
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/asisten-ai', [AiChatController::class, 'index'])->name('ai.index');
+Route::post('/ai/dismiss-modal', [AiChatController::class, 'dismissModal'])->name('ai.dismiss-modal');
 Route::post('/ai/chat', [AiChatController::class, 'chat'])
     ->middleware('throttle:20,1')
     ->name('ai.chat');

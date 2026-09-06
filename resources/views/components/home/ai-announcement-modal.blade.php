@@ -1,36 +1,46 @@
 <div x-data="{
         showModal: false,
-        init() {
+        isDismissed() {
             try {
-                const dismissedLocal = localStorage.getItem('himsi_ai_modal_dismissed');
-                const dismissedSession = sessionStorage.getItem('himsi_ai_modal_dismissed');
-                if (dismissedLocal || dismissedSession) {
-                    return;
-                }
+                if (localStorage.getItem('himsi_ai_modal_dismissed') === 'true') return true;
+                if (sessionStorage.getItem('himsi_ai_modal_dismissed') === 'true') return true;
             } catch (e) {}
+            if (document.cookie.indexOf('himsi_ai_modal_dismissed=true') !== -1) return true;
+            return false;
+        },
+        markDismissed() {
+            try { localStorage.setItem('himsi_ai_modal_dismissed', 'true'); } catch (e) {}
+            try { sessionStorage.setItem('himsi_ai_modal_dismissed', 'true'); } catch (e) {}
+            document.cookie = 'himsi_ai_modal_dismissed=true; path=/; max-age=31536000; SameSite=Lax';
+
+            try {
+                const token = document.querySelector('meta[name=csrf-token]')?.getAttribute('content') || '';
+                fetch('{{ route('ai.dismiss-modal') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': token,
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    }
+                }).catch(() => {});
+            } catch (e) {}
+        },
+        init() {
+            if (this.isDismissed()) {
+                return;
+            }
+
+            // Mark as seen immediately so any fast reload or page change won't re-trigger it
+            this.markDismissed();
 
             // Wait for splash screen loading animation to conclude (~3.8s)
             setTimeout(() => {
-                try {
-                    const dismissedCheck = localStorage.getItem('himsi_ai_modal_dismissed') || sessionStorage.getItem('himsi_ai_modal_dismissed');
-                    if (dismissedCheck) return;
-                } catch (e) {}
-
                 this.showModal = true;
-
-                // Mark as seen immediately so navigating away won't re-trigger it
-                try {
-                    localStorage.setItem('himsi_ai_modal_dismissed', 'true');
-                    sessionStorage.setItem('himsi_ai_modal_dismissed', 'true');
-                } catch (e) {}
             }, 4000);
         },
         dismiss() {
             this.showModal = false;
-            try {
-                localStorage.setItem('himsi_ai_modal_dismissed', 'true');
-                sessionStorage.setItem('himsi_ai_modal_dismissed', 'true');
-            } catch (e) {}
+            this.markDismissed();
         },
         openAi() {
             this.dismiss();
@@ -86,9 +96,9 @@
             <div class="relative inline-flex items-center justify-center mx-auto">
                 <div class="absolute inset-0 bg-gradient-to-tr from-[#0453cd]/20 to-amber-400/20 rounded-3xl blur-md"></div>
                 <div class="relative p-2 bg-gradient-to-b from-white to-blue-50/80 rounded-3xl shadow-lg border border-blue-100">
-                    <img src="{{ asset('images/ai-robot.jpg') }}"
+                    <img src="{{ asset('images/ai-robot.png') }}"
                          alt="Robot Asisten AI HIMSI"
-                         class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover">
+                         class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-contain">
                     <div class="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-tr from-[#001b79] to-[#0453cd] text-amber-400 shadow-md ring-2 ring-white">
                         <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
