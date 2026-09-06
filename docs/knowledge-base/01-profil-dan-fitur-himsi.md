@@ -6,7 +6,26 @@ Tulisan di bawah ini menjelaskan HIMSI UBSI sebagai organisasi, serta fitur dan 
 
 ---
 
-## 1. Tentang HIMSI UBSI
+## 1. Tentang Website HIMSI UBSI
+
+Website resmi HIMSI UBSI dapat diakses melalui domain **himsiubsi.my.id**.
+
+Website ini adalah kanal informasi resmi HIMSI UBSI untuk publik: mahasiswa Sistem Informasi UBSI, calon anggota, alumni, dosen, dan pengunjung umum. Website berfungsi sebagai:
+
+- pusat informasi profil organisasi (visi, misi, tujuan, sejarah/milestone),
+- direktori seluruh cabang (DPC) HIMSI beserta struktur pengurusnya,
+- media publikasi berita, kegiatan, dan prestasi melalui blog,
+- kanal pendaftaran anggota baru lewat formulir open recruitment online,
+- kanal komunikasi resmi lewat formulir kontak,
+- asisten virtual (AI Chat) yang bisa langsung menjawab pertanyaan pengunjung seputar HIMSI kapan saja.
+
+Website ini murni berisi informasi publik. Tidak ada fitur login untuk pengunjung umum, tidak ada dashboard anggota, dan tidak ada transaksi/pembayaran di website ini. Pengelolaan seluruh konten (blog, data cabang, divisi, FAQ, dll) dilakukan oleh admin/pengurus HIMSI melalui panel admin internal, sehingga informasi yang tampil ke publik selalu berasal dari data resmi yang sudah diverifikasi.
+
+Alamat website: `https://himsiubsi.my.id`
+
+---
+
+## 2. Tentang HIMSI UBSI
 
 HIMSI UBSI adalah singkatan dari **Himpunan Mahasiswa Sistem Informasi**, organisasi kemahasiswaan resmi di bawah Program Studi Sistem Informasi, Universitas Bina Sarana Informatika (UBSI).
 
@@ -44,7 +63,7 @@ HIMSI UBSI berfungsi sebagai wadah untuk mewujudkan ide-ide kreatif mahasiswa, w
 
 ---
 
-## 2. Struktur Divisi HIMSI
+## 3. Struktur Divisi HIMSI
 
 HIMSI UBSI memiliki 4 divisi utama yang menjalankan program kerja organisasi:
 
@@ -84,7 +103,7 @@ Detail tiap divisi dapat dilihat di halaman `/divisi/{id}` pada website.
 
 ---
 
-## 3. Cabang / DPC HIMSI
+## 4. Cabang / DPC HIMSI
 
 HIMSI memiliki jaringan cabang yang disebut DPC (Dewan Pengurus Cabang), tersebar di tiga sektor wilayah: sektor barat, sektor tengah, dan sektor timur.
 
@@ -114,7 +133,7 @@ Pengunjung dapat melihat daftar cabang di halaman `/cabang` (dengan fitur pencar
 
 ---
 
-## 4. Blog dan Publikasi
+## 5. Blog dan Publikasi
 
 Website HIMSI memiliki halaman Blog (`/blog`) yang berisi artikel, berita kegiatan, pengumuman, dan prestasi organisasi.
 
@@ -130,7 +149,7 @@ Hanya artikel dengan status aktif yang tampil ke publik.
 
 ---
 
-## 5. Rekrutmen Anggota Baru (Open Recruitment)
+## 6. Rekrutmen Anggota Baru (Open Recruitment)
 
 HIMSI membuka pendaftaran anggota baru melalui Open Recruitment yang dapat diakses di halaman `/rekrutmen`.
 
@@ -171,13 +190,13 @@ Setelah pendaftaran berhasil dikirim, sistem otomatis mengirim email notifikasi 
 
 ---
 
-## 6. Halaman Kontak
+## 7. Halaman Kontak
 
 Halaman `/kontak` menampilkan informasi komunikasi resmi HIMSI (email, nomor telepon, alamat, dan sosial media organisasi) serta menyediakan formulir pesan publik dengan field: nama, email, subjek, dan pesan. Pesan yang dikirim pengunjung akan masuk ke sistem dan dibaca oleh admin melalui panel Filament.
 
 ---
 
-## 7. Fitur AI Chat (Asisten Virtual HIMSI)
+## 8. Fitur AI Chat (Asisten Virtual HIMSI)
 
 Website HIMSI memiliki fitur **AI Chat** berupa widget chat mengambang di pojok kanan bawah setiap halaman publik. Fitur ini memungkinkan pengunjung bertanya langsung seputar HIMSI dan mendapat jawaban otomatis dari asisten AI.
 
@@ -191,19 +210,19 @@ Fitur ini bisa diaktifkan atau dinonaktifkan oleh admin melalui panel Filament.
 
 ---
 
-## 8. Ringkasan Navigasi Website Publik
+## 9. Ringkasan Navigasi Website Publik
 
-| Halaman | URL | Isi |
+| Halaman | URL Lengkap | Isi |
 | --- | --- | --- |
-| Beranda | `/` | Hero, statistik, sambutan pengurus, preview divisi, preview cabang, blog terbaru, FAQ, CTA kontak |
-| Tentang Kami | `/tentang-kami` | Profil organisasi, visi, misi, tujuan, milestone, daftar divisi lengkap |
-| Cabang | `/cabang` | Daftar seluruh DPC dengan pencarian dan filter sektor |
-| Detail Cabang | `/cabang/{branch}` | Profil cabang, sosial media, struktur pengurus, blog cabang |
-| Detail Divisi | `/divisi/{division}` | Deskripsi dan tugas kerja satu divisi |
-| Blog | `/blog` | Daftar artikel dengan pencarian dan filter kategori |
-| Detail Blog | `/blog/{slug}` | Isi artikel lengkap dan artikel terkait |
-| Kontak | `/kontak` | Info kontak organisasi dan form pesan |
-| Rekrutmen | `/rekrutmen` | Informasi open recruitment, divisi, timeline, FAQ |
-| Form Rekrutmen | `/rekrutmen/daftar` | Formulir pendaftaran calon anggota baru |
+| Beranda | `https://himsiubsi.my.id/` | Hero, statistik, sambutan pengurus, preview divisi, preview cabang, blog terbaru, FAQ, CTA kontak |
+| Tentang Kami | `https://himsiubsi.my.id/tentang-kami` | Profil organisasi, visi, misi, tujuan, milestone, daftar divisi lengkap |
+| Cabang | `https://himsiubsi.my.id/cabang` | Daftar seluruh DPC dengan pencarian dan filter sektor |
+| Detail Cabang | `https://himsiubsi.my.id/cabang/{branch}` | Profil cabang, sosial media, struktur pengurus, blog cabang |
+| Detail Divisi | `https://himsiubsi.my.id/divisi/{division}` | Deskripsi dan tugas kerja satu divisi |
+| Blog | `https://himsiubsi.my.id/blog` | Daftar artikel dengan pencarian dan filter kategori |
+| Detail Blog | `https://himsiubsi.my.id/blog/{slug}` | Isi artikel lengkap dan artikel terkait |
+| Kontak | `https://himsiubsi.my.id/kontak` | Info kontak organisasi dan form pesan |
+| Rekrutmen | `https://himsiubsi.my.id/rekrutmen` | Informasi open recruitment, divisi, timeline, FAQ |
+| Form Rekrutmen | `https://himsiubsi.my.id/rekrutmen/daftar` | Formulir pendaftaran calon anggota baru |
 
 Semua data yang tampil di halaman publik berasal dari data yang dikelola admin lewat panel Filament (`/admin`), dan hanya data berstatus aktif yang ditampilkan ke pengunjung.
