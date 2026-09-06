@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? 'HIMSI UBSI - Himpunan Mahasiswa Sistem Informasi' }}</title>
     <meta name="description" content="Website Resmi Himpunan Mahasiswa Sistem Informasi (HIMSI) Universitas Bina Sarana Informatika">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <style>
         [x-cloak] { display: none !important; }
@@ -96,6 +97,11 @@
                 Kembali ke Atas
             </span>
         </button>
+
+        {{-- AI Chat Widget --}}
+        @if($globalAiEnabled ?? false)
+            <x-ai.chat-widget :greeting="$globalAiGreeting" />
+        @endif
 
         <!-- Original WhatsApp Floating Button (h-16 w-16) -->
         <a href="https://wa.me/628123456789" target="_blank" rel="noopener" 

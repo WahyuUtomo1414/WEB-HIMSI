@@ -251,7 +251,7 @@ Navigation group: `AI Chat` (group baru).
 
 ## 8. Frontend Widget
 
-- [ ] `resources/views/components/ai/chat-widget.blade.php`
+- [x] `resources/views/components/ai/chat-widget.blade.php`
     - Alpine.js `x-data="aiChatWidget()"`
     - Tombol FAB pojok kanan bawah (toggle buka/tutup)
     - Panel chat: header, area pesan scroll, input + tombol kirim
@@ -262,7 +262,7 @@ Navigation group: `AI Chat` (group baru).
     - Widget tidak tampil jika `is_enabled = false`
     - Warna mengikuti palet project: `#001b79`, `#0453cd`, `#eef4ff`
 
-- [ ] Include widget di `resources/views/layouts/public.blade.php`
+- [x] Include widget di `resources/views/layouts/public.blade.php`
     - Cek `is_enabled` dari config (via view composer atau helper)
     - Render widget hanya jika enabled
 
@@ -270,9 +270,9 @@ Navigation group: `AI Chat` (group baru).
 
 ## 9. View Composer / Helper (Opsional)
 
-- [ ] Tambahkan View Composer untuk inject `ai_enabled` ke semua view publik
-    - Atau tambahkan helper `ai_config()` seperti pattern yang sudah ada di project
-    - Cache config selama 5 menit agar tidak query DB tiap request
+- [x] Tambahkan View Composer untuk inject `ai_enabled` ke semua view publik
+    - Extended `GlobalData` singleton (pattern yang sudah ada) dengan `aiConfig` query
+    - `AppServiceProvider` inject `globalAiEnabled` + `globalAiGreeting` ke semua view
 
 ---
 
