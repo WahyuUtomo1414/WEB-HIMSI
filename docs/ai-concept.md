@@ -25,7 +25,9 @@ Simpan log → kirim ke user
 ## 2. Konsep-Konsep Utama
 
 ### LLM (Large Language Model)
-Model bahasa besar yang bisa memahami dan menghasilkan teks. Yang kita pakai: **Llama 3.3 70B** via **Groq** (gratis, cepat). Model ini yang "ngobrol" dengan user.
+Model bahasa besar yang bisa memahami dan menghasilkan teks. Yang kita pakai: **openai/gpt-oss-20b** via **Groq** (gratis, cepat). Model ini yang "ngobrol" dengan user.
+
+> Catatan: Groq menerima nama model seperti `llama-3.3-70b-versatile` tapi di belakang layar menjalankan `openai/gpt-oss-20b`. Nama model yang tersedia bisa berubah — selalu cek di `console.groq.com`.
 
 ### Embedding
 Proses mengubah teks menjadi **deretan angka (vektor)** yang merepresentasikan makna teks tersebut. Teks yang maknanya mirip akan menghasilkan angka yang mirip.
@@ -202,9 +204,11 @@ UI chat di frontend. Pakai Alpine.js inline (tidak ada file JS terpisah). Yang t
 2. Tampilkan `greeting_message` dari config
 3. Saat user kirim pesan → `fetch('/ai/chat')` dengan CSRF token
 4. Tampilkan loading (3 titik bouncing) sambil tunggu response
-5. Append jawaban AI ke daftar pesan
+5. Append jawaban AI ke daftar pesan — dirender sebagai **Markdown** (bold, bullet list, heading, inline code) via fungsi `renderMarkdown()` inline di Alpine
 
-Widget hanya di-render jika `$globalAiEnabled` = `true` (dicek di `public.blade.php`).
+Widget hanya di-render jika `$globalAiEnabled` = `true` (dicek di `components/layouts/public.blade.php`).
+
+> **Catatan layout**: Layout yang dipakai halaman publik adalah `resources/views/components/layouts/public.blade.php` (component), bukan `resources/views/layouts/public.blade.php`. Widget dan CSRF meta tag harus ada di file component tersebut.
 
 ---
 
@@ -266,6 +270,8 @@ Tampilkan jawaban di chat panel
 | Model | Llama 3.3 70B | text-embedding-3-small |
 | Alasan dipilih | Gratis, sangat cepat | Groq tidak punya embedding |
 | Env var | `OPENAI_API_KEY` + `OPENAI_BASE_URL` | `OPENAI_EMBEDDING_KEY` + `OPENAI_EMBEDDING_BASE_URI` |
+
+> **Penting**: Config `openai-php/laravel` membaca `OPENAI_BASE_URL` (bukan `OPENAI_BASE_URI`). Kalau env ini tidak diset, request chat akan dikirim ke OpenAI bukan Groq, dan API key Groq (`gsk_...`) akan ditolak.
 
 Groq gratis dengan rate limit yang cukup longgar untuk skala HIMSI. OpenAI embedding sangat murah (~$0.02 per 1 juta token) dan hanya dipanggil saat ada dokumen baru yang di-upload, bukan setiap kali user chat.
 

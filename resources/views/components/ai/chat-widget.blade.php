@@ -73,6 +73,47 @@
         scrollToBottom() {
             const el = this.$refs.messages;
             if (el) el.scrollTop = el.scrollHeight;
+        },
+
+        renderMarkdown(text) {
+            const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            const inline = s => s
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/`(.*?)`/g, '<code style="background:#f1f5f9;padding:1px 4px;border-radius:3px;font-size:11px;font-family:monospace">$1</code>');
+
+            const lines = esc(text).split('\n');
+            const parts = [];
+            let listItems = [];
+
+            const flushList = () => {
+                if (listItems.length) {
+                    parts.push('<ul style="list-style:disc;padding-left:1rem;margin:4px 0">' + listItems.join('') + '</ul>');
+                    listItems = [];
+                }
+            };
+
+            for (const line of lines) {
+                const bullet = line.match(/^[-*] (.+)$/);
+                const numbered = line.match(/^\d+\. (.+)$/);
+                const heading = line.match(/^#{1,3} (.+)$/);
+                if (bullet) {
+                    listItems.push('<li>' + inline(bullet[1]) + '</li>');
+                } else if (numbered) {
+                    listItems.push('<li>' + inline(numbered[1]) + '</li>');
+                } else {
+                    flushList();
+                    if (line.trim() === '') {
+                        parts.push('<br>');
+                    } else if (heading) {
+                        parts.push('<p style="font-weight:700;margin:4px 0 2px">' + inline(heading[1]) + '</p>');
+                    } else {
+                        parts.push('<p style="margin:2px 0">' + inline(line) + '</p>');
+                    }
+                }
+            }
+            flushList();
+            return parts.join('');
         }
     }"
     class="relative">
@@ -86,8 +127,8 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 translate-y-3 scale-95"
-         class="absolute bottom-[4.5rem] right-0 w-80 max-w-[calc(100vw-3rem)] rounded-2xl bg-white shadow-[0_8px_40px_rgba(0,27,121,0.18)] border border-[#c5c5d4]/60 flex flex-col overflow-hidden"
-         style="height: 420px;">
+         class="absolute bottom-[4.5rem] right-0 w-[360px] max-w-[calc(100vw-3rem)] rounded-2xl bg-white shadow-[0_8px_40px_rgba(0,27,121,0.18)] border border-[#c5c5d4]/60 flex flex-col overflow-hidden"
+         style="height: 460px;">
 
         {{-- Header --}}
         <div class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#001b79] to-[#0453cd] shrink-0">
@@ -111,10 +152,10 @@
         <div x-ref="messages" class="flex-1 overflow-y-auto px-3 py-3 space-y-3 bg-[#f9f9fc]">
             <template x-for="(msg, i) in messages" :key="i">
                 <div :class="msg.role === 'user' ? 'flex justify-end' : 'flex justify-start'">
-                    <div :class="msg.role === 'user'
-                            ? 'bg-[#001b79] text-white rounded-2xl rounded-tr-sm px-3 py-2 max-w-[85%] text-xs leading-relaxed'
-                            : 'bg-white border border-[#c5c5d4]/60 text-[#1a1c1e] rounded-2xl rounded-tl-sm px-3 py-2 max-w-[85%] text-xs leading-relaxed shadow-sm'"
-                         x-text="msg.content">
+                    <div x-html="msg.role === 'assistant' ? renderMarkdown(msg.content) : msg.content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')"
+                         :class="msg.role === 'user'
+                            ? 'bg-[#001b79] text-white rounded-2xl rounded-tr-sm px-3 py-2 max-w-[88%] text-xs leading-relaxed'
+                            : 'bg-white border border-[#c5c5d4]/60 text-[#1a1c1e] rounded-2xl rounded-tl-sm px-3 py-2 max-w-[88%] text-xs leading-relaxed shadow-sm'">
                     </div>
                 </div>
             </template>

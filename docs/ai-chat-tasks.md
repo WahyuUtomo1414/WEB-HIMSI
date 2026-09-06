@@ -16,13 +16,14 @@ Status: `[ ]` belum · `[x]` selesai · `[-]` skip/tidak perlu
 - [x] Publish config OpenAI: `php artisan vendor:publish --provider="OpenAI\Laravel\ServiceProvider"`
 - [x] Tambahkan env di `.env` dan `.env.example`:
     ```
-    OPENAI_API_KEY=
-    OPENAI_BASE_URI=api.groq.com/openai/v1
-    OPENAI_EMBEDDING_KEY=
+    OPENAI_API_KEY=gsk_xxx               # Groq API key
+    OPENAI_BASE_URL=api.groq.com/openai/v1  # ⚠️ BASE_URL bukan BASE_URI
+    OPENAI_EMBEDDING_KEY=sk-xxx          # OpenAI API key (untuk embedding)
     OPENAI_EMBEDDING_BASE_URI=api.openai.com/v1
     AI_EMBEDDING_MODEL=text-embedding-3-small
-    AI_CHAT_MODEL=llama-3.3-70b-versatile
+    AI_CHAT_MODEL=openai/gpt-oss-20b
     ```
+    > ⚠️ Config `openai-php/laravel` membaca `OPENAI_BASE_URL`. Kalau salah nama env, request dikirim ke OpenAI dan Groq key ditolak.
 
 ---
 
@@ -337,10 +338,18 @@ Setelah itu config bisa langsung diedit dari panel Filament → AI Chat → Konf
 Tambahkan ke `.env` server sebelum deploy:
 
 ```
-OPENAI_API_KEY=gsk_xxx          # Groq API key (untuk chat)
-OPENAI_BASE_URI=api.groq.com/openai/v1
-OPENAI_EMBEDDING_KEY=sk-xxx     # OpenAI API key (untuk embedding)
+OPENAI_API_KEY=gsk_xxx               # Groq API key (untuk chat)
+OPENAI_BASE_URL=api.groq.com/openai/v1  # ⚠️ BASE_URL bukan BASE_URI
+OPENAI_EMBEDDING_KEY=sk-xxx          # OpenAI API key (untuk embedding)
 OPENAI_EMBEDDING_BASE_URI=api.openai.com/v1
 AI_EMBEDDING_MODEL=text-embedding-3-small
-AI_CHAT_MODEL=llama-3.3-70b-versatile
+AI_CHAT_MODEL=openai/gpt-oss-20b
 ```
+
+> ⚠️ Pastikan nama env var untuk Groq adalah `OPENAI_BASE_URL` (bukan `OPENAI_BASE_URI`). Ini yang dibaca oleh `config/openai.php`. Kalau salah, chat error tapi tidak tercatat di log karena request ditolak sebelum sampai Groq.
+
+### Catatan OpenAI Embedding Rate Limit
+
+OpenAI Tier 0 (akun baru, belum top-up) memiliki limit sangat ketat (3 req/menit, 40K token/menit). Proses embedding knowledge source akan gagal dengan error `Request rate limit has been exceeded`.
+
+**Solusi**: Top-up minimal $5 ke akun OpenAI → otomatis naik ke Tier 1 (500 req/menit, 1M token/menit). Biaya embedding untuk skala HIMSI sangat murah (~$0.00008 per dokumen), $5 bisa tahan bertahun-tahun. Pastikan **Auto recharge dimatikan** agar tidak auto-charge rekening.
