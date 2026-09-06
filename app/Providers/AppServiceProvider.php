@@ -17,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('globalOrganization', GlobalData::organization());
             $view->with('globalDivisions', GlobalData::divisions());
+            $view->with('globalAiEnabled', GlobalData::aiEnabled());
+            $view->with('globalAiGreeting', GlobalData::aiGreeting());
         });
     }
 }

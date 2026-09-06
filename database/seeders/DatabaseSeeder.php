@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
             OrganizationSeeder::class,
             CategorySeeder::class,
             BlogSeeder::class,
+            AiConfigSeeder::class,
         ]);
     }
 }

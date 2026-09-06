@@ -2,6 +2,7 @@
 
 namespace App\Support\PublicData;
 
+use App\Models\AiConfig;
 use App\Models\Division;
 use App\Models\Organization;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,6 +14,8 @@ class GlobalData
     private static ?Organization $organization = null;
 
     private static ?Collection $divisions = null;
+
+    private static ?AiConfig $aiConfig = null;
 
     public static function load(): void
     {
@@ -33,6 +36,11 @@ class GlobalData
                 ->orderBy('name')
                 ->limit(6)
                 ->get();
+
+            self::$aiConfig = AiConfig::query()
+                ->where('active', true)
+                ->where('is_enabled', true)
+                ->first(['is_enabled', 'greeting_message']);
         } catch (\Throwable) {
             self::$divisions = new Collection();
         }
@@ -46,5 +54,15 @@ class GlobalData
     public static function divisions(): Collection
     {
         return self::$divisions ?? new Collection();
+    }
+
+    public static function aiEnabled(): bool
+    {
+        return self::$aiConfig?->is_enabled ?? false;
+    }
+
+    public static function aiGreeting(): string
+    {
+        return self::$aiConfig?->greeting_message ?? 'Halo! Ada yang bisa saya bantu seputar HIMSI?';
     }
 }
