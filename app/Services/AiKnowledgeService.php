@@ -35,16 +35,25 @@ class AiKnowledgeService
             $source->chunks()->delete();
 
             $rows = [];
-            foreach ($chunks as $index => $chunk) {
-                $embedding = $this->embedding->embed($chunk);
-                $rows[] = [
-                    'source_id' => $source->id,
-                    'chunk_index' => $index,
-                    'content' => $chunk,
-                    'embedding' => json_encode($embedding),
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
+            foreach (array_chunk($chunks, 20, true) as $batch) {
+                $batchTexts = array_values($batch);
+                $batchEmbeddings = $this->embedding->embedBatch($batchTexts);
+
+                foreach ($batchTexts as $i => $chunk) {
+                    $globalIndex = array_key_first($batch) + $i;
+                    $rows[] = [
+                        'source_id' => $source->id,
+                        'chunk_index' => $globalIndex,
+                        'content' => $chunk,
+                        'embedding' => json_encode($batchEmbeddings[$i]),
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+
+                if (count($batch) === 20) {
+                    sleep(3);
+                }
             }
 
             AiKnowledgeChunk::insert($rows);

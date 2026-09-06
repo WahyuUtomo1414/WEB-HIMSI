@@ -30,6 +30,25 @@ class AiEmbeddingService
         return $response->embeddings[0]->embedding;
     }
 
+    public function embedBatch(array $texts): array
+    {
+        $inputs = array_map(fn ($t) => mb_substr($t, 0, 8000), $texts);
+
+        $response = $this->client()->embeddings()->create([
+            'model' => env('AI_EMBEDDING_MODEL', 'text-embedding-3-small'),
+            'input' => $inputs,
+        ]);
+
+        $embeddings = [];
+        foreach ($response->embeddings as $item) {
+            $embeddings[$item->index] = $item->embedding;
+        }
+
+        ksort($embeddings);
+
+        return array_values($embeddings);
+    }
+
     public function cosineSimilarity(array $a, array $b): float
     {
         $dot = 0.0;
