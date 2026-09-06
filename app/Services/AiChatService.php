@@ -84,24 +84,96 @@ class AiChatService
     {
         $parts = [$systemPrompt];
 
-        if (! empty($entityContext)) {
-            $parts[] = "\n\n=== DATA CABANG (REALTIME) ===";
+        if (! empty($entityContext['organization'])) {
+            $org = $entityContext['organization'];
+            $parts[] = "\n\n=== DATA ORGANISASI (REALTIME) ===";
+            $parts[] = "Nama: {$org['name']}";
+            if ($org['description']) {
+                $parts[] = "Deskripsi: " . mb_substr($org['description'], 0, 300);
+            }
+            if ($org['vision']) {
+                $parts[] = "Visi: {$org['vision']}";
+            }
+            if (! empty($org['missions'])) {
+                $parts[] = "Misi:";
+                foreach ($org['missions'] as $m) {
+                    $parts[] = "- {$m}";
+                }
+            }
+            if ($org['address']) {
+                $parts[] = "Alamat: {$org['address']}";
+            }
+            if ($org['email']) {
+                $parts[] = "Email: {$org['email']}";
+            }
+            if ($org['no_tlpn']) {
+                $parts[] = "Telepon: {$org['no_tlpn']}";
+            }
+            if (! empty($org['sosial_media'])) {
+                $parts[] = "Media Sosial: " . implode(', ', $org['sosial_media']);
+            }
+            if (! empty($org['stats'])) {
+                $parts[] = "Statistik: " . implode(', ', $org['stats']);
+            }
+        }
+
+        if (! empty($entityContext['branch'])) {
             $branch = $entityContext['branch'];
+            $parts[] = "\n\n=== DATA CABANG (REALTIME) ===";
             $parts[] = "Nama: {$branch['name']}";
             $parts[] = "Lokasi: {$branch['location']}";
             $parts[] = "Sektor: {$branch['sektor']}";
             $parts[] = "Tipe: {$branch['is_dpp']}";
             if ($branch['description']) {
-                $parts[] = "Deskripsi: " . mb_substr($branch['description'], 0, 500);
+                $parts[] = "Deskripsi: " . mb_substr($branch['description'], 0, 400);
             }
             if ($branch['grup_wa']) {
                 $parts[] = "Grup WA: {$branch['grup_wa']}";
             }
-            if (! empty($entityContext['blogs'])) {
-                $parts[] = "\nKegiatan terbaru:";
-                foreach ($entityContext['blogs'] as $blog) {
-                    $parts[] = "- {$blog['title']} ({$blog['date']})";
+            if (! empty($entityContext['branch_structure'])) {
+                $parts[] = "Kepengurusan:";
+                foreach ($entityContext['branch_structure'] as $s) {
+                    $line = "- {$s['position']}: {$s['name']}";
+                    if ($s['no_wa']) {
+                        $line .= " (WA: {$s['no_wa']})";
+                    }
+                    $parts[] = $line;
                 }
+            }
+        }
+
+        if (! empty($entityContext['divisions'])) {
+            $parts[] = "\n\n=== DATA DIVISI (REALTIME) ===";
+            foreach ($entityContext['divisions'] as $div) {
+                $parts[] = "Divisi {$div['name']} ({$div['level']}):";
+                if ($div['description']) {
+                    $parts[] = mb_substr($div['description'], 0, 300);
+                }
+            }
+        }
+
+        if (! empty($entityContext['blogs'])) {
+            $label = ! empty($entityContext['branch'])
+                ? "Kegiatan terbaru {$entityContext['branch']['name']}:"
+                : "Kegiatan / blog terbaru HIMSI:";
+            $parts[] = "\n{$label}";
+            foreach ($entityContext['blogs'] as $blog) {
+                $parts[] = "- {$blog['title']} ({$blog['date']})";
+            }
+        }
+
+        if (! empty($entityContext['faqs'])) {
+            $parts[] = "\n\n=== FAQ HIMSI ===";
+            foreach ($entityContext['faqs'] as $faq) {
+                $parts[] = "Q: {$faq['question']}";
+                $parts[] = "A: {$faq['answer']}";
+            }
+        }
+
+        if (! empty($entityContext['milestones'])) {
+            $parts[] = "\n\n=== PENCAPAIAN / MILESTONE ===";
+            foreach ($entityContext['milestones'] as $m) {
+                $parts[] = "- {$m}";
             }
         }
 
