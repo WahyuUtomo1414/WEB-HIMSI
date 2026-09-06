@@ -1,122 +1,10 @@
 @props(['greeting' => 'Halo! Ada yang bisa saya bantu seputar HIMSI?'])
 
-<div x-data="{
-        open: false,
-        messages: [],
-        input: '',
-        loading: false,
-        sessionId: null,
-        greeting: @js($greeting),
+@php
+    $greetingText = $greeting ?: 'Halo! Ada yang bisa saya bantu seputar HIMSI?';
+@endphp
 
-        init() {
-            let sid = sessionStorage.getItem('himsi_ai_sid');
-            if (!sid) {
-                sid = crypto.randomUUID
-                    ? crypto.randomUUID()
-                    : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-                        const r = Math.random() * 16 | 0;
-                        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-                    });
-                sessionStorage.setItem('himsi_ai_sid', sid);
-            }
-            this.sessionId = sid;
-            this.messages = [{ role: 'assistant', content: this.greeting }];
-        },
-
-        toggle() {
-            this.open = !this.open;
-            if (this.open) {
-                this.$nextTick(() => this.scrollToBottom());
-            }
-        },
-
-        async send() {
-            const q = this.input.trim();
-            if (!q || this.loading) return;
-
-            this.input = '';
-            this.messages.push({ role: 'user', content: q });
-            this.loading = true;
-            this.$nextTick(() => this.scrollToBottom());
-
-            try {
-                const res = await fetch('/ai/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
-                    },
-                    body: JSON.stringify({
-                        question: q,
-                        session_id: this.sessionId,
-                        history: this.messages.slice(-10),
-                    }),
-                });
-
-                const data = await res.json();
-                this.messages.push({ role: 'assistant', content: data.answer });
-            } catch {
-                this.messages.push({ role: 'assistant', content: 'Maaf, terjadi kesalahan koneksi. Silakan coba lagi.' });
-            } finally {
-                this.loading = false;
-                this.$nextTick(() => this.scrollToBottom());
-            }
-        },
-
-        onKeydown(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                this.send();
-            }
-        },
-
-        scrollToBottom() {
-            const el = this.$refs.messages;
-            if (el) el.scrollTop = el.scrollHeight;
-        },
-
-        renderMarkdown(text) {
-            const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-            const inline = s => s
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/`(.*?)`/g, '<code style="background:#f1f5f9;padding:1px 4px;border-radius:3px;font-size:11px;font-family:monospace">$1</code>');
-
-            const lines = esc(text).split('\n');
-            const parts = [];
-            let listItems = [];
-
-            const flushList = () => {
-                if (listItems.length) {
-                    parts.push('<ul style="list-style:disc;padding-left:1rem;margin:4px 0">' + listItems.join('') + '</ul>');
-                    listItems = [];
-                }
-            };
-
-            for (const line of lines) {
-                const bullet = line.match(/^[-*] (.+)$/);
-                const numbered = line.match(/^\d+\. (.+)$/);
-                const heading = line.match(/^#{1,3} (.+)$/);
-                if (bullet) {
-                    listItems.push('<li>' + inline(bullet[1]) + '</li>');
-                } else if (numbered) {
-                    listItems.push('<li>' + inline(numbered[1]) + '</li>');
-                } else {
-                    flushList();
-                    if (line.trim() === '') {
-                        parts.push('<br>');
-                    } else if (heading) {
-                        parts.push('<p style="font-weight:700;margin:4px 0 2px">' + inline(heading[1]) + '</p>');
-                    } else {
-                        parts.push('<p style="margin:2px 0">' + inline(line) + '</p>');
-                    }
-                }
-            }
-            flushList();
-            return parts.join('');
-        }
-    }"
-    class="relative">
+<div x-data="aiChatWidget(@js($greetingText))" class="relative" @click.outside="open = false">
 
     {{-- Chat Panel --}}
     <div x-show="open"
@@ -127,8 +15,8 @@
          x-transition:leave="transition ease-in duration-150"
          x-transition:leave-start="opacity-100 translate-y-0 scale-100"
          x-transition:leave-end="opacity-0 translate-y-3 scale-95"
-         class="absolute bottom-[4.5rem] right-0 w-[360px] max-w-[calc(100vw-3rem)] rounded-2xl bg-white shadow-[0_8px_40px_rgba(0,27,121,0.18)] border border-[#c5c5d4]/60 flex flex-col overflow-hidden"
-         style="height: 460px;">
+         class="absolute bottom-[4.75rem] right-0 w-[360px] sm:w-[380px] max-w-[calc(100vw-2.5rem)] rounded-2xl bg-white shadow-[0_12px_48px_rgba(0,27,121,0.2)] border border-[#c5c5d4]/60 flex flex-col overflow-hidden z-50"
+         style="height: 480px; max-height: calc(100vh - 12rem);">
 
         {{-- Header --}}
         <div class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#001b79] to-[#0453cd] shrink-0">
@@ -141,7 +29,7 @@
                 <p class="text-xs font-bold text-white leading-tight">Asisten HIMSI</p>
                 <p class="text-[10px] text-white/70 leading-tight">AI · Siap membantu</p>
             </div>
-            <button @click="toggle()" class="text-white/70 hover:text-white transition-colors" aria-label="Tutup">
+            <button type="button" @click="toggle()" class="text-white/70 hover:text-white transition-colors p-1" aria-label="Tutup">
                 <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
@@ -149,21 +37,21 @@
         </div>
 
         {{-- Messages --}}
-        <div x-ref="messages" class="flex-1 overflow-y-auto px-3 py-3 space-y-3 bg-[#f9f9fc]">
+        <div x-ref="messages" class="flex-1 overflow-y-auto px-3.5 py-3 space-y-3 bg-[#f9f9fc] scroll-smooth" style="scrollbar-width: thin;">
             <template x-for="(msg, i) in messages" :key="i">
-                <div :class="msg.role === 'user' ? 'flex justify-end' : 'flex justify-start'">
-                    <div x-html="msg.role === 'assistant' ? renderMarkdown(msg.content) : msg.content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>')"
+                <div class="chat-bubble-row" :class="msg.role === 'user' ? 'flex justify-end' : 'flex justify-start'">
+                    <div x-html="renderMessage(msg)"
                          :class="msg.role === 'user'
-                            ? 'bg-[#001b79] text-white rounded-2xl rounded-tr-sm px-3 py-2 max-w-[88%] text-xs leading-relaxed'
-                            : 'bg-white border border-[#c5c5d4]/60 text-[#1a1c1e] rounded-2xl rounded-tl-sm px-3 py-2 max-w-[88%] text-xs leading-relaxed shadow-sm'">
+                            ? 'bg-[#001b79] text-white rounded-2xl rounded-tr-sm px-3.5 py-2.5 max-w-[88%] text-xs leading-relaxed shadow-sm break-words'
+                            : 'bg-white border border-[#c5c5d4]/60 text-[#1a1c1e] rounded-2xl rounded-tl-sm px-3.5 py-2.5 max-w-[88%] text-xs leading-relaxed shadow-sm break-words'">
                     </div>
                 </div>
             </template>
 
             {{-- Loading indicator --}}
             <div x-show="loading" class="flex justify-start">
-                <div class="bg-white border border-[#c5c5d4]/60 rounded-2xl rounded-tl-sm px-3 py-2 shadow-sm">
-                    <div class="flex gap-1 items-center h-4">
+                <div class="bg-white border border-[#c5c5d4]/60 rounded-2xl rounded-tl-sm px-3.5 py-2.5 shadow-sm">
+                    <div class="flex gap-1.5 items-center h-4">
                         <span class="h-1.5 w-1.5 rounded-full bg-[#0453cd] animate-bounce" style="animation-delay: 0ms"></span>
                         <span class="h-1.5 w-1.5 rounded-full bg-[#0453cd] animate-bounce" style="animation-delay: 150ms"></span>
                         <span class="h-1.5 w-1.5 rounded-full bg-[#0453cd] animate-bounce" style="animation-delay: 300ms"></span>
@@ -175,6 +63,7 @@
         {{-- Input --}}
         <div class="flex items-end gap-2 px-3 py-3 border-t border-[#c5c5d4]/60 bg-white shrink-0">
             <textarea
+                x-ref="inputField"
                 x-model="input"
                 @keydown="onKeydown($event)"
                 :disabled="loading"
@@ -185,6 +74,7 @@
                 @input="$el.style.height = 'auto'; $el.style.height = Math.min($el.scrollHeight, 80) + 'px'"
             ></textarea>
             <button
+                type="button"
                 @click="send()"
                 :disabled="loading || !input.trim()"
                 class="h-8 w-8 shrink-0 rounded-xl bg-[#001b79] text-white flex items-center justify-center hover:bg-[#0453cd] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
@@ -197,15 +87,16 @@
     </div>
 
     {{-- FAB Button --}}
-    <button @click="toggle()"
-            :class="open ? 'bg-[#0453cd] scale-110' : 'bg-[#001b79]'"
+    <button type="button"
+            @click="toggle()"
+            :class="open ? 'bg-[#0453cd] scale-105' : 'bg-[#001b79]'"
             class="relative h-16 w-16 rounded-full text-white flex items-center justify-center shadow-[0_4px_24px_rgba(0,27,121,0.4)] hover:bg-[#0453cd] hover:scale-110 transition-all duration-300 group"
             :aria-label="open ? 'Tutup chat' : 'Buka chat AI'"
             :title="open ? 'Tutup chat' : 'Tanya Asisten HIMSI'">
 
         {{-- Pulse ring saat belum pernah dibuka --}}
         <span x-show="messages.length <= 1 && !open"
-              class="absolute inset-0 rounded-full bg-[#0453cd] animate-ping opacity-30"></span>
+              class="absolute inset-0 rounded-full bg-[#0453cd] animate-ping opacity-30 pointer-events-none"></span>
 
         {{-- Icon chat --}}
         <svg x-show="!open" class="h-7 w-7 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -224,3 +115,188 @@
         </span>
     </button>
 </div>
+
+<script>
+    (function () {
+        function registerAiChatComponent() {
+            if (typeof Alpine !== 'undefined' && Alpine.data) {
+                Alpine.data('aiChatWidget', (initialGreeting = '') => ({
+                    open: false,
+                    messages: [],
+                    input: '',
+                    loading: false,
+                    sessionId: null,
+                    greeting: initialGreeting || 'Halo! Ada yang bisa saya bantu seputar HIMSI?',
+
+                    init() {
+                        let sid = sessionStorage.getItem('himsi_ai_sid');
+                        if (!sid) {
+                            sid = (typeof crypto !== 'undefined' && crypto.randomUUID)
+                                ? crypto.randomUUID()
+                                : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+                                    const r = Math.random() * 16 | 0;
+                                    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+                                });
+                            sessionStorage.setItem('himsi_ai_sid', sid);
+                        }
+                        this.sessionId = sid;
+                        this.messages = [{ role: 'assistant', content: this.greeting }];
+                    },
+
+                    toggle() {
+                        this.open = !this.open;
+                        if (this.open) {
+                            this.$nextTick(() => {
+                                this.scrollToBottom();
+                                if (this.$refs.inputField) {
+                                    this.$refs.inputField.focus();
+                                }
+                            });
+                        }
+                    },
+
+                    async send() {
+                        const q = this.input.trim();
+                        if (!q || this.loading) return;
+
+                        const userMsgIndex = this.messages.length;
+                        this.input = '';
+                        this.messages.push({ role: 'user', content: q });
+                        this.loading = true;
+                        this.$nextTick(() => this.scrollToBottom());
+
+                        try {
+                            const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+                            const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
+
+                            const res = await fetch('/ai/chat', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Accept': 'application/json',
+                                    'X-CSRF-TOKEN': csrfToken,
+                                },
+                                body: JSON.stringify({
+                                    question: q,
+                                    session_id: this.sessionId,
+                                    history: this.messages.slice(-10),
+                                }),
+                            });
+
+                            const data = await res.json();
+                            this.messages.push({
+                                role: 'assistant',
+                                content: data.answer || 'Maaf, tidak ada tanggapan yang diterima.'
+                            });
+
+                            // Scroll smoothly to the user message row so both the question and the start of the answer are visible
+                            this.$nextTick(() => {
+                                const el = this.$refs.messages;
+                                if (!el) return;
+                                const rows = el.querySelectorAll('.chat-bubble-row');
+                                if (rows && rows[userMsgIndex]) {
+                                    rows[userMsgIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                } else {
+                                    el.scrollTop = el.scrollHeight;
+                                }
+                            });
+                        } catch (err) {
+                            this.messages.push({
+                                role: 'assistant',
+                                content: 'Maaf, terjadi kesalahan koneksi. Silakan coba lagi.'
+                            });
+                            this.$nextTick(() => this.scrollToBottom());
+                        } finally {
+                            this.loading = false;
+                        }
+                    },
+
+                    onKeydown(e) {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            this.send();
+                        }
+                    },
+
+                    scrollToBottom() {
+                        const el = this.$refs.messages;
+                        if (el) el.scrollTop = el.scrollHeight;
+                    },
+
+                    escapeHtml(str) {
+                        return (str || '')
+                            .replace(/&/g, '&amp;')
+                            .replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;')
+                            .replace(/"/g, '&quot;')
+                            .replace(/'/g, '&#039;');
+                    },
+
+                    renderMessage(msg) {
+                        if (msg.role === 'assistant') {
+                            return this.renderMarkdown(msg.content);
+                        }
+                        return this.escapeHtml(msg.content).replace(/\n/g, '<br>');
+                    },
+
+                    renderMarkdown(text) {
+                        if (!text) return '';
+
+                        let safe = this.escapeHtml(text);
+
+                        // Markdown links: [text](https://...)
+                        safe = safe.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#0453cd] underline underline-offset-2 hover:text-[#001b79] font-medium break-all">$1</a>');
+
+                        // Autolink raw URLs
+                        safe = safe.replace(/(^|[^">])(https?:\/\/[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#0453cd] underline underline-offset-2 hover:text-[#001b79] font-medium break-all">$2</a>');
+
+                        const inline = s => s
+                            .replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-[#000c46]">$1</strong>')
+                            .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
+                            .replace(/`(.*?)`/g, '<code class="bg-slate-100 px-1 py-0.5 rounded text-[11px] font-mono text-[#001b79]">$1</code>');
+
+                        const lines = safe.split('\n');
+                        const parts = [];
+                        let listItems = [];
+
+                        const flushList = () => {
+                            if (listItems.length) {
+                                parts.push('<ul class="list-disc pl-4 my-1 space-y-1">' + listItems.join('') + '</ul>');
+                                listItems = [];
+                            }
+                        };
+
+                        for (const line of lines) {
+                            const bullet = line.match(/^[-*•]\s+(.+)$/);
+                            const numbered = line.match(/^(\d+)\.\s+(.+)$/);
+                            const heading = line.match(/^#{1,3}\s+(.+)$/);
+
+                            if (bullet) {
+                                listItems.push('<li class="leading-relaxed">' + inline(bullet[1]) + '</li>');
+                            } else if (numbered) {
+                                listItems.push('<li class="leading-relaxed">' + inline(numbered[2]) + '</li>');
+                            } else {
+                                flushList();
+                                if (line.trim() === '') {
+                                    parts.push('<div class="h-1.5"></div>');
+                                } else if (heading) {
+                                    parts.push('<p class="font-bold my-1 text-[#000c46]">' + inline(heading[1]) + '</p>');
+                                } else {
+                                    parts.push('<p class="my-0.5 leading-relaxed">' + inline(line) + '</p>');
+                                }
+                            }
+                        }
+                        flushList();
+                        return parts.join('');
+                    }
+                }));
+            }
+        }
+
+        if (window.Alpine) {
+            registerAiChatComponent();
+        } else {
+            document.addEventListener('alpine:init', registerAiChatComponent);
+        }
+    })();
+</script>
