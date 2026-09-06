@@ -30,16 +30,24 @@ Panduan menjawab:
 - Jangan menjawab pertanyaan di luar topik organisasi HIMSI
 - Tetap profesional dan mencerminkan nilai-nilai organisasi akademik
 PROMPT,
-                'model' => 'llama-3.3-70b-versatile',
+                'model' => 'openai/gpt-oss-120b',
                 'temperature' => 0.7,
                 'max_tokens' => 1024,
                 'is_enabled' => true,
                 'greeting_message' => 'Halo! Saya asisten virtual HIMSI UBSI. Ada yang bisa saya bantu seputar organisasi kami? 😊',
                 'rules' => [
-                    'banned_words' => [],
-                    'banned_topics' => [],
+                    'banned_words' => [
+                        'bangsat', 'anjing', 'babi', 'goblok', 'tolol', 'idiot',
+                        'bodoh', 'kampret', 'bajingan', 'keparat', 'sial',
+                        'kontol', 'memek', 'ngentot', 'jancok', 'asu',
+                    ],
+                    'banned_topics' => [
+                        'politik', 'agama', 'sara', 'pornografi', 'judi',
+                        'narkoba', 'kekerasan', 'hacking', 'penipuan',
+                        'investasi bodong', 'ujaran kebencian',
+                    ],
                     'max_question_length' => 500,
-                    'block_message' => 'Maaf, pertanyaan kamu tidak bisa saya jawab. Silakan tanya hal lain seputar HIMSI UBSI.',
+                    'block_message' => 'Maaf, pertanyaan kamu mengandung konten yang tidak sesuai dan tidak bisa saya jawab. Silakan tanya hal lain seputar HIMSI UBSI.',
                 ],
             ]
         );
