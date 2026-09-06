@@ -3,6 +3,9 @@
     {{-- Splash Screen Loading Video (Hanya di Halaman Home) --}}
     <x-common.splash-screen />
 
+    {{-- AI Assistant Announcement Modal (Option 1) --}}
+    <x-home.ai-announcement-modal />
+
     {{-- 1. Hero Section (Dark Sinematik) --}}
     <x-home.hero :hero="$hero" />
 

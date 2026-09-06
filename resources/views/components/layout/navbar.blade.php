@@ -58,6 +58,23 @@
                     {{ $link['name'] }}
                 </a>
             @endforeach
+
+            {{-- Special High-Tech AI Highlight Link (After Kontak) --}}
+            @php
+                $isAiActive = request()->routeIs('ai.*');
+            @endphp
+            <a href="{{ route('ai.index') }}"
+                :class="(!scrolled) ?
+                '{{ $isAiActive ? 'bg-white text-[#000c46] font-black shadow-md ring-2 ring-amber-400' : 'bg-gradient-to-r from-blue-600 to-[#0453cd] text-white hover:brightness-110 shadow-md shadow-blue-500/25 ring-1 ring-white/30' }}' :
+                '{{ $isAiActive ? 'bg-[#000c46] text-white font-black shadow-md ring-2 ring-[#0453cd]' : 'bg-gradient-to-r from-[#000c46] via-[#001b79] to-[#0453cd] text-white hover:brightness-110 shadow-md shadow-blue-950/20 ring-1 ring-white/20' }}'"
+                class="text-xs sm:text-sm font-extrabold px-3.5 py-1.5 rounded-full transition-all duration-300 inline-flex items-center gap-2 group hover:scale-105">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-90"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
+                </span>
+                <span>Asisten AI</span>
+                <span class="text-[9px] uppercase font-black px-1.5 py-0.5 rounded-md bg-amber-400 text-slate-950 shadow-xs tracking-wider">AI</span>
+            </a>
         </div>
 
         <!-- CTA Button (Rekrutmen Amber Badge) -->
@@ -115,10 +132,33 @@
                         @endphp
                         @foreach ($navLinks as $link)
                             <a href="{{ $link['url'] }}"
-                                class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 {{ request()->url() == $link['url'] ? 'text-[#000c46] bg-slate-50 font-bold' : 'text-slate-900 hover:bg-slate-50' }}">
-                                {{ $link['name'] }}
+                                class="-mx-3 flex items-center justify-between rounded-lg px-3 py-2 text-base font-semibold leading-7 {{ request()->url() == $link['url'] ? 'text-[#000c46] bg-slate-50 font-bold' : 'text-slate-900 hover:bg-slate-50' }}">
+                                <span>{{ $link['name'] }}</span>
                             </a>
                         @endforeach
+
+                        {{-- Prominent AI Assistant Card in Mobile Menu (After Kontak) --}}
+                        <div class="pt-2">
+                            <a href="{{ route('ai.index') }}"
+                                class="-mx-3 flex items-center justify-between rounded-xl p-3 bg-gradient-to-r from-[#000c46] via-[#001b79] to-[#0453cd] text-white shadow-md hover:brightness-110 transition-all border border-blue-400/30 group">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="relative flex h-2.5 w-2.5">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-90"></span>
+                                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-400"></span>
+                                    </span>
+                                    <div class="flex flex-col">
+                                        <span class="font-extrabold text-sm tracking-wide flex items-center gap-1.5">
+                                            Asisten AI HIMSI
+                                            <svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                                            </svg>
+                                        </span>
+                                        <span class="text-[10px] text-blue-200 font-normal">Tanya jawab pintar seputar HIMSI</span>
+                                    </div>
+                                </div>
+                                <span class="text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-xs shrink-0">BARU</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="py-6">
                         <a href="{{ route('recruitment.index') }}"

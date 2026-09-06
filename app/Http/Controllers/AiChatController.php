@@ -2,12 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AiConfig;
 use App\Services\AiChatService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AiChatController extends Controller
 {
+    public function index(): View
+    {
+        $config = AiConfig::where('active', true)->first();
+        if ($config && ! $config->is_enabled) {
+            abort(404);
+        }
+
+        $greeting = $config?->greeting_message ?: 'Halo! Ada yang bisa saya bantu seputar HIMSI UBSI?';
+
+        return view('pages.ai.index', [
+            'greeting' => $greeting,
+        ]);
+    }
+
     public function chat(Request $request, AiChatService $service): JsonResponse
     {
         $validated = $request->validate([

@@ -31,6 +31,7 @@ Route::get('/blog/{blog:slug}', [BlogController::class, 'show'])->name('blog.sho
 Route::get('/kontak', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 
+Route::get('/asisten-ai', [AiChatController::class, 'index'])->name('ai.index');
 Route::post('/ai/chat', [AiChatController::class, 'chat'])
     ->middleware('throttle:20,1')
     ->name('ai.chat');
