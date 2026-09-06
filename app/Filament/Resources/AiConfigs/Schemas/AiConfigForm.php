@@ -20,12 +20,14 @@ class AiConfigForm
                     Select::make('model')
                         ->label('Model AI')
                         ->options([
-                            'llama-3.3-70b-versatile' => 'Groq — llama-3.3-70b-versatile (Gratis)',
-                            'llama-3.1-8b-instant' => 'Groq — llama-3.1-8b-instant (Gratis, Cepat)',
+                            'openai/gpt-oss-20b' => 'Groq — openai/gpt-oss-20b',
+                            'openai/gpt-oss-120b' => 'Groq — openai/gpt-oss-120b',
+                            'llama-3.3-70b-versatile' => 'Groq — llama-3.3-70b-versatile',
+                            'llama-3.1-8b-instant' => 'Groq — llama-3.1-8b-instant',
                             'gpt-4o-mini' => 'OpenAI — gpt-4o-mini',
                             'gpt-4o' => 'OpenAI — gpt-4o',
                         ])
-                        ->default('llama-3.3-70b-versatile')
+                        ->default('openai/gpt-oss-20b')
                         ->required(),
                     TextInput::make('temperature')
                         ->label('Temperature')

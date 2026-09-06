@@ -30,7 +30,7 @@ Panduan menjawab:
 - Jangan menjawab pertanyaan di luar topik organisasi HIMSI
 - Tetap profesional dan mencerminkan nilai-nilai organisasi akademik
 PROMPT,
-                'model' => 'openai/gpt-oss-120b',
+                'model' => 'openai/gpt-oss-20b',
                 'temperature' => 0.7,
                 'max_tokens' => 1024,
                 'is_enabled' => true,
