@@ -8,8 +8,14 @@ class AiEmbeddingService
 {
     private function client(): \OpenAI\Client
     {
+        $key = env('OPENAI_EMBEDDING_KEY');
+
+        if (empty($key)) {
+            throw new \RuntimeException('OPENAI_EMBEDDING_KEY belum diset di .env');
+        }
+
         return OpenAI::factory()
-            ->withApiKey(env('OPENAI_EMBEDDING_KEY'))
+            ->withApiKey($key)
             ->withBaseUri(env('OPENAI_EMBEDDING_BASE_URI', 'api.openai.com/v1'))
             ->make();
     }
