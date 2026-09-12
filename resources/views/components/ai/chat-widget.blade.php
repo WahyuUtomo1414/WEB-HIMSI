@@ -20,13 +20,11 @@
 
         {{-- Header --}}
         <div class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-[#001b79] to-[#0453cd] shrink-0">
-            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
-                <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/>
-                </svg>
+            <div class="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/20 overflow-hidden shrink-0">
+                <img src="{{ asset('images/ai-ilustrator.png') }}" alt="DAMARA" class="w-full h-full object-cover rounded-full">
             </div>
             <div class="flex-1 min-w-0">
-                <p class="text-xs font-bold text-white leading-tight">Asisten HIMSI</p>
+                <p class="text-xs font-bold text-white leading-tight">DAMARA</p>
                 <p class="text-[10px] text-white/70 leading-tight">AI · Siap membantu</p>
             </div>
             <button type="button" @click="toggle()" class="text-white/70 hover:text-white transition-colors p-1" aria-label="Tutup">
@@ -89,29 +87,30 @@
     {{-- FAB Button --}}
     <button type="button"
             @click="toggle()"
-            :class="open ? 'bg-[#0453cd] scale-105' : 'bg-[#001b79]'"
-            class="relative h-16 w-16 rounded-full text-white flex items-center justify-center shadow-[0_4px_24px_rgba(0,27,121,0.4)] hover:bg-[#0453cd] hover:scale-110 transition-all duration-300 group"
+            class="relative h-16 w-16 rounded-full overflow-hidden text-white flex items-center justify-center shadow-[0_4px_24px_rgba(0,27,121,0.4)] hover:scale-110 transition-all duration-300 group border-2 border-white/30"
+            :class="open ? 'scale-105 border-amber-400/60' : ''"
             :aria-label="open ? 'Tutup chat' : 'Buka chat AI'"
-            :title="open ? 'Tutup chat' : 'Tanya Asisten HIMSI'">
+            :title="open ? 'Tutup chat' : 'Tanya DAMARA'">
 
         {{-- Pulse ring saat belum pernah dibuka --}}
         <span x-show="messages.length <= 1 && !open"
               class="absolute inset-0 rounded-full bg-[#0453cd] animate-ping opacity-30 pointer-events-none"></span>
 
-        {{-- Icon chat --}}
-        <svg x-show="!open" class="h-7 w-7 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/>
-        </svg>
+        {{-- DAMARA avatar saat tertutup --}}
+        <img x-show="!open" src="{{ asset('images/ai-ilustrator.png') }}" alt="DAMARA"
+             class="absolute inset-0 w-full h-full object-cover rounded-full z-10">
 
         {{-- Icon X saat panel terbuka --}}
-        <svg x-show="open" x-cloak class="h-6 w-6 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
+        <div x-show="open" x-cloak class="absolute inset-0 bg-[#001b79] flex items-center justify-center z-10">
+            <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </div>
 
         {{-- Tooltip --}}
         <span x-show="!open"
-              class="absolute right-20 whitespace-nowrap rounded-lg bg-[#000c46] px-3 py-1.5 text-xs font-semibold text-white shadow-md opacity-0 pointer-events-none transition-all duration-300 group-hover:opacity-100">
-            Tanya Asisten HIMSI
+              class="absolute right-20 whitespace-nowrap rounded-lg bg-[#000c46] px-3 py-1.5 text-xs font-semibold text-white shadow-md opacity-0 pointer-events-none transition-all duration-300 group-hover:opacity-100 z-20">
+            Tanya DAMARA
         </span>
     </button>
 </div>

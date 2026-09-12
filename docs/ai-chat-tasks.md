@@ -21,9 +21,12 @@ Status: `[ ]` belum · `[x]` selesai · `[-]` skip/tidak perlu
     OPENAI_EMBEDDING_KEY=sk-xxx          # OpenAI API key (untuk embedding)
     OPENAI_EMBEDDING_BASE_URI=api.openai.com/v1
     AI_EMBEDDING_MODEL=text-embedding-3-small
-    AI_CHAT_MODEL=openai/gpt-oss-20b
     ```
     > ⚠️ Config `openai-php/laravel` membaca `OPENAI_BASE_URL`. Kalau salah nama env, request dikirim ke OpenAI dan Groq key ditolak.
+
+    > ⚠️ **`AI_CHAT_MODEL` env var tidak dipakai.** Model LLM dibaca dari kolom `model` di tabel `ai_config` (diset via Filament admin → Konfigurasi AI). Env var ini bisa diabaikan.
+
+    > ⚠️ **`OPENAI_EMBEDDING_KEY`, `OPENAI_EMBEDDING_BASE_URI`, `AI_EMBEDDING_MODEL`** harus ada di `config/openai.php` (sudah ditambahkan) agar aman saat `php artisan config:cache`. `AiEmbeddingService` menggunakan `config('openai.embedding_key')` dll — **bukan** `env()` langsung.
 
 ---
 
@@ -343,10 +346,11 @@ OPENAI_BASE_URL=api.groq.com/openai/v1  # ⚠️ BASE_URL bukan BASE_URI
 OPENAI_EMBEDDING_KEY=sk-xxx          # OpenAI API key (untuk embedding)
 OPENAI_EMBEDDING_BASE_URI=api.openai.com/v1
 AI_EMBEDDING_MODEL=text-embedding-3-small
-AI_CHAT_MODEL=openai/gpt-oss-20b
 ```
 
 > ⚠️ Pastikan nama env var untuk Groq adalah `OPENAI_BASE_URL` (bukan `OPENAI_BASE_URI`). Ini yang dibaca oleh `config/openai.php`. Kalau salah, chat error tapi tidak tercatat di log karena request ditolak sebelum sampai Groq.
+
+> ℹ️ `AI_CHAT_MODEL` tidak perlu ditambahkan — model dibaca dari DB, bukan env.
 
 ### Catatan OpenAI Embedding Rate Limit
 

@@ -72,7 +72,7 @@
                     <li>
                         <a href="{{ route('ai.index') }}"
                             class="{{ request()->routeIs('ai.*') ? 'text-amber-400 font-bold' : 'hover:text-amber-400' }} hover:translate-x-1 inline-flex items-center gap-1.5 transition-all">
-                            <span>&rsaquo;</span> Asisten AI HIMSI
+                            <span>&rsaquo;</span> DAMARA · Asisten AI
                             <span class="text-[9px] uppercase tracking-wider bg-blue-600 text-white font-black px-1.5 py-0.5 rounded-md ml-1">AI</span>
                         </a>
                     </li>

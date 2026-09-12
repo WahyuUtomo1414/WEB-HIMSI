@@ -3,14 +3,19 @@
 ## 1. Halaman & Section Website Publik
 
 ### 1. Halaman Home (`/`)
-- **Hero Section**: Banner utama, headline Himpunan Mahasiswa Sistem Informasi UBSI, deskripsi singkat, tombol CTA Kontak & Tentang Kami.
+- **Hero Section**: Banner sinematik dengan video background (`web_himsi5.mp4`), typewriter effect, tombol CTA Kontak & Tentang Kami. Tombol play/pause video di pojok kiri bawah.
+- **Pillars Section**: Pilar keunggulan HIMSI (static content).
 - **Count Section**: Counter statistik (jumlah anggota, cabang, program kerja, dll dari model `Count`).
 - **Greeting Section**: Sambutan dari Ketua / Pengurus HIMSI (model `Greeting`).
-- **List Division Section**: Preview divisi-divisi organisasi (model `Division`).
+- **Division Spotlight Section**: Preview interaktif divisi-divisi organisasi (model `Division`).
 - **List Cabang Section**: Preview cabang / DPC HIMSI (model `Branch`).
 - **List Blog/Artikel Section**: 3 artikel blog terbaru (model `Blog`).
+- **Activities Gallery Section**: Marquee galeri dokumentasi kegiatan dari blog berkategori "Kegiatan" (model `Blog` + `BlogImage`).
 - **FAQ Section**: Accordion pertanyaan dan jawaban umum (model `Faq`).
+- **DAMARA Intro Section**: Pengenalan asisten AI DAMARA dengan avatar, deskripsi, fitur, dan CTA ke halaman `/ai`. Komponen: `home/damara-intro.blade.php`.
 - **CTA Section**: Call-to-action bergabung/menghubungi HIMSI.
+
+Catatan: Splash screen (`common/splash-screen.blade.php`) tampil di atas halaman home saat pertama load, menggunakan video `clarion.mp4`. AI Announcement Modal (`home/ai-announcement-modal.blade.php`) muncul otomatis ~350ms setelah splash selesai (setiap kali halaman home dibuka).
 
 ### 2. Halaman Tentang Kami (`/tentang-kami`)
 - **Hero Section**: Banner header Halaman Tentang Kami.
@@ -79,6 +84,7 @@ Catatan:
 - `BlogController` -> `GET /blog`, `GET /blog/{blog:slug}`
 - `ContactController` -> `GET /kontak`, `POST /kontak`
 - `RecruitmentController` -> `GET /rekrutmen`, `GET /rekrutmen/daftar`, `POST /rekrutmen`
+- `AiChatController` -> `GET /ai`, `POST /ai/chat`, `POST /ai/dismiss-modal`
 
 ## 3. Prinsip Data Flow
 - Controller mengambil data dari Model (`active = true`, soft delete excluded, eager loading).
