@@ -1,8 +1,10 @@
-# Konsep AI yang Dipakai di HIMSI
+# Konsep AI yang Dipakai di HIMSI — DAMARA
 
 ## 1. Gambaran Besar
 
-AI di project ini bukan AI yang "belajar sendiri" — kita **tidak melatih model**. Yang kita lakukan adalah memanfaatkan model LLM yang sudah ada (Groq/Llama) dan memberikan **konteks yang relevan** sebelum model menjawab. Teknik ini disebut **RAG (Retrieval-Augmented Generation)**.
+Asisten AI di project ini bernama **DAMARA** — karakter asisten virtual resmi HIMSI UBSI. DAMARA bukan AI yang "belajar sendiri" — kita **tidak melatih model**. Yang kita lakukan adalah memanfaatkan model LLM yang sudah ada (Groq/Llama) dan memberikan **konteks yang relevan** sebelum model menjawab. Teknik ini disebut **RAG (Retrieval-Augmented Generation)**.
+
+Avatar DAMARA: `public/images/ai-ilustrator.png` — karakter wanita dengan seragam PDL HIMSI.
 
 Alur sederhananya:
 
@@ -25,9 +27,9 @@ Simpan log → kirim ke user
 ## 2. Konsep-Konsep Utama
 
 ### LLM (Large Language Model)
-Model bahasa besar yang bisa memahami dan menghasilkan teks. Yang kita pakai: **openai/gpt-oss-20b** via **Groq** (gratis, cepat). Model ini yang "ngobrol" dengan user.
+Model bahasa besar yang bisa memahami dan menghasilkan teks. Yang kita pakai: model Groq (gratis, cepat) — model spesifik dipilih dari panel Filament admin → Konfigurasi AI, bukan dari env var. Model ini yang "ngobrol" dengan user sebagai DAMARA.
 
-> Catatan: Groq menerima nama model seperti `llama-3.3-70b-versatile` tapi di belakang layar menjalankan `openai/gpt-oss-20b`. Nama model yang tersedia bisa berubah — selalu cek di `console.groq.com`.
+> Catatan: Nama model Groq yang tersedia bisa berubah — selalu cek di `console.groq.com`. Model diset di kolom `model` tabel `ai_config`, bukan env `AI_CHAT_MODEL` (env var itu tidak dipakai).
 
 ### Embedding
 Proses mengubah teks menjadi **deretan angka (vektor)** yang merepresentasikan makna teks tersebut. Teks yang maknanya mirip akan menghasilkan angka yang mirip.
@@ -117,7 +119,7 @@ Menyimpan satu record konfigurasi AI yang aktif. Diisi lewat panel Filament.
 
 | Kolom | Fungsi |
 |---|---|
-| `system_prompt` | Instruksi karakter AI ("kamu adalah asisten HIMSI...") |
+| `system_prompt` | Instruksi karakter AI ("kamu adalah DAMARA, asisten virtual resmi HIMSI UBSI...") |
 | `model` | Nama model Groq yang dipakai (misal: `llama-3.3-70b-versatile`) |
 | `temperature` | Kreativitas jawaban (0 = konsisten, 1 = lebih variatif) |
 | `max_tokens` | Batas panjang jawaban |
@@ -157,6 +159,8 @@ Dipanggil **pertama kali** sebelum proses apapun. Kalau pertanyaan melanggar rul
 Pakai **OpenAI API** (bukan Groq, karena Groq tidak punya embedding). Dua fungsi:
 - `embed(string $text): array` → kirim teks ke OpenAI, dapat array angka
 - `cosineSimilarity(array $a, array $b): float` → hitung kemiripan dua vektor
+
+> ⚠️ Service ini menggunakan `config('openai.embedding_key')` dll — **bukan** `env()` langsung. Env vars embedding harus ada di `config/openai.php` agar aman saat `php artisan config:cache`.
 
 ### `AiKnowledgeService`
 Punya dua tanggung jawab besar:
