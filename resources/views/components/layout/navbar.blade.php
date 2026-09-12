@@ -143,7 +143,7 @@
                                 class="-mx-3 flex items-center justify-between rounded-xl p-3 bg-gradient-to-r from-[#000c46] via-[#001b79] to-[#0453cd] text-white shadow-md hover:brightness-110 transition-all border border-blue-400/30 group">
                                 <div class="flex items-center gap-2.5">
                                     <div class="relative shrink-0">
-                                        <img src="{{ asset('images/ai-robot.png') }}" alt="AI" class="w-8 h-8 rounded-lg bg-white/10 p-0.5 object-contain">
+                                        <img src="{{ asset('images/ai-ilustrator.png') }}" alt="DAMARA" class="w-8 h-8 rounded-lg object-cover">
                                         <span class="absolute -bottom-0.5 -right-0.5 flex h-2 w-2">
                                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-90"></span>
                                             <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
@@ -151,7 +151,7 @@
                                     </div>
                                     <div class="flex flex-col">
                                         <span class="font-extrabold text-sm tracking-wide flex items-center gap-1.5">
-                                            Asisten AI HIMSI
+                                            DAMARA · Asisten AI
                                         </span>
                                         <span class="text-[10px] text-blue-200 font-normal">Tanya jawab pintar seputar HIMSI</span>
                                     </div>

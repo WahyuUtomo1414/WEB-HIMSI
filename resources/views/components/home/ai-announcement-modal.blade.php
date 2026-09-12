@@ -1,49 +1,16 @@
 <div x-data="{
         showModal: false,
-        isDismissed() {
-            try {
-                if (localStorage.getItem('himsi_ai_modal_dismissed') === 'true') return true;
-                if (sessionStorage.getItem('himsi_ai_modal_dismissed') === 'true') return true;
-            } catch (e) {}
-            if (document.cookie.indexOf('himsi_ai_modal_dismissed=true') !== -1) return true;
-            return false;
-        },
-        markDismissed() {
-            try { localStorage.setItem('himsi_ai_modal_dismissed', 'true'); } catch (e) {}
-            try { sessionStorage.setItem('himsi_ai_modal_dismissed', 'true'); } catch (e) {}
-            document.cookie = 'himsi_ai_modal_dismissed=true; path=/; max-age=31536000; SameSite=Lax';
-
-            try {
-                const token = document.querySelector('meta[name=csrf-token]')?.getAttribute('content') || '';
-                fetch('{{ route('ai.dismiss-modal') }}', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': token,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
-                }).catch(() => {});
-            } catch (e) {}
-        },
         init() {
-            if (this.isDismissed()) {
-                return;
-            }
-
-            // Mark as seen immediately so any fast reload or page change won't re-trigger it
-            this.markDismissed();
-
-            // Wait for splash screen loading animation to conclude (~3.8s)
+            // Splash: 3500ms trigger + 650ms fade = ~4150ms. Modal muncul tepat setelah splash selesai.
             setTimeout(() => {
                 this.showModal = true;
-            }, 4000);
+            }, 4500);
         },
         dismiss() {
             this.showModal = false;
-            this.markDismissed();
         },
         openAi() {
-            this.dismiss();
+            this.showModal = false;
             window.location.href = '{{ route('ai.index') }}';
         }
      }"
@@ -92,19 +59,17 @@
 
         {{-- Content --}}
         <div class="relative z-10 space-y-5">
-            {{-- Robot Mascot with Glowing Tech Frame --}}
+            {{-- DAMARA Mascot with Glowing Tech Frame --}}
             <div class="relative inline-flex items-center justify-center mx-auto">
-                <div class="absolute inset-0 bg-gradient-to-tr from-[#0453cd]/20 to-amber-400/20 rounded-3xl blur-md"></div>
-                <div class="relative p-2 bg-gradient-to-b from-white to-blue-50/80 rounded-3xl shadow-lg border border-blue-100">
-                    <img src="{{ asset('images/ai-robot.png') }}"
-                         alt="Robot Asisten AI HIMSI"
-                         class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-contain">
-                    <div class="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-tr from-[#001b79] to-[#0453cd] text-amber-400 shadow-md ring-2 ring-white">
-                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                    </div>
+                <div class="absolute inset-0 bg-gradient-to-tr from-[#0453cd]/20 to-amber-400/20 rounded-full blur-md scale-110"></div>
+                <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-amber-400/40 shadow-xl ring-2 ring-white/60">
+                    <img src="{{ asset('images/ai-ilustrator.png') }}"
+                         alt="DAMARA — Asisten AI HIMSI UBSI"
+                         class="w-full h-full object-cover">
                 </div>
+                <span class="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500 border-2 border-white shadow-md">
+                    <span class="w-3 h-3 rounded-full bg-white animate-pulse"></span>
+                </span>
             </div>
 
             {{-- Tech Badge & Headline --}}
@@ -117,10 +82,10 @@
                     <span>HIMSI INTELLIGENCE</span>
                 </div>
                 <h3 class="text-xl sm:text-2xl font-black text-[#000c46] tracking-tight">
-                    Temui Asisten AI HIMSI
+                    Kenalan sama <span class="text-[#0453cd]">DAMARA</span>!
                 </h3>
                 <p class="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xs mx-auto">
-                    Kini Anda dapat berkonsultasi seputar kepengurusan, cabang, dan agenda HIMSI UBSI secara instan 24/7.
+                    Asisten AI resmi HIMSI UBSI siap menjawab pertanyaan seputar kepengurusan, cabang, dan agenda HIMSI — kapan saja, 24/7.
                 </p>
             </div>
 

@@ -3,10 +3,8 @@
     {{-- Splash Screen Loading Video (Hanya di Halaman Home) --}}
     <x-common.splash-screen />
 
-    {{-- AI Assistant Announcement Modal (Hanya tampil 1x jika belum pernah dilihat/dismissed) --}}
-    @if(!request()->cookie('himsi_ai_modal_dismissed') && !session('himsi_ai_modal_dismissed'))
-        <x-home.ai-announcement-modal />
-    @endif
+    {{-- AI Assistant Announcement Modal (Tampil setiap buka halaman home, 2 detik setelah splash selesai) --}}
+    <x-home.ai-announcement-modal />
 
     {{-- 1. Hero Section (Dark Sinematik) --}}
     <x-home.hero :hero="$hero" />
@@ -35,7 +33,10 @@
     {{-- 9. FAQ Section (BG: Pure White #ffffff) --}}
     <x-home.faq :faqs="$faqs" />
 
-    {{-- 10. CTA Section (BG: Pure White with Dark Accent Card) --}}
+    {{-- 10. DAMARA AI Intro Section --}}
+    <x-home.damara-intro />
+
+    {{-- 11. CTA Section (BG: Pure White with Dark Accent Card) --}}
     <section class="w-full bg-white py-12 sm:py-16 lg:py-20">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-common.cta-section />

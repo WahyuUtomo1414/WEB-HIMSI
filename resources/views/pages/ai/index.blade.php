@@ -1,8 +1,8 @@
-<x-layouts.public title="Asisten AI HIMSI - HIMSI UBSI">
+<x-layouts.public title="DAMARA · Asisten AI HIMSI UBSI">
 
     {{-- 1. Hero Section (Dark Blue Gradient, matches all public pages) --}}
     <section class="relative bg-gradient-to-br from-[#000c46] via-[#00145c] to-[#001b79] text-white pt-28 pb-20 sm:pt-32 sm:pb-24 lg:pt-36 lg:pb-28 border-b border-[#001b79] overflow-hidden isolate">
-        
+
         {{-- SVG dot-grid pattern --}}
         <div class="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
             <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -24,17 +24,32 @@
         <div class="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-[#0453cd]/25 blur-3xl -z-10 pointer-events-none"></div>
         <div class="absolute -right-20 -bottom-20 h-72 w-72 rounded-full bg-[#356ee7]/25 blur-3xl -z-10 pointer-events-none"></div>
 
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center space-y-4 relative z-10">
-            <div class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold text-white border border-white/20 uppercase tracking-wider backdrop-blur-xs">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>Asisten Virtual 24/7</span>
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 text-center sm:text-left">
+                {{-- DAMARA Avatar --}}
+                <div class="relative shrink-0">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-4 border-amber-400/50 shadow-[0_0_32px_rgba(245,158,11,0.3)]">
+                        <img src="{{ asset('images/ai-ilustrator.png') }}" alt="DAMARA"
+                             class="w-full h-full object-cover">
+                    </div>
+                    <span class="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 border-2 border-[#000c46] shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                    </span>
+                </div>
+                {{-- Text --}}
+                <div class="space-y-3">
+                    <div class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold text-white border border-white/20 uppercase tracking-wider backdrop-blur-xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Asisten Virtual 24/7</span>
+                    </div>
+                    <h1 class="text-4xl font-extrabold text-white tracking-tight sm:text-5xl lg:text-6xl">
+                        Halo, aku <span class="text-amber-400">DAMARA</span>!
+                    </h1>
+                    <p class="text-base text-slate-200 sm:text-lg max-w-2xl leading-relaxed">
+                        Asisten AI resmi HIMSI UBSI. Tanya aku seputar struktur organisasi, kegiatan, pendaftaran anggota, hingga info cabang DPC — kapan saja.
+                    </p>
+                </div>
             </div>
-            <h1 class="text-4xl font-extrabold text-white tracking-tight sm:text-5xl lg:text-6xl">
-                Tanya Asisten AI HIMSI
-            </h1>
-            <p class="text-base text-slate-200 sm:text-lg max-w-2xl mx-auto leading-relaxed">
-                Dapatkan informasi resmi seputar struktur organisasi, kegiatan, pendaftaran anggota baru, hingga cabang DPC secara instan.
-            </p>
         </div>
     </section>
 
@@ -49,13 +64,13 @@
                 <div class="px-5 py-3.5 bg-gradient-to-r from-slate-50 to-white border-b border-slate-200 flex items-center justify-between shrink-0">
                     <div class="flex items-center gap-3">
                         <div class="relative shrink-0">
-                            <img src="{{ asset('images/ai-robot.png') }}" alt="Robot Asisten AI"
-                                 class="w-10 h-10 rounded-xl object-contain bg-slate-50 p-0.5 shadow-sm border border-slate-200">
+                            <img src="{{ asset('images/ai-ilustrator.png') }}" alt="DAMARA"
+                                 class="w-10 h-10 rounded-xl object-cover bg-slate-50 shadow-sm border border-slate-200">
                             <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 border-2 border-white rounded-full"></span>
                         </div>
                         <div>
                             <div class="flex items-center gap-2">
-                                <h3 class="font-bold text-sm text-[#000c46]">Asisten Pintar HIMSI</h3>
+                                <h3 class="font-bold text-sm text-[#000c46]">DAMARA</h3>
                                 <span class="text-[9px] uppercase font-extrabold px-1.5 py-0.5 rounded bg-blue-100 text-[#0453cd]">ONLINE</span>
                             </div>
                             <p class="text-[11px] text-slate-500 font-medium">Didukung basis data resmi HIMSI UBSI</p>
@@ -79,8 +94,8 @@
                     {{-- Empty State Welcome Banner (Saat baru buka) --}}
                     <div x-show="messages.length <= 1" class="py-6 text-center space-y-5">
                         <div class="inline-flex items-center justify-center p-2 bg-gradient-to-b from-blue-50 to-white rounded-2xl shadow-md border border-blue-100/60 mx-auto">
-                            <img src="{{ asset('images/ai-robot.png') }}" alt="Robot HIMSI"
-                                 class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-contain">
+                            <img src="{{ asset('images/ai-ilustrator.png') }}" alt="DAMARA"
+                                 class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover">
                         </div>
                         <div class="space-y-1.5 max-w-md mx-auto">
                             <h2 class="text-lg sm:text-xl font-extrabold text-[#000c46]">Ada yang ingin Anda tanyakan?</h2>
@@ -142,8 +157,8 @@
 
                             {{-- Assistant Avatar --}}
                             <div x-show="msg.role === 'assistant'" class="shrink-0 pt-0.5">
-                                <img src="{{ asset('images/ai-robot.png') }}" alt="AI"
-                                     class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-contain bg-white shadow-2xs border border-slate-200 p-0.5">
+                                <img src="{{ asset('images/ai-ilustrator.png') }}" alt="DAMARA"
+                                     class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-cover bg-white shadow-2xs border border-slate-200">
                             </div>
 
                             {{-- Message Bubble --}}
@@ -158,8 +173,8 @@
                     {{-- Loading Indicator --}}
                     <div x-show="loading" class="flex items-start gap-2.5 justify-start">
                         <div class="shrink-0 pt-0.5">
-                            <img src="{{ asset('images/ai-robot.png') }}" alt="AI"
-                                 class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-contain bg-white shadow-2xs border border-slate-200 p-0.5 animate-pulse">
+                            <img src="{{ asset('images/ai-ilustrator.png') }}" alt="DAMARA"
+                                 class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-cover bg-white shadow-2xs border border-slate-200 animate-pulse">
                         </div>
                         <div class="bg-white border border-slate-200 rounded-2xl rounded-tl-xs px-3.5 py-2.5 shadow-xs">
                             <div class="flex gap-1.5 items-center h-4">
@@ -239,6 +254,16 @@
                             }
                             this.sessionId = sid;
                             this.messages = [{ role: 'assistant', content: this.greeting }];
+
+                            try {
+                                const urlParams = new URLSearchParams(window.location.search);
+                                const qParam = urlParams.get('q');
+                                if (qParam && qParam.trim()) {
+                                    this.$nextTick(() => {
+                                        this.askPreset(qParam.trim());
+                                    });
+                                }
+                            } catch (e) {}
                         },
 
                         resetChat() {

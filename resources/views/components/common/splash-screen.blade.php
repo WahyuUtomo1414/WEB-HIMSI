@@ -2,17 +2,15 @@
         showSplash: true,
         fadeOut: false,
         init() {
-            this.$nextTick(() => {
-                if (this.$refs.splashVideo) {
-                    this.$refs.splashVideo.muted = true;
-                    const promise = this.$refs.splashVideo.play();
-                    if (promise !== undefined) {
-                        promise.catch(error => {
-                            console.log('Autoplay handled');
-                        });
-                    }
+            const v = this.$refs.splashVideo;
+            if (v) {
+                v.muted = true;
+                v.defaultMuted = true;
+                const p = v.play();
+                if (p !== undefined) {
+                    p.catch(() => {});
                 }
-            });
+            }
 
             setTimeout(() => {
                 this.dismiss();
@@ -29,29 +27,20 @@
      x-show="showSplash"
      :class="{ 'opacity-0 pointer-events-none': fadeOut }"
      class="fixed inset-0 z-[99999] bg-[#000c46] flex items-end justify-center overflow-hidden transition-opacity duration-700 ease-in-out isolate">
-    
-    <!-- Background Clarion Video Intro (Forced Muted Autoplay) -->
+
+    <!-- Background Clarion Video Intro -->
     <div class="absolute inset-0 -z-10 pointer-events-none">
-        <video x-ref="splashVideo" 
-               class="h-full w-full object-cover opacity-90 scale-105 pointer-events-none" 
-               autoplay 
-               muted 
+        <video x-ref="splashVideo"
+               class="h-full w-full object-cover opacity-90 scale-105 pointer-events-none"
+               autoplay
+               muted
                loop
-               playsinline 
+               playsinline
                webkit-playsinline
                preload="auto"
                tabindex="-1"
                controlslist="nodownload nofullscreen noremoteplayback"
-               x-init="$nextTick(() => { 
-                   if ($refs.splashVideo) { 
-                       $refs.splashVideo.muted = true; 
-                       $refs.splashVideo.defaultMuted = true; 
-                       $refs.splashVideo.play().catch(() => {}); 
-                   } 
-               })"
-               onloadeddata="this.muted=true; this.play().catch(() => {});"
-               oncanplay="this.muted=true; this.play().catch(() => {});"
-               @ended="dismiss()">
+               style="pointer-events:none">
             <source src="{{ asset('video/clarion.mp4') }}" type="video/mp4">
         </video>
     </div>
