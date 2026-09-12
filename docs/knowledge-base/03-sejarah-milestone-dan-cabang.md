@@ -41,153 +41,153 @@ Organisasi ini lahir dari kebutuhan mahasiswa Program Studi Sistem Informasi unt
 HIMSI memiliki 10 DPC yang tersebar di Jabodetabek dan sekitarnya, dibagi dalam 3 sektor wilayah:
 
 ### Sektor Barat
-| Cabang | Lokasi | Instagram | Grup WA |
-|--------|--------|-----------|---------|
-| DPC BSD | BSD, Tangerang Selatan | @himsi_bsd | https://chat.whatsapp.com/CRgBz19FhOe3vfHrTqpXLf |
-| DPC Cengkareng | Cengkareng, Jakarta Barat | @dpccengkareng | https://chat.whatsapp.com/CRgBz19FhOe3vfHrTqpXLf |
-| DPC Slipi | Slipi, Jakarta Barat | @himsi_slipi | https://chat.whatsapp.com/CRgBz19FhOe3vfHrTqpXLf |
-| DPC Cimone | Cimone, Tangerang Kota | @dpccimone | https://chat.whatsapp.com/CRgBz19FhOe3vfHrTqpXLf |
+| Cabang | Lokasi | Instagram |
+|--------|--------|-----------|
+| DPC BSD | BSD, Tangerang Selatan | @himsi_bsd |
+| DPC Cengkareng | Cengkareng, Jakarta Barat | @dpccengkareng |
+| DPC Slipi | Slipi, Jakarta Barat | @himsi_slipi |
+| DPC Cimone | Cimone, Tangerang Kota | @dpccimone |
 
 ### Sektor Tengah
-| Cabang | Lokasi | Instagram | Grup WA |
-|--------|--------|-----------|---------|
-| DPC Samudra | Kramat, Jakarta Pusat | @dpcsamudra | https://chat.whatsapp.com/CRgBz19FhOe3vfHrTqpXLf |
-| DPC Marwati | Depok & Jakarta Selatan | @himsimarwati | https://chat.whatsapp.com/CRgBz19FhOe3vfHrTqpXLf |
+| Cabang | Lokasi | Instagram |
+|--------|--------|-----------|
+| DPC Samudra | Kramat, Jakarta Pusat | @dpcsamudra |
+| DPC Marwati | Depok & Jakarta Selatan | @himsimarwati |
 
 ### Sektor Timur
-| Cabang | Lokasi | Instagram | Grup WA |
-|--------|--------|-----------|---------|
-| DPC Kaliabang | Bekasi, Jawa Barat | @dpckaliabang | https://chat.whatsapp.com/CRgBz19FhOe3vfHrTqpXLf |
-| DPC Cikarang | Cikarang, Jawa Barat | @himsi.ubsicikarang | https://chat.whatsapp.com/CRgBz19FhOe3vfHrTqpXLf |
-| DPC Cut Mutiah & Kalimalang | Kalimalang, Jakarta Timur | @himsi_cutmutiah | https://chat.whatsapp.com/CRgBz19FhOe3vfHrTqpXLf |
-| DPC Jatiwaringin | Pondok Gede, Jakarta Timur | @himsi.jatiwaringin | https://chat.whatsapp.com/CRgBz19FhOe3vfHrTqpXLf |
+| Cabang | Lokasi | Instagram |
+|--------|--------|-----------|
+| DPC Kaliabang | Bekasi, Jawa Barat | @dpckaliabang |
+| DPC Cikarang | Cikarang, Jawa Barat | @himsi.ubsicikarang |
+| DPC Cut Mutiah & Kalimalang | Kalimalang, Jakarta Timur | @himsi_cutmutiah |
+| DPC Jatiwaringin | Pondok Gede, Jakarta Timur | @himsi.jatiwaringin |
 
 ---
 
 ## Kepengurusan DPP HIMSI UBSI (Aktif)
 
-| Posisi | Nama | WhatsApp |
-|--------|------|----------|
-| Ketua | Kamila Zulfa Indika Lulu'i | 081476626988 |
-| Wakil Ketua | Muhammad Satria Akyla Vibenesta | 081210253625 |
-| Sekertaris 1 | Nadia Sabrina | 082172052096 |
-| Bendahara | Muhamad Zulfikri Prasetio | 085760913401 |
-| Koor Div Pendidikan | Mochammad Rayhan | 089518998589 |
-| Koor Div Kominfo | Sheila Sekar Asri Puteri | 081293692832 |
-| Koor Div PSDM | Isnan Adam | 0895406189600 |
-| Koor Div Sosmas | Andre Gusti Saputra | 081292578651 |
+| Posisi | Nama |
+|--------|------|
+| Ketua | Kamila Zulfa Indika Lulu'i |
+| Wakil Ketua | Muhammad Satria Akyla Vibenesta |
+| Sekertaris 1 | Nadia Sabrina |
+| Bendahara | Muhamad Zulfikri Prasetio |
+| Koor Div Pendidikan | Mochammad Rayhan |
+| Koor Div Kominfo | Sheila Sekar Asri Puteri |
+| Koor Div PSDM | Isnan Adam |
+| Koor Div Sosmas | Andre Gusti Saputra |
 
 ---
 
 ## Kepengurusan Per Cabang (Aktif)
 
 ### DPC BSD
-| Posisi | Nama | WhatsApp |
-|--------|------|----------|
-| Ketua | Ana Suryana | 088210453927 |
-| Wakil Ketua | Hafizhah Fathiyyah Zahra | 081383969920 |
-| Sekertaris 1 | Muhamad Suprayogi | 083169462453 |
-| Sekertaris 2 | Farell Okthara Yostan | 085817694576 |
-| Bendahara | Niswah Zian Ahlia | 08888478388 |
-| Koor Div Pendidikan | Nur Fitriani Fauziah | 0895803248695 |
-| Koor Div Kominfo | Rayssa Devina Khariroh | 08123232700 |
-| Koor Div RSDM | Danang Setiaji | 08871605343 |
-| Koor Div Litbang | Khansa Diani Az-Zahra | 081399672193 |
+| Posisi | Nama |
+|--------|------|
+| Ketua | Ana Suryana |
+| Wakil Ketua | Hafizhah Fathiyyah Zahra |
+| Sekertaris 1 | Muhamad Suprayogi |
+| Sekertaris 2 | Farell Okthara Yostan |
+| Bendahara | Niswah Zian Ahlia |
+| Koor Div Pendidikan | Nur Fitriani Fauziah |
+| Koor Div Kominfo | Rayssa Devina Khariroh |
+| Koor Div RSDM | Danang Setiaji |
+| Koor Div Litbang | Khansa Diani Az-Zahra |
 
 ### DPC Cengkareng
-| Posisi | Nama | WhatsApp |
-|--------|------|----------|
-| Ketua | Ardhi Fadli Lesmana | 085811018215 |
-| Wakil Ketua | Putra Anugrah | 082380197504 |
-| Sekertaris 1 | Alexa Cindy Safara | 087777081666 |
-| Bendahara | Chelsea Terryana Putri | 081807521998 |
-| Koor Div Pendidikan | Muhammad Rizki Sumantri | 0895404147521 |
-| Koor Div RSDM | Slamet Putra Santoso | 085285496780 |
-| Koor Div Litbang | Nuri Nafil | 087810304478 |
-| Koor Div Kominfo | Muhty Alyansyah | 087841542650 |
+| Posisi | Nama |
+|--------|------|
+| Ketua | Ardhi Fadli Lesmana |
+| Wakil Ketua | Putra Anugrah |
+| Sekertaris 1 | Alexa Cindy Safara |
+| Bendahara | Chelsea Terryana Putri |
+| Koor Div Pendidikan | Muhammad Rizki Sumantri |
+| Koor Div RSDM | Slamet Putra Santoso |
+| Koor Div Litbang | Nuri Nafil |
+| Koor Div Kominfo | Muhty Alyansyah |
 
 ### DPC Slipi
-| Posisi | Nama | WhatsApp |
-|--------|------|----------|
-| Ketua | Muhammad Tsabit Rahman | 085891565501 |
-| Wakil Ketua | Nabila Aska Mefia | 08995858453 |
-| Sekertaris 1 | Nazwa Pundi Listiani | 0881024929737 |
-| Sekertaris 2 | Andieni Camelia | 087748812052 |
-| Bendahara | Najwa Maulidya Azahra | 085717588012 |
-| Koor Div Pendidikan | Kemal Ibrahim | 085781550293 |
-| Koor Div Kominfo | Muhamad Rasyid Ridho | 081549456920 |
-| Koor Div RSDM | Tania Julianty | 0895367125552 |
-| Koor Div Litbang | Dyon Suryawan | 089655312201 |
+| Posisi | Nama |
+|--------|------|
+| Ketua | Muhammad Tsabit Rahman |
+| Wakil Ketua | Nabila Aska Mefia |
+| Sekertaris 1 | Nazwa Pundi Listiani |
+| Sekertaris 2 | Andieni Camelia |
+| Bendahara | Najwa Maulidya Azahra |
+| Koor Div Pendidikan | Kemal Ibrahim |
+| Koor Div Kominfo | Muhamad Rasyid Ridho |
+| Koor Div RSDM | Tania Julianty |
+| Koor Div Litbang | Dyon Suryawan |
 
 ### DPC Cimone
-| Posisi | Nama | WhatsApp |
-|--------|------|----------|
-| Ketua | Johanes Geryaty Putra | 0895384241908 |
-| Wakil Ketua | Atria Ananda | 081383439862 |
-| Bendahara | Andika Prasetya Hermawan | 081381000577 |
-| Koor Div Pendidikan | Radit Dwi Pratomo | 089686899447 |
-| Koor Div Kominfo | Fatihatussyahdan | 081915246667 |
-| Koor Div RSDM | Suci Fitriani | 085282884638 |
-| Koor Div Litbang | Silvania Dhea Buarnirun | 081221622449 |
+| Posisi | Nama |
+|--------|------|
+| Ketua | Johanes Geryaty Putra |
+| Wakil Ketua | Atria Ananda |
+| Bendahara | Andika Prasetya Hermawan |
+| Koor Div Pendidikan | Radit Dwi Pratomo |
+| Koor Div Kominfo | Fatihatussyahdan |
+| Koor Div RSDM | Suci Fitriani |
+| Koor Div Litbang | Silvania Dhea Buarnirun |
 
 ### DPC Samudra
-| Posisi | Nama | WhatsApp |
-|--------|------|----------|
-| Ketua | Adelia Damara Fathimah | 085893102635 |
-| Wakil Ketua | Muhammad Satrio Prawara | 088211502087 |
-| Sekertaris 1 | Abel Amanda Putri | 089637904943 |
-| Sekertaris 2 | Naura Nur Adilla | 089512587559 |
-| Bendahara | Chairunnisa | 081398561008 |
-| Koor Div Pendidikan | Nabilah Ibtisamah | 089668961991 |
-| Koor Div Kominfo | Rusfi Novandi | 085817598211 |
-| Koor Div RSDM | Adelia Maulidini Putri Said | 08997497787 |
-| Koor Div Litbang | Muhammad Yasir Arafat | 087884329215 |
+| Posisi | Nama |
+|--------|------|
+| Ketua | Adelia Damara Fathimah |
+| Wakil Ketua | Muhammad Satrio Prawara |
+| Sekertaris 1 | Abel Amanda Putri |
+| Sekertaris 2 | Naura Nur Adilla |
+| Bendahara | Chairunnisa |
+| Koor Div Pendidikan | Nabilah Ibtisamah |
+| Koor Div Kominfo | Rusfi Novandi |
+| Koor Div RSDM | Adelia Maulidini Putri Said |
+| Koor Div Litbang | Muhammad Yasir Arafat |
 
 ### DPC Marwati
-| Posisi | Nama | WhatsApp |
-|--------|------|----------|
-| Ketua | Dinda Aulia Yoeanda | 085714902125 |
-| Wakil Ketua | Muhammad Hafiizh Kurnaen | 0881023157077 |
-| Sekertaris 1 | Andhika Rakha Syahputra | 082218919178 |
-| Bendahara | Annisa Nurul Rafifah | 085883194804 |
-| Koor Div Pendidikan | Aprilia Kusuma Dewi | 08194050651 |
-| Koor Div Kominfo | Iqlima Najwa Fadia | 089531805925 |
-| Koor Div RSDM | Fairuz Nabilah | 08567118214 |
+| Posisi | Nama |
+|--------|------|
+| Ketua | Dinda Aulia Yoeanda |
+| Wakil Ketua | Muhammad Hafiizh Kurnaen |
+| Sekertaris 1 | Andhika Rakha Syahputra |
+| Bendahara | Annisa Nurul Rafifah |
+| Koor Div Pendidikan | Aprilia Kusuma Dewi |
+| Koor Div Kominfo | Iqlima Najwa Fadia |
+| Koor Div RSDM | Fairuz Nabilah |
 
 ### DPC Kaliabang
-| Posisi | Nama | WhatsApp |
-|--------|------|----------|
-| Ketua | Rafi Wibiyanto | 0895393039043 |
-| Wakil Ketua | Felisa Kirana Agata | 085770951136 |
-| Sekertaris 1 | Siti Nur Aisyah | 085693376241 |
-| Sekertaris 2 | Maulana Riski | 081289073178 |
-| Bendahara | Julia Rahma Amelia | 0895385372700 |
-| Koor Div Pendidikan | Bambang Purnama Sidik | 085692795108 |
-| Koor Div Kominfo | Nabillah Delfia Azzahrah | 085891081744 |
-| Koor Div RSDM | Nur Azizah | 089629728992 |
-| Koor Div Litbang | Delan Alamanda | 085183663539 |
+| Posisi | Nama |
+|--------|------|
+| Ketua | Rafi Wibiyanto |
+| Wakil Ketua | Felisa Kirana Agata |
+| Sekertaris 1 | Siti Nur Aisyah |
+| Sekertaris 2 | Maulana Riski |
+| Bendahara | Julia Rahma Amelia |
+| Koor Div Pendidikan | Bambang Purnama Sidik |
+| Koor Div Kominfo | Nabillah Delfia Azzahrah |
+| Koor Div RSDM | Nur Azizah |
+| Koor Div Litbang | Delan Alamanda |
 
 ### DPC Cikarang
-| Posisi | Nama | WhatsApp |
-|--------|------|----------|
-| Ketua | Fahri Akbar Indratama | 081399252297 |
-| Wakil Ketua | Putri Salma Nurhasanah | 089510331876 |
-| Sekertaris 1 | Shania Nur Wulansari | 083897002906 |
-| Sekertaris 2 | Zalfa Abyrnada | 083876681449 |
-| Bendahara | Diva Rahma Novitasari | 081111847118 |
-| Koor Div Pendidikan | Ciputra Surya Pratama | 085779665848 |
-| Koor Div Kominfo | Ahmad Maulana Zuhdi | 089658194180 |
-| Koor Div RSDM | Dzulfiqar Dumaid | 087889546084 |
-| Koor Div Litbang | Muhammad Galang Nur Falsian | 081295505241 |
+| Posisi | Nama |
+|--------|------|
+| Ketua | Fahri Akbar Indratama |
+| Wakil Ketua | Putri Salma Nurhasanah |
+| Sekertaris 1 | Shania Nur Wulansari |
+| Sekertaris 2 | Zalfa Abyrnada |
+| Bendahara | Diva Rahma Novitasari |
+| Koor Div Pendidikan | Ciputra Surya Pratama |
+| Koor Div Kominfo | Ahmad Maulana Zuhdi |
+| Koor Div RSDM | Dzulfiqar Dumaid |
+| Koor Div Litbang | Muhammad Galang Nur Falsian |
 
 ### DPC Cut Mutiah & Kalimalang
-| Posisi | Nama | WhatsApp |
-|--------|------|----------|
-| Ketua | Revan Zahran Aditya | 081906354369 |
-| Wakil Ketua | Mochamad Fahri Putra Pratama | 085780877593 |
-| Sekertaris 1 | Wita Srikanti | 088290368814 |
-| Bendahara | Aulia An Najmi | 085780304230 |
-| Koor Div Pendidikan | Muhammad Abyan As Syaddad | 087804570016 |
-| Koor Div Kominfo | M Hafiidh Basri | 089516193478 |
-| Koor Div PSDM | Keisya Nayla Alifah | 089603093454 |
-| Koor Div Litbang | Mozza Karenina Mecca | 0895413524496 |
+| Posisi | Nama |
+|--------|------|
+| Ketua | Revan Zahran Aditya |
+| Wakil Ketua | Mochamad Fahri Putra Pratama |
+| Sekertaris 1 | Wita Srikanti |
+| Bendahara | Aulia An Najmi |
+| Koor Div Pendidikan | Muhammad Abyan As Syaddad |
+| Koor Div Kominfo | M Hafiidh Basri |
+| Koor Div PSDM | Keisya Nayla Alifah |
+| Koor Div Litbang | Mozza Karenina Mecca |

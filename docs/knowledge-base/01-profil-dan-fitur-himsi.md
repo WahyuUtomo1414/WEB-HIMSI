@@ -123,13 +123,12 @@ Daftar DPC HIMSI:
 | DPC Jatiwaringin | Pondok Gede, Jakarta Timur | Sektor Timur |
 
 Setiap cabang memiliki:
-- Grup WhatsApp cabang untuk koordinasi anggota.
 - Akun Instagram cabang.
 - Struktur kepengurusan sendiri (Ketua, Wakil Ketua, Sekretaris, Bendahara, dan Koordinator per divisi).
 
 Struktur kepengurusan cabang mengikuti urutan posisi tetap: Ketua, Wakil Ketua, Sekretaris 1, Sekretaris 2, Bendahara, Koordinator Divisi Pendidikan, Koordinator Divisi RSDM, Koordinator Divisi Litbang, Koordinator Divisi Kominfo, Koordinator Divisi Sosmas, dan Koordinator Divisi PSDM.
 
-Pengunjung dapat melihat daftar cabang di halaman `/cabang` (dengan fitur pencarian dan filter sektor/DPP/DPC), dan detail tiap cabang di `/cabang/{branch}` yang menampilkan profil, sosial media, link grup WhatsApp, struktur pengurus, dan blog terkait cabang tersebut.
+Pengunjung dapat melihat daftar cabang di halaman `/cabang` (dengan fitur pencarian dan filter sektor/DPP/DPC), dan detail tiap cabang di `/cabang/{branch}` yang menampilkan profil, sosial media, struktur pengurus, dan blog terkait cabang tersebut.
 
 ---
 
@@ -186,7 +185,7 @@ Berkas yang wajib diunggah:
 - **e-KTM** — boleh berupa gambar atau PDF.
 - **CV** — wajib berformat PDF.
 
-Setelah pendaftaran berhasil dikirim, sistem otomatis mengirim email notifikasi ke pendaftar, dan pendaftar diarahkan untuk bergabung ke grup WhatsApp cabang yang dipilih.
+Setelah pendaftaran berhasil dikirim, sistem otomatis mengirim email notifikasi ke pendaftar sebagai konfirmasi. Pendaftar selanjutnya akan dihubungi oleh panitia rekrutmen untuk info tahapan berikutnya.
 
 ---
 
