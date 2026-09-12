@@ -8,7 +8,7 @@ class AiEmbeddingService
 {
     private function client(): \OpenAI\Client
     {
-        $key = env('OPENAI_EMBEDDING_KEY');
+        $key = config('openai.embedding_key');
 
         if (empty($key)) {
             throw new \RuntimeException('OPENAI_EMBEDDING_KEY belum diset di .env');
@@ -16,14 +16,14 @@ class AiEmbeddingService
 
         return OpenAI::factory()
             ->withApiKey($key)
-            ->withBaseUri(env('OPENAI_EMBEDDING_BASE_URI', 'api.openai.com/v1'))
+            ->withBaseUri(config('openai.embedding_base_uri'))
             ->make();
     }
 
     public function embed(string $text): array
     {
         $response = $this->client()->embeddings()->create([
-            'model' => env('AI_EMBEDDING_MODEL', 'text-embedding-3-small'),
+            'model' => config('openai.embedding_model'),
             'input' => mb_substr($text, 0, 8000),
         ]);
 
@@ -35,7 +35,7 @@ class AiEmbeddingService
         $inputs = array_map(fn ($t) => mb_substr($t, 0, 8000), $texts);
 
         $response = $this->client()->embeddings()->create([
-            'model' => env('AI_EMBEDDING_MODEL', 'text-embedding-3-small'),
+            'model' => config('openai.embedding_model'),
             'input' => $inputs,
         ]);
 

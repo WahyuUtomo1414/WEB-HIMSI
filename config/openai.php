@@ -46,4 +46,8 @@ return [
     */
 
     'request_timeout' => env('OPENAI_REQUEST_TIMEOUT', 30),
+
+    'embedding_key' => env('OPENAI_EMBEDDING_KEY'),
+    'embedding_base_uri' => env('OPENAI_EMBEDDING_BASE_URI', 'api.openai.com/v1'),
+    'embedding_model' => env('AI_EMBEDDING_MODEL', 'text-embedding-3-small'),
 ];
