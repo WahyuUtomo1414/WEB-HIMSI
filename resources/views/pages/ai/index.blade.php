@@ -138,12 +138,12 @@
                                 </button>
 
                                 <button type="button"
-                                        @click="askPreset('Bisa minta link grup WhatsApp resmi cabang HIMSI?')"
+                                        @click="askPreset('Bagaimana cara menghubungi HIMSI UBSI?')"
                                         class="group p-3 rounded-xl border border-slate-200/90 bg-white hover:border-[#0453cd] hover:bg-blue-50/50 transition-all shadow-xs flex items-start gap-2.5 text-left">
-                                    <span class="text-base p-1 rounded-lg bg-purple-50 group-hover:bg-purple-100 transition-colors shrink-0">💬</span>
+                                    <span class="text-base p-1 rounded-lg bg-purple-50 group-hover:bg-purple-100 transition-colors shrink-0">📬</span>
                                     <div>
-                                        <p class="text-xs font-bold text-[#000c46] group-hover:text-[#0453cd] transition-colors">Grup WhatsApp</p>
-                                        <p class="text-[11px] text-slate-500 line-clamp-1">Tautan grup resmi cabang</p>
+                                        <p class="text-xs font-bold text-[#000c46] group-hover:text-[#0453cd] transition-colors">Kontak HIMSI</p>
+                                        <p class="text-[11px] text-slate-500 line-clamp-1">Email & media sosial resmi</p>
                                     </div>
                                 </button>
                             </div>

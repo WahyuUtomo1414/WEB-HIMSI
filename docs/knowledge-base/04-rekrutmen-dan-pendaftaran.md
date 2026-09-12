@@ -64,7 +64,7 @@ Formulir pendaftaran diisi secara online di halaman `/rekrutmen/daftar`.
 | NIM | Nomor Induk Mahasiswa — harus unik, belum pernah digunakan mendaftar sebelumnya |
 | Semester | Semester aktif saat mendaftar (1–4) |
 | Email | Alamat email aktif untuk notifikasi |
-| Nomor WhatsApp | Nomor aktif — harus unik, digunakan untuk koordinasi dan grup cabang |
+| Nomor WhatsApp | Nomor aktif — harus unik |
 | Cabang (DPC) | Pilih DPC yang paling sesuai dengan kampus atau domisili |
 | Divisi Pilihan Utama | Divisi yang paling ingin dimasuki (pilihan pertama) |
 | Divisi Pilihan Cadangan | Divisi alternatif (pilihan kedua) jika pilihan utama penuh |
@@ -116,8 +116,8 @@ Dengan menjadi pengurus aktif HIMSI UBSI, kamu akan mendapatkan:
 Setelah formulir pendaftaran berhasil dikirim:
 
 1. **Email notifikasi** otomatis dikirim ke alamat email yang didaftarkan sebagai konfirmasi penerimaan berkas.
-2. Pendaftar diarahkan untuk **bergabung ke grup WhatsApp** cabang (DPC) yang dipilih — link grup tersedia di halaman konfirmasi.
-3. **Pantau media sosial** DPC dan HIMSI pusat untuk info jadwal tahap selanjutnya (SEMOT, verifikasi, interview).
+2. **Pantau media sosial** DPC dan HIMSI pusat (@himsi.ubsi) untuk info jadwal tahap selanjutnya (SEMOT, verifikasi, interview).
+3. Panitia rekrutmen akan menghubungi pendaftar secara langsung untuk koordinasi lebih lanjut.
 
 ---
 
@@ -145,7 +145,7 @@ A: Kompres file sebelum diunggah. CV maksimal direkomendasikan di bawah 5MB dala
 A: Proses interview bersifat seleksi berbasis pencocokan, bukan eliminasi ketat. Tujuannya untuk memastikan calon anggota ditempatkan di divisi yang paling sesuai dengan minat dan potensi mereka.
 
 **Q: Bagaimana cara tahu status pendaftaran saya?**
-A: Setelah mendaftar, pantau email untuk konfirmasi, dan ikuti grup WhatsApp cabang untuk info tahapan selanjutnya. Pengumuman resmi biasanya disampaikan melalui grup WA dan Instagram DPC.
+A: Setelah mendaftar, pantau email untuk konfirmasi, dan ikuti Instagram DPC serta HIMSI pusat untuk info tahapan selanjutnya. Panitia rekrutmen juga akan menghubungi pendaftar secara langsung.
 
 **Q: Apakah ada biaya untuk ikut interview atau SEMOT?**
 A: Tidak ada. Seluruh rangkaian rekrutmen HIMSI 100% gratis.
