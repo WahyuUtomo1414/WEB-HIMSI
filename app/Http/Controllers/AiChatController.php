@@ -25,6 +25,7 @@ class AiChatController extends Controller
 
         return view('pages.ai.index', [
             'greeting' => $greeting,
+            'model' => $config?->model,
         ]);
     }
 

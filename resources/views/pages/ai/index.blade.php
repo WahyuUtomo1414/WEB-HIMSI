@@ -214,7 +214,7 @@
                         </button>
                     </form>
                     <p class="text-[11px] text-center text-slate-400 mt-2 select-none tracking-wide">
-                        Powered by <span class="font-semibold text-slate-600">GPT-OSS</span> · &copy; {{ date('Y') }} HIMSI UBSI
+                        Powered by <span class="font-semibold text-slate-600">{{ $model ?? 'llama-3.3-70b-versatile' }}</span> · &copy; {{ date('Y') }} HIMSI UBSI
                     </p>
                 </div>
 
@@ -225,6 +225,21 @@
 
     <script>
         (function () {
+            if (!window.copyCodeSnippet) {
+                window.copyCodeSnippet = function (btn) {
+                    const wrapper = btn.closest('.code-block-wrapper');
+                    if (!wrapper) return;
+                    const code = wrapper.querySelector('code');
+                    if (!code) return;
+                    const text = code.innerText || code.textContent;
+                    navigator.clipboard.writeText(text).then(() => {
+                        const originalHtml = btn.innerHTML;
+                        btn.innerHTML = '<span class="text-emerald-400 font-semibold flex items-center gap-1">Tersalin! ✓</span>';
+                        setTimeout(() => { btn.innerHTML = originalHtml; }, 2000);
+                    }).catch(() => {});
+                };
+            }
+
             function registerAiChatPageComponent() {
                 if (typeof Alpine !== 'undefined' && Alpine.data) {
                     Alpine.data('aiChatPage', (initialGreeting = '') => ({
@@ -371,40 +386,202 @@
                             safe = safe.replace(/(^|[^">])(https?:\/\/[^\s<)]+)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#0453cd] underline underline-offset-2 hover:text-[#001b79] font-semibold break-all inline-flex items-center gap-1">$2 <svg class="w-3 h-3 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a>');
 
                             const inline = s => s
+                                .replace(/\*\*\*(.*?)\*\*\*/g, '<strong class="font-bold text-[#000c46]"><em class="italic">$1</em></strong>')
                                 .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-[#000c46]">$1</strong>')
+                                .replace(/~~(.*?)~~/g, '<del class="line-through text-slate-400">$1</del>')
                                 .replace(/\*(.*?)\*/g, '<em class="italic">$1</em>')
                                 .replace(/`(.*?)`/g, '<code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs font-mono text-[#001b79] border border-slate-200">$1</code>');
+
+                            const isTableDelimiter = l => {
+                                if (!l) return false;
+                                let t = l.trim();
+                                if (!t) return false;
+                                if (t.startsWith('|')) t = t.substring(1);
+                                if (t.endsWith('|')) t = t.substring(0, t.length - 1);
+                                const segments = t.split('|').map(s => s.trim());
+                                if (segments.length < 2) return false;
+                                return segments.every(s => /^:?-+:?$/.test(s));
+                            };
+
+                            const parseCells = l => {
+                                let t = l.trim().replace(/\\\|/g, '\uE000');
+                                if (t.startsWith('|')) t = t.substring(1);
+                                if (t.endsWith('|')) t = t.substring(0, t.length - 1);
+                                return t.split('|').map(s => s.replace(/\uE000/g, '|').trim());
+                            };
+
+                            const renderTable = tLines => {
+                                if (tLines.length < 2) return '';
+                                const headerCells = parseCells(tLines[0]);
+                                const delimiterCells = parseCells(tLines[1]);
+                                const bodyLines = tLines.slice(2);
+
+                                const alignments = delimiterCells.map(cell => {
+                                    const left = cell.startsWith(':');
+                                    const right = cell.endsWith(':');
+                                    if (left && right) return 'text-center';
+                                    if (right) return 'text-right';
+                                    return 'text-left';
+                                });
+
+                                const thead = '<thead><tr class="bg-[#f0f4ff] border-b border-slate-200 text-[#000c46]">' +
+                                    headerCells.map((cell, idx) => {
+                                        const align = alignments[idx] || 'text-left';
+                                        return `<th class="py-2.5 px-3.5 font-bold text-xs ${align} whitespace-nowrap">${inline(cell)}</th>`;
+                                    }).join('') +
+                                    '</tr></thead>';
+
+                                const tbody = '<tbody class="divide-y divide-slate-100">' +
+                                    bodyLines.map((rowLine, rIdx) => {
+                                        const cells = parseCells(rowLine);
+                                        const bg = rIdx % 2 === 1 ? 'bg-slate-50/50' : 'bg-white';
+                                        const tds = cells.map((cell, idx) => {
+                                            const align = alignments[idx] || 'text-left';
+                                            return `<td class="py-2 px-3.5 text-[#1a1c1e] text-xs sm:text-[13px] ${align} leading-relaxed">${inline(cell)}</td>`;
+                                        }).join('');
+                                        return `<tr class="${bg} hover:bg-blue-50/40 transition-colors">${tds}</tr>`;
+                                    }).join('') +
+                                    '</tbody>';
+
+                                return '<div class="my-3 overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-2xs"><table class="min-w-full text-left border-collapse text-xs">' + thead + tbody + '</table></div>';
+                            };
 
                             const lines = safe.split('\n');
                             const parts = [];
                             let listItems = [];
+                            let currentListType = null; // 'ul' | 'ol'
 
                             const flushList = () => {
                                 if (listItems.length) {
-                                    parts.push('<ul class="list-disc pl-5 my-2 space-y-1">' + listItems.join('') + '</ul>');
+                                    if (currentListType === 'ol') {
+                                        parts.push('<ol class="list-decimal pl-5 my-2 space-y-1">' + listItems.join('') + '</ol>');
+                                    } else {
+                                        parts.push('<ul class="list-disc pl-5 my-2 space-y-1">' + listItems.join('') + '</ul>');
+                                    }
                                     listItems = [];
+                                    currentListType = null;
                                 }
                             };
 
-                            for (const line of lines) {
+                            let i = 0;
+                            while (i < lines.length) {
+                                const line = lines[i];
+                                const nextLine = i + 1 < lines.length ? lines[i + 1] : null;
+
+                                // Code block (```) with Copy button
+                                if (line.trim().startsWith('```')) {
+                                    flushList();
+                                    const lang = line.trim().slice(3).trim();
+                                    i++;
+                                    const codeLines = [];
+                                    while (i < lines.length && !lines[i].trim().startsWith('```')) {
+                                        codeLines.push(lines[i]);
+                                        i++;
+                                    }
+                                    i++; // skip closing ```
+                                    parts.push(
+                                        '<div class="code-block-wrapper my-2.5 rounded-xl overflow-hidden border border-slate-700 bg-slate-900 shadow-xs">' +
+                                            '<div class="flex items-center justify-between px-3.5 py-1.5 bg-slate-800 text-slate-400 text-[11px] font-mono border-b border-slate-700/80 select-none">' +
+                                                '<span class="text-slate-300 font-semibold lowercase">' + (lang || 'code') + '</span>' +
+                                                '<button type="button" onclick="window.copyCodeSnippet(this)" class="hover:text-white transition-colors cursor-pointer inline-flex items-center gap-1 px-2 py-0.5 rounded hover:bg-slate-700">' +
+                                                    '<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>' +
+                                                    '<span>Salin</span>' +
+                                                '</button>' +
+                                            '</div>' +
+                                            '<pre class="p-3 text-slate-100 text-xs font-mono overflow-x-auto leading-relaxed"><code>' + codeLines.join('\n') + '</code></pre>' +
+                                        '</div>'
+                                    );
+                                    continue;
+                                }
+
+                                // Table block
+                                if (line.includes('|') && nextLine && isTableDelimiter(nextLine)) {
+                                    flushList();
+                                    const tableLines = [line, nextLine];
+                                    i += 2;
+                                    while (i < lines.length && lines[i].includes('|') && lines[i].trim() !== '') {
+                                        tableLines.push(lines[i]);
+                                        i++;
+                                    }
+                                    parts.push(renderTable(tableLines));
+                                    continue;
+                                }
+
+                                // Blockquote (> quote)
+                                const quoteMatch = line.match(/^(&gt;|>)\s?(.*)$/);
+                                if (quoteMatch) {
+                                    flushList();
+                                    const quoteLines = [quoteMatch[2]];
+                                    i++;
+                                    while (i < lines.length) {
+                                        const nextQuote = lines[i].match(/^(&gt;|>)\s?(.*)$/);
+                                        if (nextQuote) {
+                                            quoteLines.push(nextQuote[2]);
+                                            i++;
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                    const quoteContent = quoteLines.map(ql => inline(ql)).join('<br>');
+                                    parts.push('<blockquote class="border-l-4 border-[#0453cd] bg-blue-50/60 pl-3.5 pr-3 py-2 my-2.5 rounded-r-xl text-xs sm:text-[13px] text-slate-700 leading-relaxed shadow-2xs">' + quoteContent + '</blockquote>');
+                                    continue;
+                                }
+
+                                // Horizontal Rule
+                                if (/^(\*{3,}|-{3,}|_{3,})$/.test(line.trim())) {
+                                    flushList();
+                                    parts.push('<hr class="my-3 border-t border-slate-200">');
+                                    i++;
+                                    continue;
+                                }
+
+                                // Headings with hierarchy (#, ##, ###)
+                                const heading = line.match(/^(#{1,3})\s+(.+)$/);
+                                if (heading) {
+                                    flushList();
+                                    const level = heading[1].length;
+                                    const hText = inline(heading[2]);
+                                    if (level === 1) {
+                                        parts.push('<h4 class="font-extrabold text-sm sm:text-base mt-3 mb-1.5 text-[#000c46] tracking-tight">' + hText + '</h4>');
+                                    } else if (level === 2) {
+                                        parts.push('<h5 class="font-bold text-xs sm:text-sm mt-2.5 mb-1 text-[#000c46]">' + hText + '</h5>');
+                                    } else {
+                                        parts.push('<h6 class="font-bold text-xs mt-2 mb-0.5 text-[#0453cd] tracking-wide uppercase">' + hText + '</h6>');
+                                    }
+                                    i++;
+                                    continue;
+                                }
+
+                                // Task list: - [ ] or - [x]
+                                const task = line.match(/^[-*•]\s+\[([ xX])\]\s+(.+)$/);
                                 const bullet = line.match(/^[-*•]\s+(.+)$/);
                                 const numbered = line.match(/^(\d+)\.\s+(.+)$/);
-                                const heading = line.match(/^#{1,3}\s+(.+)$/);
 
-                                if (bullet) {
+                                if (task) {
+                                    if (currentListType === 'ol') flushList();
+                                    currentListType = 'ul';
+                                    const checked = task[1].toLowerCase() === 'x';
+                                    const checkBadge = checked
+                                        ? '<span class="inline-flex items-center justify-center w-4 h-4 rounded bg-emerald-100 text-emerald-700 text-xs font-bold shrink-0">✓</span>'
+                                        : '<span class="inline-flex items-center justify-center w-4 h-4 rounded border border-slate-300 bg-white text-transparent text-xs shrink-0">○</span>';
+                                    listItems.push('<li class="flex items-start gap-2 list-none -ml-5 my-1 leading-relaxed">' + checkBadge + '<span>' + inline(task[2]) + '</span></li>');
+                                } else if (bullet) {
+                                    if (currentListType === 'ol') flushList();
+                                    currentListType = 'ul';
                                     listItems.push('<li class="leading-relaxed">' + inline(bullet[1]) + '</li>');
                                 } else if (numbered) {
+                                    if (currentListType === 'ul') flushList();
+                                    currentListType = 'ol';
                                     listItems.push('<li class="leading-relaxed">' + inline(numbered[2]) + '</li>');
                                 } else {
                                     flushList();
                                     if (line.trim() === '') {
                                         parts.push('<div class="h-2"></div>');
-                                    } else if (heading) {
-                                        parts.push('<p class="font-black text-sm my-1.5 text-[#000c46]">' + inline(heading[1]) + '</p>');
                                     } else {
                                         parts.push('<p class="my-1 leading-relaxed">' + inline(line) + '</p>');
                                     }
                                 }
+                                i++;
                             }
                             flushList();
                             return parts.join('');
