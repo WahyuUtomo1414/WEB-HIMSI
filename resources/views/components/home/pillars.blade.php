@@ -3,10 +3,10 @@
         
         <!-- Section Header -->
         <div class="mb-12 sm:mb-16">
-            <x-common.section-header 
-                badge="Pilar Utama HIMSI"
-                title="Pilar Keunggulan Organisasi HIMSI UBSI"
-                subtitle="Nilai-nilai fundamental dan fondasi strategis HIMSI UBSI dalam mencetak generasi profesional IT yang berprestasi, berintegritas, dan inovatif."
+            <x-common.section-header
+                badge="Kenapa HIMSI?"
+                title="Ini yang bisa kamu dapetin di sini"
+                subtitle="Dari belajar bareng sampe networking — HIMSI ada buat tumbuh bareng kamu."
                 align="center" />
         </div>
 
@@ -30,7 +30,7 @@
                             Pengembangan Akademik
                         </h3>
                         <p class="text-sm text-[#454652] leading-relaxed">
-                            Mengakselerasi penguasaan keilmuan Sistem Informasi, riset komputasi, serta peningkatan kompetensi akademis mahasiswa UBSI secara berkelanjutan.
+                            Bukan cuma kuliah. Ada seminar, workshop, study club, dan temen-temen yang sama-sama serius di IT.
                         </p>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                             Inovasi Teknologi
                         </h3>
                         <p class="text-sm text-[#454652] leading-relaxed">
-                            Mendorong rekayasa perangkat lunak, eksplorasi teknologi masa depan, dan penciptaan solusi digital solutif bagi kebutuhan industri modern.
+                            Explore teknologi terbaru, bikin project nyata, dan lihat gimana ilmu kamu bisa jadi solusi.
                         </p>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                             Kepemimpinan & Etika
                         </h3>
                         <p class="text-sm text-[#454652] leading-relaxed">
-                            Membentuk karakter pengurus yang berintegritas tinggi, memiliki jiwa kepemimpinan strategis, serta menjunjung etika profesionalisme IT.
+                            Belajar kerja bareng orang lain, ambil keputusan, dan jadi versi terbaik dari diri sendiri.
                         </p>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                             Sinergi & Pengabdian
                         </h3>
                         <p class="text-sm text-[#454652] leading-relaxed">
-                            Membangun jaringan kemitraan strategis dengan industri teknologi, aliansi alumni, serta memberikan kontribusi nyata kepada masyarakat.
+                            Kenalan sama alumni, connect sama industri, dan kasih dampak nyata buat orang di sekitar kamu.
                         </p>
                     </div>
                 </div>

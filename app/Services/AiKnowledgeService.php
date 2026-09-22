@@ -92,6 +92,7 @@ class AiKnowledgeService
         });
 
         return $scored
+            ->filter(fn ($c) => $c['score'] >= 0.5)
             ->sortByDesc('score')
             ->take($topN)
             ->values()

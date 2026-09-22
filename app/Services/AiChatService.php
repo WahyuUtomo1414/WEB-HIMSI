@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\AiChatLog;
 use App\Models\AiConfig;
+use Illuminate\Support\Facades\Cache;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class AiChatService
@@ -17,7 +18,9 @@ class AiChatService
 
     public function chat(string $question, string $sessionId, array $history, string $ip): array
     {
-        $config = AiConfig::query()->where('active', true)->where('is_enabled', true)->first();
+        $config = Cache::remember('ai_active_config', now()->addMinutes(10), function () {
+            return AiConfig::query()->where('active', true)->where('is_enabled', true)->first();
+        });
 
         if (! $config) {
             return ['answer' => 'Asisten AI sedang tidak tersedia.', 'blocked' => false];

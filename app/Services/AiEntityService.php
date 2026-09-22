@@ -84,8 +84,10 @@ class AiEntityService
             }
         }
 
-        // 6. FAQ — selalu inject sebagai konteks dasar
-        $result['faqs'] = $this->resolveFaqs();
+        // 6. FAQ — inject hanya jika tidak ada konteks branch spesifik
+        if (empty($result['branch'])) {
+            $result['faqs'] = $this->resolveFaqs();
+        }
 
         return $result;
     }
@@ -249,16 +251,18 @@ class AiEntityService
 
     private function resolveGeneralBlogs(): array
     {
-        return Blog::query()
-            ->where('active', true)
-            ->latest()
-            ->limit(5)
-            ->get(['title', 'created_at'])
-            ->map(fn ($b) => [
-                'title' => $b->title,
-                'date' => $b->created_at?->format('d M Y'),
-            ])
-            ->toArray();
+        return Cache::remember('ai_entity_general_blogs', now()->addMinutes(30), function () {
+            return Blog::query()
+                ->where('active', true)
+                ->latest()
+                ->limit(5)
+                ->get(['title', 'created_at'])
+                ->map(fn ($b) => [
+                    'title' => $b->title,
+                    'date' => $b->created_at?->format('d M Y'),
+                ])
+                ->toArray();
+        });
     }
 
     private function resolveFaqs(): array

@@ -357,3 +357,22 @@ AI_EMBEDDING_MODEL=text-embedding-3-small
 OpenAI Tier 0 (akun baru, belum top-up) memiliki limit sangat ketat (3 req/menit, 40K token/menit). Proses embedding knowledge source akan gagal dengan error `Request rate limit has been exceeded`.
 
 **Solusi**: Top-up minimal $5 ke akun OpenAI → otomatis naik ke Tier 1 (500 req/menit, 1M token/menit). Biaya embedding untuk skala HIMSI sangat murah (~$0.00008 per dokumen), $5 bisa tahan bertahun-tahun. Pastikan **Auto recharge dimatikan** agar tidak auto-charge rekening.
+
+---
+
+## Optimasi yang Sudah Dilakukan
+
+### 1. Cache `AiConfig` — `AiChatService`
+Config AI di-cache 10 menit (`ai_active_config`). Sebelumnya query ke DB setiap chat request. Cache otomatis stale setelah admin update config di Filament.
+
+### 2. Score Threshold di `retrieveChunks` — `AiKnowledgeService`
+Chunk dengan cosine similarity < 0.5 dibuang sebelum dimasukkan ke prompt. Mencegah konteks tidak relevan ikut dikirim ke LLM dan membuang token.
+
+### 3. Cache `resolveGeneralBlogs` — `AiEntityService`
+Blog list umum di-cache 30 menit (`ai_entity_general_blogs`). Sebelumnya query DB tanpa cache, sementara semua resolver lain sudah pakai cache.
+
+### 4. FAQ inject hanya jika tidak ada branch — `AiEntityService`
+FAQ tidak lagi selalu diinject ke semua prompt. Jika pertanyaan sudah match ke cabang spesifik, FAQ dilewati — konteks branch + RAG sudah cukup. Mengurangi ukuran prompt dan biaya token.
+
+### 5. Rate Limiting — `routes/web.php`
+Endpoint `/ai/chat` sudah dilindungi `throttle:20,1` (20 request per menit per IP).

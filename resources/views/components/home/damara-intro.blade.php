@@ -12,13 +12,13 @@
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
-                HIMSI Intelligence
+                Tanya DAMARA
             </span>
             <h2 class="text-3xl font-extrabold text-[#000c46] tracking-tight sm:text-4xl lg:text-5xl">
-                Kenalan dengan <span class="text-[#0453cd]">DAMARA</span>
+                Urusan HIMSI? Gausah <span class="text-[#0453cd]">cari-cari sendiri.</span>
             </h2>
             <p class="text-base sm:text-lg text-[#454652] leading-relaxed">
-                Asisten AI resmi HIMSI UBSI yang siap menjawab pertanyaan seputar organisasi, program kerja, dan cabang DPC secara cerdas dan akurat.
+                DAMARA udah tau dari A sampe Z soal HIMSI — cabang, divisi, rekrutmen, sampe link WA-nya. Tinggal tanya.
             </p>
         </div>
 
@@ -47,9 +47,6 @@
                         <div class="space-y-1">
                             <div class="flex flex-wrap items-center gap-2">
                                 <h3 class="text-xl sm:text-2xl font-extrabold text-[#000c46] tracking-tight">DAMARA</h3>
-                                <span class="inline-flex items-center gap-1 rounded-full bg-[#f0f4ff] px-2.5 py-0.5 text-[11px] font-bold text-[#0453cd] border border-[#356ee7]/20">
-                                    RAG Powered
-                                </span>
                             </div>
                             <p class="text-xs sm:text-sm font-semibold text-[#0453cd]">Asisten AI Resmi HIMSI UBSI</p>
                         </div>
@@ -58,10 +55,10 @@
                     {{-- Value Proposition --}}
                     <div class="space-y-3">
                         <h4 class="text-2xl sm:text-3xl font-extrabold text-[#000c46] tracking-tight leading-snug">
-                            Tanya apa saja seputar HIMSI, temukan jawaban resmi secara instan.
+                            Gausah ribet googling atau nanya sana-sini.
                         </h4>
                         <p class="text-sm sm:text-base text-[#454652] leading-relaxed">
-                            DAMARA didukung teknologi RAG (<em>Retrieval-Augmented Generation</em>) yang terhubung langsung ke basis data terverifikasi — mulai dari profil organisasi, SK Rektor, linimasa sejarah, program kerja, hingga kontak dan tautan cabang DPC.
+                            Semua jawaban DAMARA langsung dari data resmi HIMSI — profil organisasi, info cabang DPC, alur rekrutmen, sampai kontak pengurus. Akurat, bukan tebak-tebakan.
                         </p>
                     </div>
 
@@ -73,8 +70,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                 </svg>
                             </span>
-                            <p class="text-sm font-bold text-[#000c46]">Data Terverifikasi</p>
-                            <p class="text-xs text-[#454652] mt-1 leading-relaxed">Berbasis dokumen resmi, AD/ART, & arsip HIMSI</p>
+                            <p class="text-sm font-bold text-[#000c46]">Bukan asal jawab</p>
+                            <p class="text-xs text-[#454652] mt-1 leading-relaxed">Semua dari dokumen & arsip resmi HIMSI</p>
                         </div>
 
                         <div class="rounded-2xl border border-[#c5c5d4]/60 bg-[#f9f9fc] p-4 transition-all duration-200 hover:border-amber-400/50 hover:bg-white hover:shadow-xs">
@@ -83,8 +80,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                                 </svg>
                             </span>
-                            <p class="text-sm font-bold text-[#000c46]">Realtime DPC</p>
-                            <p class="text-xs text-[#454652] mt-1 leading-relaxed">Deteksi otomatis cabang, proker, & grup WA</p>
+                            <p class="text-sm font-bold text-[#000c46]">Tau semua cabang</p>
+                            <p class="text-xs text-[#454652] mt-1 leading-relaxed">Info DPC, proker, sampai link WA-nya ada</p>
                         </div>
 
                         <div class="rounded-2xl border border-[#c5c5d4]/60 bg-[#f9f9fc] p-4 transition-all duration-200 hover:border-emerald-400/50 hover:bg-white hover:shadow-xs">
@@ -93,8 +90,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                                 </svg>
                             </span>
-                            <p class="text-sm font-bold text-[#000c46]">Gratis & Langsung</p>
-                            <p class="text-xs text-[#454652] mt-1 leading-relaxed">Tanya tanpa batas & tanpa perlu login akun</p>
+                            <p class="text-sm font-bold text-[#000c46]">Bebas, langsung</p>
+                            <p class="text-xs text-[#454652] mt-1 leading-relaxed">Gausah login, gausah bayar, langsung dijawab</p>
                         </div>
                     </div>
 
@@ -102,7 +99,7 @@
                     <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 pt-2">
                         <a href="{{ route('ai.index') }}"
                            class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#001b79] px-7 py-3.5 text-sm font-bold text-white shadow-md hover:bg-[#000c46] hover:shadow-lg transition-all duration-200 group">
-                            <span>Mulai Tanya DAMARA</span>
+                            <span>Yuk, tanya DAMARA</span>
                             <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
                             </svg>
@@ -111,7 +108,7 @@
                             <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
-                            Respons instan 24/7 · Bebas biaya
+                            Gratis · Gausah login · Langsung dijawab
                         </span>
                     </div>
 
@@ -122,19 +119,17 @@
                     <div class="rounded-2xl border border-[#c5c5d4]/80 bg-[#f9f9fc] shadow-[0_4px_20px_rgba(0,27,121,0.04)] overflow-hidden flex flex-col">
                         
                         {{-- Window Header --}}
-                        <div class="px-4 py-3 bg-white border-b border-[#c5c5d4]/50 flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <div class="flex gap-1.5">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>
-                                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                                </div>
-                                <span class="text-[11px] font-bold text-[#000c46] ml-2">DAMARA Virtual Chat</span>
+                        <div class="px-4 py-3 bg-white border-b border-[#c5c5d4]/50 flex items-center gap-2.5">
+                            <div class="w-7 h-7 rounded-lg overflow-hidden border border-slate-200 shrink-0 bg-white shadow-xs">
+                                <img src="{{ asset('images/ai-ilustrator.png') }}" alt="DAMARA" class="w-full h-full object-cover">
                             </div>
-                            <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                                Active
-                            </span>
+                            <div>
+                                <p class="text-xs font-bold text-[#000c46]">DAMARA</p>
+                                <p class="text-[10px] text-emerald-600 font-medium flex items-center gap-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 inline-block"></span>
+                                    Online
+                                </p>
+                            </div>
                         </div>
 
                         {{-- Simulated Dialogue --}}
@@ -142,19 +137,16 @@
                             {{-- User Bubble --}}
                             <div class="flex justify-end">
                                 <div class="rounded-2xl rounded-tr-xs bg-[#001b79] px-4 py-2.5 text-white shadow-xs max-w-[85%] leading-relaxed">
-                                    <p class="text-xs sm:text-sm font-medium">Halo DAMARA! Apa saja divisi yang ada di HIMSI UBSI?</p>
+                                    <p class="text-xs sm:text-sm font-medium">Eh DAMARA, divisi di HIMSI ada apa aja sih?</p>
                                     <span class="block text-[10px] text-blue-200 text-right mt-1">10:42</span>
                                 </div>
                             </div>
 
                             {{-- DAMARA Bubble --}}
                             <div class="flex items-start gap-2.5">
-                                <div class="w-7 h-7 rounded-lg overflow-hidden border border-slate-200 shrink-0 bg-white shadow-xs">
-                                    <img src="{{ asset('images/ai-ilustrator.png') }}" alt="DAMARA" class="w-full h-full object-cover">
-                                </div>
-                                <div class="rounded-2xl rounded-tl-xs bg-white border border-[#c5c5d4]/60 p-3.5 shadow-xs text-[#1a1c1e] max-w-[88%] space-y-2 leading-relaxed">
+                                <div class="rounded-2xl rounded-tl-xs bg-white border border-[#c5c5d4]/60 p-3.5 shadow-xs text-[#1a1c1e] max-w-[92%] space-y-2 leading-relaxed">
                                     <p class="text-xs sm:text-sm">
-                                        Halo! HIMSI UBSI memiliki <strong>4 divisi utama</strong> yang aktif di seluruh cabang:
+                                        Ada <strong>4 divisi</strong> nih — ini dia:
                                     </p>
                                     <ul class="text-[11px] sm:text-xs text-[#454652] space-y-1 pl-1">
                                         <li>• <strong class="text-[#000c46]">Pendidikan</strong>: Seminar, workshop, & study club</li>
@@ -169,30 +161,6 @@
                                         <span>Terverifikasi dari Profil Divisi HIMSI</span>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        {{-- Quick Prompt Chips Footer --}}
-                        <div class="p-3 bg-white border-t border-[#c5c5d4]/50 space-y-2">
-                            <p class="text-[11px] font-bold text-[#000c46] flex items-center gap-1">
-                                <svg class="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                                </svg>
-                                Contoh pertanyaan yang bisa kamu tanyakan:
-                            </p>
-                            <div class="flex flex-wrap gap-1.5">
-                                <a href="{{ route('ai.index', ['q' => 'Bagaimana alur dan syarat pendaftaran rekrutmen pengurus HIMSI?']) }}"
-                                   class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#000c46] bg-[#f0f4ff] hover:bg-blue-100 hover:text-[#0453cd] px-2.5 py-1 rounded-lg border border-blue-200/60 transition-colors">
-                                    <span>📋 Syarat Rekrutmen</span>
-                                </a>
-                                <a href="{{ route('ai.index', ['q' => 'Apa saja cabang dan sektor DPC HIMSI UBSI?']) }}"
-                                   class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#000c46] bg-[#f0f4ff] hover:bg-blue-100 hover:text-[#0453cd] px-2.5 py-1 rounded-lg border border-blue-200/60 transition-colors">
-                                    <span>🏛️ 10 Cabang DPC</span>
-                                </a>
-                                <a href="{{ route('ai.index', ['q' => 'Bisa minta link grup WhatsApp resmi cabang HIMSI?']) }}"
-                                   class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#000c46] bg-[#f0f4ff] hover:bg-blue-100 hover:text-[#0453cd] px-2.5 py-1 rounded-lg border border-blue-200/60 transition-colors">
-                                    <span>💬 Grup WhatsApp</span>
-                                </a>
                             </div>
                         </div>
 
