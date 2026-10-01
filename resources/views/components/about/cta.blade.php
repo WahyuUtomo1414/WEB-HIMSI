@@ -23,13 +23,13 @@
 
         <!-- Buttons -->
         <div class="flex shrink-0 flex-col gap-3 sm:flex-row">
-            <a href="{{ route('recruitment.index') }}"
-               class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#f59e0b] px-7 py-3.5 text-sm font-bold text-[#000c46] shadow-md transition hover:bg-amber-400 hover:shadow-lg active:scale-95">
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3M13.5 4.5 21 12l-7.5 7.5M3 12h9" />
+            <span
+               class="inline-flex items-center justify-center gap-2 rounded-xl bg-white/10 border border-white/20 px-7 py-3.5 text-sm font-bold text-white/40 cursor-not-allowed select-none" title="Pendaftaran sudah ditutup">
+                <svg class="h-4 w-4 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/>
                 </svg>
-                Daftar Rekrutmen
-            </a>
+                Rekrutmen Ditutup
+            </span>
             <a href="{{ route('contact.index') }}"
                class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-7 py-3.5 text-sm font-bold text-white backdrop-blur-xs transition hover:bg-white/20 active:scale-95">
                 <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">

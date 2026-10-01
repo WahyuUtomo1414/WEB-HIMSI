@@ -77,13 +77,13 @@
             </a>
         </div>
 
-        <!-- CTA Button (Rekrutmen Amber Badge) -->
+        <!-- CTA Button (Rekrutmen Ditutup) -->
         <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center gap-4">
-            <a href="{{ route('recruitment.index') }}"
-                class="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold leading-6 px-5 py-2 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 transition-all shadow-md hover:shadow-amber-500/20 transform hover:-translate-y-0.5">
-                <span>Rekrutmen</span>
-                <svg class="h-4 w-4 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </a>
+            <span
+                class="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold leading-6 px-5 py-2 rounded-full bg-slate-200 text-slate-500 cursor-not-allowed select-none shadow-sm" title="Pendaftaran sudah ditutup">
+                <svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+                <span>Rekrutmen Ditutup</span>
+            </span>
         </div>
     </nav>
 
@@ -161,10 +161,11 @@
                         </div>
                     </div>
                     <div class="py-6">
-                        <a href="{{ route('recruitment.index') }}"
-                            class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-extrabold leading-7 text-slate-950 bg-amber-500 text-center hover:bg-amber-400 transition-colors shadow-md">
-                            Open Recruitment 2026
-                        </a>
+                        <span
+                            class="-mx-3 flex items-center justify-center gap-2 rounded-lg px-3 py-2.5 text-base font-extrabold leading-7 text-slate-400 bg-slate-100 text-center cursor-not-allowed select-none shadow-sm" title="Pendaftaran sudah ditutup">
+                            <svg class="h-4 w-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+                            Rekrutmen Ditutup
+                        </span>
                     </div>
                 </div>
             </div>

@@ -16,9 +16,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/tentang-kami', [AboutController::class, 'index'])->name('about.index');
 
-Route::get('/rekrutmen', [RecruitmentController::class, 'index'])->name('recruitment.index');
-Route::get('/rekrutmen/daftar', [RecruitmentController::class, 'create'])->name('recruitment.create');
-Route::post('/rekrutmen', [RecruitmentController::class, 'store'])->name('recruitment.store');
+Route::get('/rekrutmen', fn() => redirect()->route('home')->with('info', 'Pendaftaran rekrutmen HIMSI 2026 telah ditutup.'))->name('recruitment.index');
+Route::get('/rekrutmen/daftar', fn() => redirect()->route('home')->with('info', 'Pendaftaran rekrutmen HIMSI 2026 telah ditutup.'))->name('recruitment.create');
+Route::post('/rekrutmen', fn() => redirect()->route('home')->with('info', 'Pendaftaran rekrutmen HIMSI 2026 telah ditutup.'))->name('recruitment.store');
 
 Route::get('/cabang', [BranchController::class, 'index'])->name('branch.index');
 Route::get('/cabang/{branch}', [BranchController::class, 'show'])->name('branch.show');
